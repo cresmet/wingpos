@@ -1,0 +1,11 @@
+<adapter-config name="DeleteDetailTbl" adapter="db" wsdlLocation="../WSDLs/DeleteDetailTbl.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory UIConnectionName="DEV" location="eid/db/soaApps"/>
+  <endpoint-interaction portType="DeleteDetailTbl_ptt" operation="DeleteDetailTbl">
+    <interaction-spec className="oracle.tip.adapter.db.DBPureSQLInteractionSpec">
+      <property name="SqlString" value="delete from sbc.sbc_cn_expeditor_return_detail where dossier_number = #dossier_number"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

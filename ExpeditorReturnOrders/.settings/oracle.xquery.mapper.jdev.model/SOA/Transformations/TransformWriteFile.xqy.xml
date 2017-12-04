@@ -1,0 +1,10 @@
+<view_states>
+   <function arity="1" name="funcTransformwritefile">
+      <source_tree_view last.visible.row="31" last.visible.path="/sourceRoot[[0]]/ReturnOrderResponse[[0]]/Rows[[6]]/ReturnOrderProducts[[2]]/ModifiedDate[[14]]" expanded.paths="/sourceRoot[[0]]/ReturnOrderResponse[[0]]&#xA;/sourceRoot[[0]]/ReturnOrderResponse[[0]]/Rows[[6]]&#xA;/sourceRoot[[0]]/ReturnOrderResponse[[0]]/Rows[[6]]/ReturnOrders[[1]]&#xA;/sourceRoot[[0]]/ReturnOrderResponse[[0]]/Rows[[6]]/ReturnOrderProducts[[2]]" selected.paths="/sourceRoot[[0]]" first.visible.path="/sourceRoot[[0]]/ReturnOrderResponse[[0]]" first.visible.row="0"/>
+      <target_tree_view last.visible.row="10" last.visible.path="/TargetRoot[[0]]/ReturnOrderFile[[0]]/Orders[[0]]/PurchaseOrderLine[[8]]" expanded.paths="/TargetRoot[[0]]/ReturnOrderFile[[0]]&#xA;/TargetRoot[[0]]/ReturnOrderFile[[0]]/Orders[[0]]" selected.paths="" first.visible.path="/TargetRoot[[0]]/ReturnOrderFile[[0]]" first.visible.row="0"/>
+   </function>
+   <function arity="2" name="funcTransformwritefile">
+      <source_tree_view last.visible.row="36" last.visible.path="/sourceRoot[[0]]/string[[2]]" expanded.paths="/sourceRoot[[0]]/ReturnOrderResponse[[1]]&#xA;/sourceRoot[[0]]/ReturnOrderResponse[[1]]/Rows[[6]]&#xA;/sourceRoot[[0]]/ReturnOrderResponse[[1]]/Rows[[6]]/ReturnOrders[[1]]&#xA;/sourceRoot[[0]]/ReturnOrderResponse[[1]]/Rows[[6]]/ReturnOrderProducts[[2]]" selected.paths="/sourceRoot[[0]]/ReturnOrderResponse[[1]]/Rows[[6]]/ReturnOrders[[1]]/OriginalOrderNo[[7]]" first.visible.path="/sourceRoot[[0]]/ReturnOrderResponse[[1]]/Code[[0]]" first.visible.row="2"/>
+      <target_tree_view last.visible.row="10" last.visible.path="/TargetRoot[[0]]/ReturnOrderFile[[0]]/Orders[[0]]/PurchaseOrderLine[[8]]" expanded.paths="/TargetRoot[[0]]/ReturnOrderFile[[0]]&#xA;/TargetRoot[[0]]/ReturnOrderFile[[0]]/Orders[[0]]" selected.paths="/TargetRoot[[0]]/ReturnOrderFile[[0]]/Orders[[0]]/SupplierName[[2]]" first.visible.path="/TargetRoot[[0]]/ReturnOrderFile[[0]]" first.visible.row="0"/>
+   </function>
+</view_states>

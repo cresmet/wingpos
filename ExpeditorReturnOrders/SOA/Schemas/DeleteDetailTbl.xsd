@@ -1,0 +1,9 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/DeleteDetailTbl" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/DeleteDetailTbl" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="DeleteDetailTblInput" type="DeleteDetailTblInput"/>
+   <xs:complexType name="DeleteDetailTblInput">
+      <xs:sequence>
+         <xs:element name="dossier_number" type="xs:decimal" nillable="true"/>
+      </xs:sequence>
+   </xs:complexType>
+</xs:schema>

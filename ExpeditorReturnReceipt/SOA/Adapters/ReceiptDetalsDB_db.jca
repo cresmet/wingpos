@@ -1,0 +1,13 @@
+<adapter-config name="ReceiptDetalsDB" adapter="db" wsdlLocation="../WSDLs/ReceiptDetalsDB.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory UIConnectionName="DEV" location="eid/db/soaApps"/>
+  <endpoint-interaction portType="ReceiptDetalsDB_ptt" operation="ReceiptDetalsDB">
+    <interaction-spec className="oracle.tip.adapter.db.DBStoredProcedureInteractionSpec">
+      <property name="SchemaName" value="APPS"/>
+      <property name="PackageName" value="XXSBC_CN_EXPEDITOR_WS_UTIL_PKG"/>
+      <property name="ProcedureName" value="UPDATE_RETURNRECEIPT"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

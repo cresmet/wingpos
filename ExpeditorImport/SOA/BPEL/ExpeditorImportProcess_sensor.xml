@@ -1,0 +1,18 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<sensors targetNamespace="http://ibd.specialized.com/WingPOS/ExpeditorImport/ExpeditorImportProcess" xmlns="http://xmlns.oracle.com/bpel/sensor" xmlns:tns="http://ibd.specialized.com/WingPOS/ExpeditorImport/ExpeditorImportProcess" xmlns:pc="http://xmlns.oracle.com/bpel/sensor" xmlns:ns8="http://schema.ibd.specialized.com/pos/wing/picking">
+   <sensor sensorName="ActivitySensor1" classname="oracle.tip.pc.services.reports.dca.agents.BpelActivitySensorAgent" kind="activity" target="Assign1">
+      <activityConfig evalTime="all">
+         <variable outputDataType="integer" outputNamespace="http://www.w3.org/2001/XMLSchema" target="$myVar"/>
+      </activityConfig>
+   </sensor>
+   <sensor sensorName="PickOrder" classname="oracle.tip.pc.services.reports.dca.agents.BpelActivitySensorAgent" kind="activity" target="AssignPickURI">
+      <activityConfig evalTime="all">
+         <variable outputDataType="string" outputNamespace="http://www.w3.org/2001/XMLSchema" target="$CallPickOrder_InputVariable/request/ns8:PickRequest/ns8:ORDERID"/>
+      </activityConfig>
+   </sensor>
+   <sensor sensorName="ActivitySensor2" classname="oracle.tip.pc.services.reports.dca.agents.BpelActivitySensorAgent" kind="activity" target="WriteFile">
+      <activityConfig evalTime="all">
+         <variable outputDataType="string" outputNamespace="http://www.w3.org/2001/XMLSchema" target="$order_file_name"/>
+      </activityConfig>
+   </sensor>
+</sensors>

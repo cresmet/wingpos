@@ -1,0 +1,28 @@
+<wsdl:definitions
+     name="RollbackTbl"
+     targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorImport/RollbackTbl"
+     xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorImport/RollbackTbl"
+     xmlns:jca="http://xmlns.oracle.com/pcbpel/wsdl/jca/"
+     xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:db="http://xmlns.oracle.com/pcbpel/adapter/db/RollbackTbl"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+  <plt:partnerLinkType name="RollbackTbl_plt" >
+    <plt:role name="RollbackTbl_role" >
+      <plt:portType name="tns:RollbackTbl_ptt" />
+    </plt:role>
+  </plt:partnerLinkType>
+    <wsdl:types>
+      <schema xmlns="http://www.w3.org/2001/XMLSchema" >
+        <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/RollbackTbl" schemaLocation="../Schemas/RollbackTbl.xsd" />
+      </schema>
+    </wsdl:types>
+    <wsdl:message name="RollbackTblInput_msg">
+        <wsdl:part name="RollbackTblInput_msg" element="db:RollbackTblInput"/>
+    </wsdl:message>
+    <wsdl:portType name="RollbackTbl_ptt">
+        <wsdl:operation name="RollbackTbl">
+            <wsdl:input message="tns:RollbackTblInput_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

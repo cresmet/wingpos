@@ -1,0 +1,41 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions
+     name="ExpeditorImportProcess"
+     targetNamespace="http://ibd.specialized.com/WingPOS/ExpeditorImport/ExpeditorImportProcess"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:client="http://ibd.specialized.com/WingPOS/ExpeditorImport/ExpeditorImportProcess"
+     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+     xmlns:ns1="http://schemas.oracle.com/bpel/extension"
+     xmlns:ns2="http://www.example.org"
+    >
+    <plnk:partnerLinkType name="ExpeditorImportProcess">
+        <plnk:role name="ExpeditorImportProcessProvider" portType="client:ExpeditorImportProcess"/>
+        <plnk:role name="ExpeditorImportProcessRequester" portType="client:ExpeditorImportProcessCallback"/>
+    </plnk:partnerLinkType>
+    <wsdl:import namespace="http://schemas.oracle.com/bpel/extension" location="RuntimeFault.wsdl"/>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://ibd.specialized.com/WingPOS/ExpeditorImport/ExpeditorImportProcess"
+                 schemaLocation="../Schemas/ExpeditorImportProcess.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="ExpeditorImportProcessRequestMessage">
+        <wsdl:part name="payload" element="client:process"/>
+    </wsdl:message>
+    <wsdl:message name="ExpeditorImportProcessResponseMessage">
+        <wsdl:part name="payload" element="client:processResponse"/>
+    </wsdl:message>
+    <wsdl:message name="UserFaultMessage">
+        <wsdl:part name="payload" element="client:UserFault"/>
+    </wsdl:message>
+    <wsdl:portType name="ExpeditorImportProcess">
+        <wsdl:operation name="Initiate">
+            <wsdl:input message="client:ExpeditorImportProcessRequestMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:portType name="ExpeditorImportProcessCallback">
+        <wsdl:operation name="onResult">
+            <wsdl:input message="client:ExpeditorImportProcessResponseMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

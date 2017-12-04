@@ -1,0 +1,2 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<tns:SbcExpeditorStgTblCollection xmlns:jca="http://xmlns.oracle.com/pcbpel/wsdl/jca/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorImport/InsertOrders" xmlns:ns1="http://xmlns.oracle.com/WingPOS/ExpeditorImport/Order" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertOrders"/>

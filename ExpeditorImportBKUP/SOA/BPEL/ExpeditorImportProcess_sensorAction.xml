@@ -1,0 +1,8 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<actions targetNamespace="http://ibd.specialized.com/WingPOS/ExpeditorImport/ExpeditorImportProcess" xmlns="http://xmlns.oracle.com/bpel/sensor" xmlns:tns="http://ibd.specialized.com/WingPOS/ExpeditorImport/ExpeditorImportProcess" xmlns:pc="http://xmlns.oracle.com/bpel/sensor">
+   <action name="SensorAction1" publishName="" publishType="BpelReportsSchema" enabled="true">
+      <sensorName>ActivitySensor1</sensorName>
+      <sensorName>PickOrder</sensorName>
+      <sensorName>ActivitySensor2</sensorName>
+   </action>
+</actions>

@@ -1,0 +1,28 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nxsd="http://xmlns.oracle.com/pcbpel/nxsd"
+            xmlns:tns="http://schema.ibd.specialized.com/pos/wing/return"
+            targetNamespace="http://schema.ibd.specialized.com/pos/wing/return" elementFormDefault="qualified"
+            attributeFormDefault="unqualified" nxsd:encoding="US-ASCII">
+  <xsd:element name="ReturnOrderRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="APP_KEY" type="xsd:string"/>
+        <xsd:element name="ENDDATE" type="xsd:string"/>
+        <xsd:element name="FIELDS" type="xsd:string"/>
+        <xsd:element name="METHOD" type="xsd:string"/>
+        <xsd:element name="STATUS" type="xsd:string"/>
+        <xsd:element name="STARTDATE" type="xsd:string"/>
+        <xsd:element name="TIMESTAMP" type="xsd:string"/>
+        <xsd:element name="V" type="xsd:string"/>
+        <xsd:element name="SIGN" type="xsd:string"/>
+        <xsd:element name="REFUNDORDERID" type="xsd:integer"/>
+        <xsd:element name="PAGESIZE" type="xsd:integer"/>
+        <xsd:element name="PAGENO" type="xsd:integer"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:annotation>
+    <xsd:appinfo>NXSDSAMPLE=</xsd:appinfo>
+    <xsd:appinfo>USEHEADER=false</xsd:appinfo>
+  </xsd:annotation>
+</xsd:schema>

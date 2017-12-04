@@ -1,0 +1,21 @@
+<adapter-config name="TrackingNumberPolling" adapter="db" wsdlLocation="../WSDLs/TrackingNumberPolling.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory UIConnectionName="DEV" location="eid/db/soaApps"/>
+  <endpoint-activation portType="TrackingNumberPolling_ptt" operation="receive">
+    <activation-spec className="oracle.tip.adapter.db.DBActivationSpec">
+      <property name="DescriptorName" value="TrackingNumberPolling.SbcExpeditorShipconfirm"/>
+      <property name="QueryName" value="TrackingNumberPollingSelect"/>
+      <property name="MappingsMetaDataURL" value="TrackingNumberPolling-or-mappings.xml"/>
+      <property name="PollingStrategy" value="LogicalDeletePollingStrategy"/>
+      <property name="MarkReadColumn" value="PROCESSED"/>
+      <property name="MarkReadValue" value="P"/>
+      <property name="MarkUnreadValue" value="N"/>
+      <property name="PollingInterval" value="5"/>
+      <property name="MaxRaiseSize" value="1"/>
+      <property name="MaxTransactionSize" value="10"/>
+      <property name="NumberOfThreads" value="1"/>
+      <property name="ReturnSingleResultSet" value="false"/>
+    </activation-spec>
+  </endpoint-activation>
+
+</adapter-config>

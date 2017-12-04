@@ -1,0 +1,34 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nxsd="http://xmlns.oracle.com/pcbpel/nxsd" 
+xmlns:tns="http://schema.ibd.specialized.com/pos/wing/return/file" 
+targetNamespace="http://schema.ibd.specialized.com/pos/wing/return/file" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" nxsd:version="NXSD" nxsd:stream="chars" nxsd:encoding="UTF-8">
+
+
+  <xsd:element name="ReturnOrderFile">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Orders" minOccurs="0" maxOccurs="unbounded">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="ShipmentNumber" type="xsd:string" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <xsd:element name="LineNumber" type="xsd:integer" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <xsd:element name="SupplierName" type="xsd:string" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <xsd:element name="ContainerNumber" type="xsd:string" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <xsd:element name="ItemNumber" type="xsd:string" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <xsd:element name="ExpectedReceiptDate" type="xsd:string" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <xsd:element name="QuantityExpected" type="xsd:integer" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <xsd:element name="PurchaseOrder" type="xsd:string" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <xsd:element name="PurchaseOrderLine" type="xsd:string" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="${eol}" nxsd:quotedBy="&quot;"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+<xsd:annotation>
+      <xsd:appinfo>NXSDSAMPLE=/C:/Users/ssanagala/Desktop/SBC/SBC_SOA/WingPOS/POR000000002.txt</xsd:appinfo>
+      <xsd:appinfo>USEHEADER=false</xsd:appinfo>
+   </xsd:annotation>
+</xsd:schema>

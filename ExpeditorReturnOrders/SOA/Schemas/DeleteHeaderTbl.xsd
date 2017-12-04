@@ -1,0 +1,9 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/DeleteHeaderTbl" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/DeleteHeaderTbl" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="DeleteHeaderTblInput" type="DeleteHeaderTblInput"/>
+   <xs:complexType name="DeleteHeaderTblInput">
+      <xs:sequence>
+         <xs:element name="dossier_number" type="xs:decimal" nillable="true"/>
+      </xs:sequence>
+   </xs:complexType>
+</xs:schema>

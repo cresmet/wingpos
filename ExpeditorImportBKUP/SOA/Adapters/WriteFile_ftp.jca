@@ -1,0 +1,14 @@
+<adapter-config name="WriteFile" adapter="ftp" wsdlLocation="../WSDLs/WriteFile.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eid/ftp/expeditors"/>
+  <endpoint-interaction portType="WriteFile_ptt" operation="orders">
+    <interaction-spec className="oracle.tip.adapter.ftp.outbound.FTPInteractionSpec">
+      <property name="LogicalDirectory" value="EXPEDITOR_INBOUND"/>
+      <property name="FileType" value="ascii"/>
+      <property name="Append" value="false"/>
+      <property name="FileNamingConvention" value="ODR%yyMMddHHmmss%.TXT"/>
+      <property name="NumberMessages" value="1"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

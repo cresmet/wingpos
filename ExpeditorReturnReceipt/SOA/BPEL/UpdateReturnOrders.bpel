@@ -1,0 +1,377 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Mon Jul 17 19:17:45 PDT 2017
+  Author:  ssanagala
+  Type: BPEL 2.0 Process
+  Purpose: Synchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="UpdateReturnOrders"
+               targetNamespace="http://xmlns.oracle.com/WingPOS/ExpeditorReturnReceipt/UpdateReturnOrders"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/WingPOS/ExpeditorReturnReceipt/UpdateReturnOrders"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:ui="http://xmlns.oracle.com/soa/designer"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnReceipt/ReceiptDetalsDB"
+         xmlns:ns2="http://xmlns.oracle.com/WingPOS/ExpeditorReturnReceipt/ReturnReceipt"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:ns3="http://xmlns.oracle.com/pcbpel/adapter/db/sp/ReceiptDetalsDB"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:ess="http://xmlns.oracle.com/scheduler"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+         xmlns:ns4="http://schema.ibd.specialized.com/pos/wing/return"
+         xmlns:ns5="http://xmlns.oracle.com/ias/pcbpel/NotificationService"
+         xmlns:ns6="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnReceipt/UpdateReceiptDB"
+         xmlns:ns7="http://xmlns.oracle.com/pcbpel/adapter/db/top/UpdateReceiptDB">
+  <bpelx:inlineSubProcess name="SendEmail">
+    <bpelx:annotation>
+      <bpelx:general>
+        <bpelx:property name="userLabel">
+          <![CDATA[SendEmail]]>
+        </bpelx:property>
+      </bpelx:general>
+    </bpelx:annotation>
+    <variables>
+      <variable name="varNotificationReq" messageType="ns5:EmailNotificationRequest"/>
+      <variable name="varNotificationResponse" messageType="ns5:ArrayOfResponse"/>
+      <variable name="NotificationServiceFaultVariable" messageType="ns5:NotificationServiceErrorMessage"/>
+    </variables>
+    <sequence name="Sequence4">
+      <assign name="EmailParamsAssign">
+        <copy>
+          <from>string('Default')</from>
+          <to>$varNotificationReq.EmailPayload/ns5:FromAccountName</to>
+        </copy>
+        <copy>
+          <from>string('text/html; charset=UTF-8')</from>
+          <to>$varNotificationReq.EmailPayload/ns5:Content/ns5:MimeType</to>
+        </copy>
+        <copy ignoreMissingFromData="yes">
+          <from>$emailOBJ.EmailPayload/ns5:Bcc</from>
+          <to>$varNotificationReq.EmailPayload/ns5:Bcc</to>
+        </copy>
+        <copy ignoreMissingFromData="yes">
+          <from>$emailOBJ.EmailPayload/ns5:Cc</from>
+          <to>$varNotificationReq.EmailPayload/ns5:Cc</to>
+        </copy>
+        <copy ignoreMissingFromData="yes">
+          <from>$emailOBJ.EmailPayload/ns5:ReplyToAddress</from>
+          <to>$varNotificationReq.EmailPayload/ns5:ReplyToAddress</to>
+        </copy>
+        <copy ignoreMissingFromData="yes">
+          <from>$emailOBJ.EmailPayload/ns5:To</from>
+          <to>$varNotificationReq.EmailPayload/ns5:To</to>
+        </copy>
+        <copy>
+          <from>$emailOBJ.EmailPayload/ns5:Subject</from>
+          <to>$varNotificationReq.EmailPayload/ns5:Subject</to>
+        </copy>
+        <copy>
+          <from>$emailOBJ.EmailPayload/ns5:Content/ns5:ContentBody</from>
+          <to>$varNotificationReq.EmailPayload/ns5:Content/ns5:ContentBody</to>
+        </copy>
+      </assign>
+      <invoke name="InvokeNotificationService" partnerLink="NotificationService"
+              portType="ns5:NotificationService" operation="sendEmailNotification" inputVariable="varNotificationReq"
+              outputVariable="varNotificationResponse" bpelx:invokeAsDetail="no"/>
+    </sequence>
+  </bpelx:inlineSubProcess>
+  <import namespace="http://schema.ibd.specialized.com/pos/wing/return" location="../Schemas/WingAddParams.xsd"
+          importType="http://www.w3.org/2001/XMLSchema"/>
+  <import ui:processWSDL="true" namespace="http://xmlns.oracle.com/WingPOS/ExpeditorReturnReceipt/UpdateReturnOrders" location="../WSDLs/UpdateReturnOrders.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="updatereturnorders_client" partnerLinkType="client:UpdateReturnOrders" myRole="UpdateReturnOrdersProvider"/>
+    <partnerLink name="ReceiptDetalsDB" partnerLinkType="ns1:ReceiptDetalsDB_plt" partnerRole="ReceiptDetalsDB_role"/>
+    <partnerLink name="ReturnReceipt" partnerLinkType="ns2:ReturnReceipt" partnerRole="ReturnReceiptProvider"/>
+    <partnerLink name="NotificationService" partnerLinkType="ns5:NotificationServiceLink"
+                 partnerRole="NotificationServiceProvider"/>
+    <partnerLink name="UpdateReceiptDB" partnerLinkType="ns6:UpdateReceiptDB_plt" partnerRole="UpdateReceiptDB_role"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:UpdateReturnOrdersRequestMessage"/>
+
+    <!-- Reference to the message that will be returned to the requester-->
+    <variable name="outputVariable" messageType="client:UpdateReturnOrdersResponseMessage"/>
+    <variable name="GetReceiptDetailsDB_InputVariable" messageType="ns1:args_in_msg"/>
+    <variable name="GetReceiptDetailsDB_OutputVariable" messageType="ns1:args_out_msg"/>
+    <variable name="UpdateReturns_InputVariable" messageType="ns2:process_inputMessage"/>
+    <variable name="UpdateReturns_OutputVariable" messageType="ns2:process_outputMessage"/>
+    <variable name="api_url" type="xsd:string"/>
+    <variable name="jsonAddParamsRequest" element="ns4:Root-Element"/>
+    <variable name="jsonAddParamsString" type="xsd:string"/>
+    <variable name="UserFault" type="xsd:string"/>
+    <variable name="emailOBJ" messageType="ns5:EmailNotificationRequest"/>
+    <variable name="SendEmail_InputVariable" messageType="ns5:EmailNotificationRequest"/>
+    <variable name="SendEmail_OutputVariable" messageType="ns5:ArrayOfResponse"/>
+    <variable name="UpdateDB_InputVariable" messageType="ns6:SbcCnReceiptInboundCollection_msg"/>
+  </variables>
+  <faultHandlers>
+    <catchAll>
+      <sequence name="Sequence2">
+        <if name="FaultExists">
+          <bpelx:skipCondition>true()</bpelx:skipCondition>
+          <documentation>
+            <![CDATA[TRUE]]>
+          </documentation>
+          <condition>$UpdateReturns_OutputVariable.reply/ns4:Code != 0</condition><assign name="AssignAPIFault"
+                                                                                          xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
+      
+   <copy ignoreMissingFromData="yes">
+              <from>$UpdateReturns_OutputVariable.reply/ns4:Message</from>
+              <to>$outputVariable.payload/client:result</to>
+            </copy><copy ignoreMissingFromData="yes">
+              <from>ora:getPreference("SupportEmail")</from>
+              <to>$emailOBJ.EmailPayload/ns5:Cc</to>
+            </copy><copy ignoreMissingFromData="yes">
+              <from>ora:getPreference("BusinessEmail")</from>
+              <to>$emailOBJ.EmailPayload/ns5:To</to>
+            </copy><copy>
+              <from>concat(ora:getPreference("ENV"),': Batch Number - ', ora:getFlowId(), '  ',ora:getCompositeName(), '  ',xp20:current-date())</from>
+              <to>$emailOBJ.EmailPayload/ns5:Subject</to>
+            </copy><copy>
+              <from>concat('Message: ',$UpdateReturns_OutputVariable.reply/ns4:Message,' - ',$inputVariable.payload/client:WingReturnOrder)</from>
+              <to>$emailOBJ.EmailPayload/ns5:Content/ns5:ContentBody</to>
+            </copy></assign><else>
+            <documentation>
+              <![CDATA[FALSE]]>
+            </documentation>
+            <assign name="AssignServerFault">
+              <copy>
+                <from>substring-before(substring-after(ora:getFaultAsString(),'detail=&lt;detail&gt;'),'&lt;/detail&gt;')</from>
+                <to>$outputVariable.payload/client:result</to>
+              </copy>
+              <copy ignoreMissingFromData="yes">
+                <from>concat('Message: ',substring-before(substring-after(ora:getFaultAsString(),'detail=&lt;detail&gt;'),'&lt;/detail&gt;'))</from>
+                <to>$emailOBJ.EmailPayload/ns5:Content/ns5:ContentBody</to>
+              </copy>
+              <copy>
+                <from>ora:getPreference("SupportEmail")</from>
+                <to>$emailOBJ.EmailPayload/ns5:Cc</to>
+              </copy>
+              <copy>
+                <from>concat(ora:getPreference("ENV"),': Batch Number - ', ora:getFlowId(), '  ',ora:getCompositeName(), '  ',xp20:current-date())</from>
+                <to>$emailOBJ.EmailPayload/ns5:Subject</to>
+              </copy>
+              <copy ignoreMissingFromData="yes">
+                <from>ora:getPreference("BusinessEmail")</from>
+                <to>$emailOBJ.EmailPayload/ns5:To</to>
+              </copy>
+            </assign>
+          </else>
+        </if><assign name="AssignServerFault" xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
+      <copy>
+         <from>substring-before(substring-after(ora:getFaultAsString(),'detail=&lt;detail&gt;'),'&lt;/detail&gt;')</from>
+         <to>$outputVariable.payload/client:result</to>
+      </copy>
+      <copy ignoreMissingFromData="yes">
+         <from>concat('Message: ',substring-before(substring-after(ora:getFaultAsString(),'detail=&lt;detail&gt;'),'&lt;/detail&gt;'))</from>
+         <to>$emailOBJ.EmailPayload/ns5:Content/ns5:ContentBody</to>
+      </copy>
+      <copy>
+         <from>ora:getPreference("SupportEmail")</from>
+         <to>$emailOBJ.EmailPayload/ns5:Cc</to>
+      </copy>
+      <copy>
+         <from>concat(ora:getPreference("ENV"),': Batch Number - ', ora:getFlowId(), '  ',ora:getCompositeName(), '  ',xp20:current-date())</from>
+         <to>$emailOBJ.EmailPayload/ns5:Subject</to>
+      </copy>
+      <copy ignoreMissingFromData="yes">
+         <from>ora:getPreference("BusinessEmail")</from>
+         <to>$emailOBJ.EmailPayload/ns5:To</to>
+      </copy>
+   </assign><extensionActivity>
+          <bpelx:call name="SendEmail" target="SendEmail"/>
+        </extensionActivity>
+        <reply name="ReplyFault" variable="outputVariable" partnerLink="updatereturnorders_client"
+               portType="client:UpdateReturnOrders" operation="process"/>
+      </sequence>
+    </catchAll>
+  </faultHandlers>
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in UpdateReturnOrders.wsdl) -->
+    <receive name="receiveInput" partnerLink="updatereturnorders_client" portType="client:UpdateReturnOrders" operation="process" variable="inputVariable" createInstance="yes"/>
+    <assign name="AssignInput">
+      <copy ignoreMissingFromData="yes">
+        <from>$inputVariable.payload/client:WingReturnOrder</from>
+        <to>$GetReceiptDetailsDB_InputVariable.InputParameters/ns3:P_WING_RETURNORDER</to>
+      </copy>
+    </assign>
+    <invoke name="GetReceiptDetailsDB" partnerLink="ReceiptDetalsDB"
+            portType="ns1:ReceiptDetalsDB_ptt" operation="ReceiptDetalsDB"
+            inputVariable="GetReceiptDetailsDB_InputVariable" outputVariable="GetReceiptDetailsDB_OutputVariable"
+            bpelx:invokeAsDetail="no"/>
+    <if name="ReturnReceiptExists">
+      <condition>$GetReceiptDetailsDB_OutputVariable.OutputParameters/ns3:P_OUTSTR !=''</condition>
+      <sequence name="Sequence1">
+        <assign name="Transform_jsonAddParamsRequest">
+          <bpelx:annotation>
+            <bpelx:pattern patternName="bpelx:transformation"></bpelx:pattern>
+          </bpelx:annotation>
+          <copy>
+            <from>ora:doXSLTransformForDoc("../Transformations/TransformJsonStructure.xsl", $GetReceiptDetailsDB_OutputVariable.OutputParameters)</from>
+            <to variable="jsonAddParamsRequest"/>
+          </copy>
+        </assign>
+        <assign name="Translate_jsonAddParamsRequest_jsonAddParamsString">
+          <bpelx:annotation>
+            <bpelx:pattern>translate</bpelx:pattern>
+          </bpelx:annotation>
+          <copy>
+            <from>ora:doTranslateToNative($jsonAddParamsRequest, 'Schemas/WingAddParams.xsd', 'Root-Element', 'STRING')</from>
+            <to>$jsonAddParamsString</to>
+          </copy>
+        </assign>
+        <assign name="AssignAPIParams">
+          <copy>
+            <from>'service'</from>
+            <to>$UpdateReturns_InputVariable.request/ns4:APP_KEY</to>
+          </copy>
+          <copy>
+            <from>ora:getPreference("URL")</from>
+            <to>$api_url</to>
+          </copy>
+          <copy>
+            <from>1</from>
+            <to>$UpdateReturns_InputVariable.request/ns4:SIGN</to>
+          </copy>
+          <copy ignoreMissingFromData="yes">
+            <from>$jsonAddParamsString</from>
+            <to>$UpdateReturns_InputVariable.request/ns4:ADDPARAMS</to>
+          </copy>
+          <copy>
+            <from>1</from>
+            <to>$UpdateReturns_InputVariable.request/ns4:V</to>
+          </copy>
+          <copy>
+            <from>xp20:current-dateTime()</from>
+            <to>$UpdateReturns_InputVariable.request/ns4:TIMESTAMP</to>
+          </copy>
+          <copy>
+            <from>'Burgeon.Wing.OMSStorageIn.Add'</from>
+            <to>$UpdateReturns_InputVariable.request/ns4:METHOD</to>
+          </copy>
+        </assign>
+        <invoke name="UpdateReturns" partnerLink="ReturnReceipt"
+                portType="ns2:ReturnReceipt_ptt" operation="process" inputVariable="UpdateReturns_InputVariable"
+                outputVariable="UpdateReturns_OutputVariable" bpelx:invokeAsDetail="no">
+          <bpelx:toProperties>
+            <bpelx:toProperty name="rest.binding.requestURI" variable="api_url"/>
+          </bpelx:toProperties>
+        </invoke>
+        <if name="API_STATUS">
+          <documentation>
+            <![CDATA[SUCCESS]]>
+          </documentation>
+          <condition>$UpdateReturns_OutputVariable.reply/ns4:Code = 0</condition>
+          <sequence name="Sequence5">
+            <assign name="AssignOutput">
+              <copy ignoreMissingFromData="yes">
+                <from>'SUCCESS'</from>
+                <to>$outputVariable.payload/client:result</to>
+              </copy>
+              <copy>
+                <from>$inputVariable.payload/client:WingReturnOrder</from>
+                <to>$UpdateDB_InputVariable.SbcCnReceiptInboundCollection/ns7:SbcCnReceiptInbound/ns7:shipmentHeaderId</to>
+              </copy>
+              <copy>
+                <from>'RECEIVED'</from>
+                <to>$UpdateDB_InputVariable.SbcCnReceiptInboundCollection/ns7:SbcCnReceiptInbound/ns7:uploadStatus</to>
+              </copy>
+              <copy>
+                <from>ora:getFlowId()</from>
+                <to>$UpdateDB_InputVariable.SbcCnReceiptInboundCollection/ns7:SbcCnReceiptInbound/ns7:lastUpdatedBy</to>
+              </copy>
+            </assign>
+            <invoke name="UpdateDB" partnerLink="UpdateReceiptDB"
+                    portType="ns6:UpdateReceiptDB_ptt" operation="update" inputVariable="UpdateDB_InputVariable"
+                    bpelx:invokeAsDetail="no"/>
+          </sequence>
+          <else>
+            <sequence name="Sequence3"><assign name="AssignAPIFault"
+                                               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
+      
+   <copy ignoreMissingFromData="yes">
+                  <from>$UpdateReturns_OutputVariable.reply/ns4:Message</from>
+                  <to>$outputVariable.payload/client:result</to>
+                </copy><copy>
+                  <from>$inputVariable.payload/client:WingReturnOrder</from>
+                  <to>$UpdateDB_InputVariable.SbcCnReceiptInboundCollection/ns7:SbcCnReceiptInbound/ns7:shipmentHeaderId</to>
+                </copy><copy>
+                  <from>ora:getFlowId()</from>
+                  <to>$UpdateDB_InputVariable.SbcCnReceiptInboundCollection/ns7:SbcCnReceiptInbound/ns7:lastUpdatedBy</to>
+                </copy><copy>
+                  <from>$UpdateReturns_OutputVariable.reply/ns4:Message</from>
+                  <to>$UpdateDB_InputVariable.SbcCnReceiptInboundCollection/ns7:SbcCnReceiptInbound/ns7:comments</to>
+                </copy><copy ignoreMissingFromData="yes">
+                  <from>ora:getPreference("SupportEmail")</from>
+                  <to>$emailOBJ.EmailPayload/ns5:Cc</to>
+                </copy><copy ignoreMissingFromData="yes">
+                  <from>ora:getPreference("BusinessEmail")</from>
+                  <to>$emailOBJ.EmailPayload/ns5:To</to>
+                </copy><copy>
+                  <from>concat(ora:getPreference("ENV"),': Batch Number - ', ora:getFlowId(), '  ',ora:getCompositeName(), '  ',xp20:current-date())</from>
+                  <to>$emailOBJ.EmailPayload/ns5:Subject</to>
+                </copy><copy>
+                  <from>concat('Message: ',$UpdateReturns_OutputVariable.reply/ns4:Message,' - ',$inputVariable.payload/client:WingReturnOrder)</from>
+                  <to>$emailOBJ.EmailPayload/ns5:Content/ns5:ContentBody</to>
+                </copy></assign><invoke name="UpdateDB" partnerLink="UpdateReceiptDB" portType="ns6:UpdateReceiptDB_ptt"
+                                        operation="update" inputVariable="UpdateDB_InputVariable"
+                                        bpelx:invokeAsDetail="no" xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+                                        xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"/><extensionActivity xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
+      <bpelx:call name="APIFaultEmail" target="SendEmail" xmlns:bpelx="http://schemas.oracle.com/bpel/extension"/>
+   </extensionActivity><reply name="ReplyFault"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              variable="outputVariable"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              partnerLink="updatereturnorders_client"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              portType="client:UpdateReturnOrders"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              operation="process"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"/></sequence>
+          </else>
+        </if>
+      </sequence>
+      <else>
+        <empty name="DONothing"/>
+      </else>
+    </if>
+    <!-- Generate reply to synchronous request -->
+    <reply name="replyOutput" partnerLink="updatereturnorders_client" portType="client:UpdateReturnOrders" operation="process" variable="outputVariable"/>
+  </sequence>
+</process>

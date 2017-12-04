@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Generated from Oracle SOA Archetype version 12.1.3.0.0  -->
+<composite name="ExpeditorReturnOrders"
+           revision="1.0-SNAPSHOT"
+           label="2013-10-14_14-36-17_928"
+           mode="active"
+           state="on"
+           xmlns="http://xmlns.oracle.com/sca/1.0"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+           xmlns:orawsp="http://schemas.oracle.com/ws/2006/01/policy"
+           xmlns:ui="http://xmlns.oracle.com/soa/designer/"
+           xmlns:sca-ext="http://xmlns.oracle.com/sca/1.0-ext">
+  <import namespace="http://xmlns.oracle.com/WingPOS/ExpeditorReturnOrders/ReturnOrders"
+          location="WSDLs/ReturnOrders.wsdl" importType="wsdl"/>
+  <import namespace="http://ibd.specialized.com/WingPOS/ExpeditorReturnOrders"
+          location="WSDLs/ExpeditorReturnOrderProcess.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnOrders/InsertReturnHeader"
+          location="WSDLs/InsertReturnHeader.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnOrders/InsertReturnDetail"
+          location="WSDLs/InsertReturnDetail.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/ias/pcbpel/NotificationService"
+          location="oramds:/soa/shared/workflow/NotificationService.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/ftp/WingPOS/ExpeditorReturnOrders/WriteReturnFile"
+          location="WSDLs/WriteReturnFile.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/ftp/WingPOS/ExpeditorReturnOrders/CopyReturnFile"
+          location="WSDLs/CopyReturnFile.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnOrders/RollbackTbl"
+          location="WSDLs/RollbackTbl.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnOrders/DeleteHeaderTbl"
+          location="WSDLs/DeleteHeaderTbl.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnOrders/DeleteDetailTbl"
+          location="WSDLs/DeleteDetailTbl.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnOrders/GenerateFileDB"
+          location="WSDLs/GenerateFileDB.wsdl" importType="wsdl"/>
+  <service name="expeditorreturnorderprocess_client_ep" ui:wsdlLocation="WSDLs/ExpeditorReturnOrderProcess.wsdl">
+    <interface.wsdl interface="http://ibd.specialized.com/WingPOS/ExpeditorReturnOrders#wsdl.interface(ExpeditorReturnOrderProcess)"
+                    callbackInterface="http://ibd.specialized.com/WingPOS/ExpeditorReturnOrders#wsdl.interface(ExpeditorReturnOrderProcessCallback)"/>
+    <binding.ws port="http://ibd.specialized.com/WingPOS/ExpeditorReturnOrders#wsdl.endpoint(expeditorreturnorderprocess_client_ep/ExpeditorReturnOrderProcess_pt)"/>
+    <callback>
+      <binding.ws port="http://ibd.specialized.com/WingPOS/ExpeditorReturnOrders#wsdl.endpoint(expeditorreturnorderprocess_client_ep/ExpeditorReturnOrderProcessCallback_pt)"/>
+    </callback>
+  </service>
+  <property name="productVersion" type="xs:string" many="false">12.1.3.0.0</property>
+  <component name="ExpeditorReturnOrderProcess" version="2.0">
+    <implementation.bpel src="BPEL/ExpeditorReturnOrderProcess.bpel"/>
+    <componentType>
+      <service name="expeditorreturnorderprocess_client" ui:wsdlLocation="WSDLs/ExpeditorReturnOrderProcess.wsdl">
+        <interface.wsdl interface="http://ibd.specialized.com/WingPOS/ExpeditorReturnOrders#wsdl.interface(ExpeditorReturnOrderProcess)"
+                        callbackInterface="http://ibd.specialized.com/WingPOS/ExpeditorReturnOrders#wsdl.interface(ExpeditorReturnOrderProcessCallback)"/>
+      </service>
+      <reference name="ReturnOrders" ui:wsdlLocation="WSDLs/ReturnOrders.wsdl">
+        <interface.wsdl interface="http://xmlns.oracle.com/WingPOS/ExpeditorReturnOrders/ReturnOrders#wsdl.interface(ReturnOrders_ptt)"/>
+      </reference>
+      <reference name="InsertReturnHeader" ui:wsdlLocation="WSDLs/InsertReturnHeader.wsdl">
+        <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnOrders/InsertReturnHeader#wsdl.interface(InsertReturnHeader_ptt)"/>
+      </reference>
+      <reference name="InsertReturnDetail" ui:wsdlLocation="WSDLs/InsertReturnDetail.wsdl">
+        <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnOrders/InsertReturnDetail#wsdl.interface(InsertReturnDetail_ptt)"/>
+      </reference>
+      <reference name="NotificationService1" ui:wsdlLocation="oramds:/soa/shared/workflow/NotificationService.wsdl">
+        <interface.wsdl interface="http://xmlns.oracle.com/ias/pcbpel/NotificationService#wsdl.interface(NotificationService)"/>
+      </reference>
+      <reference name="WriteReturnFile" ui:wsdlLocation="WSDLs/WriteReturnFile.wsdl">
+        <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/ftp/WingPOS/ExpeditorReturnOrders/WriteReturnFile#wsdl.interface(Write_ptt)"/>
+      </reference>
+      <reference name="CopyReturnFile" ui:wsdlLocation="WSDLs/CopyReturnFile.wsdl">
+        <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/ftp/WingPOS/ExpeditorReturnOrders/CopyReturnFile#wsdl.interface(Copy_ptt)"/>
+      </reference>
+      <reference name="RollbackTbl" ui:wsdlLocation="WSDLs/RollbackTbl.wsdl">
+        <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnOrders/RollbackTbl#wsdl.interface(RollbackTbl_ptt)"/>
+      </reference>
+      <reference name="DeleteHeaderTbl" ui:wsdlLocation="WSDLs/DeleteHeaderTbl.wsdl">
+        <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnOrders/DeleteHeaderTbl#wsdl.interface(DeleteHeaderTbl_ptt)"/>
+      </reference>
+      <reference name="DeleteDetailTbl" ui:wsdlLocation="WSDLs/DeleteDetailTbl.wsdl">
+        <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnOrders/DeleteDetailTbl#wsdl.interface(DeleteDetailTbl_ptt)"/>
+      </reference>
+      <reference name="GenerateFileDB" ui:wsdlLocation="WSDLs/GenerateFileDB.wsdl">
+        <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnOrders/GenerateFileDB#wsdl.interface(GenerateFileDB_ptt)"/>
+      </reference>
+    </componentType>
+    <property name="bpel.config.oneWayDeliveryPolicy" type="xs:string" many="false">async.persist</property>
+    <!--property name="partnerLink.NotificationService1.nonBlockingInvoke" type="xs:string" many="false">true</property-->
+    <property name="bpel.preference.copyFileSourceDir" type="xs:string" many="false"></property>
+    <property name="bpel.preference.copyFileTargetDir" type="xs:string" many="false"></property>
+    <property name="bpel.preference.ENV" type="xs:string" many="false"></property>
+    <property name="bpel.preference.SupportEmail" type="xs:string" many="false"></property>
+    <property name="bpel.preference.BusinessEmail" type="xs:string" many="false"></property>
+    <property name="bpel.preference.URL" type="xs:string" many="false"></property>
+  </component>
+  <reference name="ReturnOrders" ui:wsdlLocation="WSDLs/ReturnOrders.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/WingPOS/ExpeditorReturnOrders/ReturnOrders#wsdl.interface(ReturnOrders_ptt)"/>
+    <binding.rest config="Adapters/ReturnOrders.wadl" location="http://api.specialized.shoptao.cn"/>
+  </reference>
+  <reference name="InsertReturnHeader" ui:wsdlLocation="WSDLs/InsertReturnHeader.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnOrders/InsertReturnHeader#wsdl.interface(InsertReturnHeader_ptt)"/>
+    <binding.jca config="Adapters/InsertReturnHeader_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false" override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false" override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:int" many="false" override="may">120</property>
+  </reference>
+  <reference name="InsertReturnDetail" ui:wsdlLocation="WSDLs/InsertReturnDetail.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnOrders/InsertReturnDetail#wsdl.interface(InsertReturnDetail_ptt)"/>
+    <binding.jca config="Adapters/InsertReturnDetail_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false" override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false" override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:int" many="false" override="may">120</property>
+  </reference>
+  <reference name="NotificationService1" ui:wsdlLocation="oramds:/soa/shared/workflow/NotificationService.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/ias/pcbpel/NotificationService#wsdl.interface(NotificationService)"/>
+    <binding.wsif port="http://xmlns.oracle.com/ias/pcbpel/NotificationService#wsdl.endpoint(NotificationService/JavaPort)"
+                  location="oramds:/soa/shared/workflow/NotificationService.wsdl"/>
+  </reference>
+  <reference name="WriteReturnFile" ui:wsdlLocation="WSDLs/WriteReturnFile.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/ftp/WingPOS/ExpeditorReturnOrders/WriteReturnFile#wsdl.interface(Write_ptt)"/>
+    <binding.jca config="Adapters/WriteReturnFile_ftp.jca">
+      <property name="singleton">true</property>
+    </binding.jca>
+    <property name="EXPEDITOR_INBOUND" type="xs:string" many="false" override="may"></property>
+  </reference>
+  <reference name="CopyReturnFile" ui:wsdlLocation="WSDLs/CopyReturnFile.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/ftp/WingPOS/ExpeditorReturnOrders/CopyReturnFile#wsdl.interface(Copy_ptt)"/>
+    <binding.jca config="Adapters/CopyReturnFile_ftp.jca"/>
+  </reference>
+  <reference name="RollbackTbl" ui:wsdlLocation="WSDLs/RollbackTbl.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnOrders/RollbackTbl#wsdl.interface(RollbackTbl_ptt)"/>
+    <binding.jca config="Adapters/RollbackTbl_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false" override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false" override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:int" many="false" override="may">120</property>
+  </reference>
+  <reference name="DeleteHeaderTbl" ui:wsdlLocation="WSDLs/DeleteHeaderTbl.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnOrders/DeleteHeaderTbl#wsdl.interface(DeleteHeaderTbl_ptt)"/>
+    <binding.jca config="Adapters/DeleteHeaderTbl_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false" override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false" override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:int" many="false" override="may">120</property>
+  </reference>
+  <reference name="DeleteDetailTbl" ui:wsdlLocation="WSDLs/DeleteDetailTbl.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnOrders/DeleteDetailTbl#wsdl.interface(DeleteDetailTbl_ptt)"/>
+    <binding.jca config="Adapters/DeleteDetailTbl_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false" override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false" override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:int" many="false" override="may">120</property>
+  </reference>
+  <reference name="GenerateFileDB" ui:wsdlLocation="WSDLs/GenerateFileDB.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnOrders/GenerateFileDB#wsdl.interface(GenerateFileDB_ptt)"/>
+    <binding.jca config="Adapters/GenerateFileDB_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false" override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false" override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:int" many="false" override="may">120</property>
+  </reference>
+  <wire>
+    <source.uri>expeditorreturnorderprocess_client_ep</source.uri>
+    <target.uri>ExpeditorReturnOrderProcess/expeditorreturnorderprocess_client</target.uri>
+  </wire>
+  <wire>
+    <source.uri>ExpeditorReturnOrderProcess/ReturnOrders</source.uri>
+    <target.uri>ReturnOrders</target.uri>
+  </wire>
+  <wire>
+    <source.uri>ExpeditorReturnOrderProcess/InsertReturnHeader</source.uri>
+    <target.uri>InsertReturnHeader</target.uri>
+  </wire>
+  <wire>
+    <source.uri>ExpeditorReturnOrderProcess/InsertReturnDetail</source.uri>
+    <target.uri>InsertReturnDetail</target.uri>
+  </wire>
+  <wire>
+    <source.uri>ExpeditorReturnOrderProcess/NotificationService1</source.uri>
+    <target.uri>NotificationService1</target.uri>
+  </wire>
+  <wire>
+    <source.uri>ExpeditorReturnOrderProcess/WriteReturnFile</source.uri>
+    <target.uri>WriteReturnFile</target.uri>
+  </wire>
+  <wire>
+    <source.uri>ExpeditorReturnOrderProcess/CopyReturnFile</source.uri>
+    <target.uri>CopyReturnFile</target.uri>
+  </wire>
+  <wire>
+    <source.uri>ExpeditorReturnOrderProcess/RollbackTbl</source.uri>
+    <target.uri>RollbackTbl</target.uri>
+  </wire>
+  <wire>
+    <source.uri>ExpeditorReturnOrderProcess/DeleteHeaderTbl</source.uri>
+    <target.uri>DeleteHeaderTbl</target.uri>
+  </wire>
+  <wire>
+    <source.uri>ExpeditorReturnOrderProcess/DeleteDetailTbl</source.uri>
+    <target.uri>DeleteDetailTbl</target.uri>
+  </wire>
+  <wire>
+    <source.uri>ExpeditorReturnOrderProcess/GenerateFileDB</source.uri>
+    <target.uri>GenerateFileDB</target.uri>
+  </wire>
+</composite>

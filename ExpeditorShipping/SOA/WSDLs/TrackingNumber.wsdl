@@ -1,0 +1,40 @@
+<wsdl:definitions
+     name="TrackingNumber"
+     targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorShipping/TrackingNumber"
+     xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorShipping/TrackingNumber"
+     xmlns:jca="http://xmlns.oracle.com/pcbpel/wsdl/jca/"
+     xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:db="http://xmlns.oracle.com/pcbpel/adapter/db/TrackingNumber"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+  <plt:partnerLinkType name="TrackingNumber_plt" >
+    <plt:role name="TrackingNumber_role" >
+      <plt:portType name="tns:TrackingNumber_ptt" />
+    </plt:role>
+  </plt:partnerLinkType>
+  <plt:partnerLinkType name="TrackingNumber_plt" >
+    <plt:role name="TrackingNumber_role" >
+      <plt:portType name="tns:TrackingNumber_ptt" />
+    </plt:role>
+  </plt:partnerLinkType>
+    <wsdl:types>
+      <schema xmlns="http://www.w3.org/2001/XMLSchema" >
+        <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/TrackingNumber" schemaLocation="../Schemas/TrackingNumber.xsd" />
+      </schema>
+      <schema xmlns="http://www.w3.org/2001/XMLSchema" >
+        <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/TrackingNumber" schemaLocation="../Schemas/TrackingNumber.xsd" />
+      </schema>
+    </wsdl:types>
+    <wsdl:message name="TrackingNumberInput_msg">
+        <wsdl:part name="TrackingNumberInput_msg" element="db:TrackingNumberInput"/>
+    </wsdl:message>
+    <wsdl:message name="TrackingNumberOutputCollection_msg">
+        <wsdl:part name="TrackingNumberOutputCollection" element="db:TrackingNumberOutputCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="TrackingNumber_ptt">
+        <wsdl:operation name="TrackingNumber">
+            <wsdl:input message="tns:TrackingNumberInput_msg"/>
+            <wsdl:output message="tns:TrackingNumberOutputCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

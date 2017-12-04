@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Generated from Oracle SOA Archetype version 12.1.3.0.0  -->
+<composite name="ExpeditorReturnReceipt"
+           revision="1.0-SNAPSHOT"
+           label="2013-10-14_14-36-17_928"
+           mode="active"
+           state="on"
+           xmlns="http://xmlns.oracle.com/sca/1.0"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+           xmlns:orawsp="http://schemas.oracle.com/ws/2006/01/policy"
+           xmlns:ui="http://xmlns.oracle.com/soa/designer/"
+           xmlns:sca-ext="http://xmlns.oracle.com/sca/1.0-ext">
+  <import namespace="http://xmlns.oracle.com/WingPOS/ExpeditorReturnReceipt/ReturnReceipt"
+          location="WSDLs/ReturnReceipt.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnReceipt/ReceiptDetalsDB"
+          location="WSDLs/ReceiptDetalsDB.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/WingPOS/ExpeditorReturnReceipt/UpdateReturnOrders"
+          location="WSDLs/UpdateReturnOrders.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/ias/pcbpel/NotificationService"
+          location="oramds:/soa/shared/workflow/NotificationService.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnReceipt/UpdateReceiptDB"
+          location="WSDLs/UpdateReceiptDB.wsdl" importType="wsdl"/>
+  <service name="updatereturnorders_client_ep" ui:wsdlLocation="WSDLs/UpdateReturnOrders.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/WingPOS/ExpeditorReturnReceipt/UpdateReturnOrders#wsdl.interface(UpdateReturnOrders)"/>
+    <binding.ws port="http://xmlns.oracle.com/WingPOS/ExpeditorReturnReceipt/UpdateReturnOrders#wsdl.endpoint(updatereturnorders_client_ep/UpdateReturnOrders_pt)"/>
+  </service>
+  <property name="productVersion" type="xs:string" many="false">12.1.3.0.0</property>
+  <component name="UpdateReturnOrders" version="2.0">
+    <implementation.bpel src="BPEL/UpdateReturnOrders.bpel"/>
+    <componentType>
+      <service name="updatereturnorders_client" ui:wsdlLocation="WSDLs/UpdateReturnOrders.wsdl">
+        <interface.wsdl interface="http://xmlns.oracle.com/WingPOS/ExpeditorReturnReceipt/UpdateReturnOrders#wsdl.interface(UpdateReturnOrders)"/>
+      </service>
+      <reference name="ReceiptDetalsDB" ui:wsdlLocation="WSDLs/ReceiptDetalsDB.wsdl">
+        <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnReceipt/ReceiptDetalsDB#wsdl.interface(ReceiptDetalsDB_ptt)"/>
+      </reference>
+      <reference name="ReturnReceipt" ui:wsdlLocation="WSDLs/ReturnReceipt.wsdl">
+        <interface.wsdl interface="http://xmlns.oracle.com/WingPOS/ExpeditorReturnReceipt/ReturnReceipt#wsdl.interface(ReturnReceipt_ptt)"/>
+      </reference>
+      <reference name="NotificationService" ui:wsdlLocation="oramds:/soa/shared/workflow/NotificationService.wsdl">
+        <interface.wsdl interface="http://xmlns.oracle.com/ias/pcbpel/NotificationService#wsdl.interface(NotificationService)"/>
+      </reference>
+      <reference name="UpdateReceiptDB" ui:wsdlLocation="WSDLs/UpdateReceiptDB.wsdl">
+        <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnReceipt/UpdateReceiptDB#wsdl.interface(UpdateReceiptDB_ptt)"/>
+      </reference>
+    </componentType>
+    <property name="bpel.config.transaction" type="xs:string" many="false">required</property>
+    <property name="bpel.preference.ENV" type="xs:string" many="false"></property>
+    <property name="bpel.preference.SupportEmail" type="xs:string" many="false"></property>
+    <property name="bpel.preference.BusinessEmail" type="xs:string" many="false"></property>
+    <property name="bpel.preference.URL" type="xs:string" many="false"></property>    
+  </component>
+  <reference name="ReturnReceipt" ui:wsdlLocation="WSDLs/ReturnReceipt.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/WingPOS/ExpeditorReturnReceipt/ReturnReceipt#wsdl.interface(ReturnReceipt_ptt)"/>
+    <binding.rest config="Adapters/ReturnReceipt.wadl" location="http://api.specialized.shoptao.cn"/>
+  </reference>
+  <reference name="ReceiptDetalsDB" ui:wsdlLocation="WSDLs/ReceiptDetalsDB.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnReceipt/ReceiptDetalsDB#wsdl.interface(ReceiptDetalsDB_ptt)"/>
+    <binding.jca config="Adapters/ReceiptDetalsDB_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false" override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false" override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:int" many="false" override="may">120</property>
+  </reference>
+  <reference name="NotificationService" ui:wsdlLocation="oramds:/soa/shared/workflow/NotificationService.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/ias/pcbpel/NotificationService#wsdl.interface(NotificationService)"/>
+    <binding.wsif port="http://xmlns.oracle.com/ias/pcbpel/NotificationService#wsdl.endpoint(NotificationService/JavaPort)"
+                  location="oramds:/soa/shared/workflow/NotificationService.wsdl"/>
+  </reference>
+  <reference name="UpdateReceiptDB" ui:wsdlLocation="WSDLs/UpdateReceiptDB.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnReceipt/UpdateReceiptDB#wsdl.interface(UpdateReceiptDB_ptt)"/>
+    <binding.jca config="Adapters/UpdateReceiptDB_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false" override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false" override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:int" many="false" override="may">120</property>
+  </reference>
+  <wire>
+    <source.uri>updatereturnorders_client_ep</source.uri>
+    <target.uri>UpdateReturnOrders/updatereturnorders_client</target.uri>
+  </wire>
+  <wire>
+    <source.uri>UpdateReturnOrders/ReceiptDetalsDB</source.uri>
+    <target.uri>ReceiptDetalsDB</target.uri>
+  </wire>
+  <wire>
+    <source.uri>UpdateReturnOrders/ReturnReceipt</source.uri>
+    <target.uri>ReturnReceipt</target.uri>
+  </wire>
+  <wire>
+    <source.uri>UpdateReturnOrders/NotificationService</source.uri>
+    <target.uri>NotificationService</target.uri>
+  </wire>
+  <wire>
+    <source.uri>UpdateReturnOrders/UpdateReceiptDB</source.uri>
+    <target.uri>UpdateReceiptDB</target.uri>
+  </wire>
+</composite>

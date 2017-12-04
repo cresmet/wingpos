@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/UpdateStagingTable" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/UpdateStagingTable" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="UpdateStagingTableInput" type="UpdateStagingTableInput"/>
+   <xs:complexType name="UpdateStagingTableInput">
+      <xs:sequence>
+         <xs:element name="FLAG" type="xs:string" nillable="true"/>
+         <xs:element name="status" type="xs:string" nillable="true"/>
+         <xs:element name="msg" type="xs:string" nillable="true"/>
+         <xs:element name="WAYBILL" type="xs:string" nillable="true"/>
+         <xs:element name="tracking_number" type="xs:string" nillable="true"/>
+      </xs:sequence>
+   </xs:complexType>
+</xs:schema>

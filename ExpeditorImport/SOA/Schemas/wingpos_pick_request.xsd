@@ -1,0 +1,22 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nxsd="http://xmlns.oracle.com/pcbpel/nxsd"
+            xmlns:tns="http://schema.ibd.specialized.com/pos/wing/picking"
+            targetNamespace="http://schema.ibd.specialized.com/pos/wing/picking"
+            elementFormDefault="qualified" attributeFormDefault="unqualified" nxsd:encoding="US-ASCII">
+  <xsd:element name="PickRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="APP_KEY" type="xsd:string"/>
+        <xsd:element name="METHOD" type="xsd:string"/>
+        <xsd:element name="TIMESTAMP" type="xsd:string"/>
+        <xsd:element name="V" type="xsd:integer"/>
+        <xsd:element name="SIGN" type="xsd:string"/>
+        <xsd:element name="ORDERID" type="xsd:string"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:annotation>
+    <xsd:appinfo>NXSDSAMPLE=</xsd:appinfo>
+    <xsd:appinfo>USEHEADER=false</xsd:appinfo>
+  </xsd:annotation>
+</xsd:schema>

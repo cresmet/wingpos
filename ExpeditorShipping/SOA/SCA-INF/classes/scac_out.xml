@@ -1,0 +1,113 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Faults>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/ns:composite/ns:component[@name='UpdateShipmentProcess/TrackingNumberPolling']</loc>
+      <line/>
+      <col/>
+      <file>C:\JDeveloper1213\mywork\WingPOS\ExpeditorShipping\SOA\composite.xml</file>
+      <name>C:\JDeveloper1213\mywork\WingPOS\ExpeditorShipping\SOA\composite.xml</name>
+      <fix/>
+      <msg>The service "TrackingNumberPolling" exposed by component "UpdateShipmentProcess" is not wired to/used by any other component.</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>225</line>
+      <col/>
+      <file>BPEL/UpdateShipmentProcess.bpel</file>
+      <name>BPEL/UpdateShipmentProcess.bpel</name>
+      <fix>Make sure that the expression in &lt;bpel:condition> is a boolean expression.</fix>
+      <msg>The expression count($GetTrackingNumber_OutputVariable.Tracking ... in &lt;bpel:condition> is not a boolean expression.</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>146</line>
+      <col/>
+      <file>BPEL/TrackingNumberPollingProcess.bpel</file>
+      <name>BPEL/TrackingNumberPollingProcess.bpel</name>
+      <fix>Add a predicate to select an element from the sequence.</fix>
+      <msg>The XPath segment "child::ns4:SbcExpeditorShipconfirm" selects a sequence of elements - a predicate MAY be needed to correctly select an element.</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>150</line>
+      <col/>
+      <file>BPEL/TrackingNumberPollingProcess.bpel</file>
+      <name>BPEL/TrackingNumberPollingProcess.bpel</name>
+      <fix>Add a predicate to select an element from the sequence.</fix>
+      <msg>The XPath segment "child::ns4:SbcExpeditorShipconfirm" selects a sequence of elements - a predicate MAY be needed to correctly select an element.</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>154</line>
+      <col/>
+      <file>BPEL/TrackingNumberPollingProcess.bpel</file>
+      <name>BPEL/TrackingNumberPollingProcess.bpel</name>
+      <fix>Add a predicate to select an element from the sequence.</fix>
+      <msg>The XPath segment "child::ns4:SbcExpeditorShipconfirm" selects a sequence of elements - a predicate MAY be needed to correctly select an element.</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>182</line>
+      <col/>
+      <file>BPEL/TrackingNumberPollingProcess.bpel</file>
+      <name>BPEL/TrackingNumberPollingProcess.bpel</name>
+      <fix>Add a predicate to select an element from the sequence.</fix>
+      <msg>The XPath segment "child::ns4:SbcExpeditorShipconfirm" selects a sequence of elements - a predicate MAY be needed to correctly select an element.</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>186</line>
+      <col/>
+      <file>BPEL/TrackingNumberPollingProcess.bpel</file>
+      <name>BPEL/TrackingNumberPollingProcess.bpel</name>
+      <fix>Add a predicate to select an element from the sequence.</fix>
+      <msg>The XPath segment "child::ns4:SbcExpeditorShipconfirm" selects a sequence of elements - a predicate MAY be needed to correctly select an element.</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>190</line>
+      <col/>
+      <file>BPEL/TrackingNumberPollingProcess.bpel</file>
+      <name>BPEL/TrackingNumberPollingProcess.bpel</name>
+      <fix>Add a predicate to select an element from the sequence.</fix>
+      <msg>The XPath segment "child::ns4:SbcExpeditorShipconfirm" selects a sequence of elements - a predicate MAY be needed to correctly select an element.</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>296</line>
+      <col/>
+      <file>BPEL/TrackingNumberPollingProcess.bpel</file>
+      <name>BPEL/TrackingNumberPollingProcess.bpel</name>
+      <fix>Add a predicate to select an element from the sequence.</fix>
+      <msg>The XPath segment "child::ns4:SbcExpeditorShipconfirm" selects a sequence of elements - a predicate MAY be needed to correctly select an element.</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>300</line>
+      <col/>
+      <file>BPEL/TrackingNumberPollingProcess.bpel</file>
+      <name>BPEL/TrackingNumberPollingProcess.bpel</name>
+      <fix>Add a predicate to select an element from the sequence.</fix>
+      <msg>The XPath segment "child::ns4:SbcExpeditorShipconfirm" selects a sequence of elements - a predicate MAY be needed to correctly select an element.</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>304</line>
+      <col/>
+      <file>BPEL/TrackingNumberPollingProcess.bpel</file>
+      <name>BPEL/TrackingNumberPollingProcess.bpel</name>
+      <fix>Add a predicate to select an element from the sequence.</fix>
+      <msg>The XPath segment "child::ns4:SbcExpeditorShipconfirm" selects a sequence of elements - a predicate MAY be needed to correctly select an element.</msg>
+   </Fault>
+</Faults>

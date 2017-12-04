@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAConfigPlan xmlns:jca="http://platform.integration.oracle/blocks/adapter/fw/metadata" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:orawsp="http://schemas.oracle.com/ws/2006/01/policy" xmlns:edl="http://schemas.oracle.com/events/edl" xmlns="http://schemas.oracle.com/soa/configplan">
+   <composite name="ExpeditorImport">
+      <!--Add search and replace rules for the import section of a composite
+	Example:
+	<searchReplace>
+		<search>http://my-dev-server</search>
+		<replace>http://my-test-server</replace>
+	<searchReplace>
+	<searchReplace>
+		<search>8888</search>
+		<replace>8889</replace>
+	<searchReplace>-->
+      <import>
+         <searchReplace>
+            <search/>
+            <replace/>
+         </searchReplace>
+      </import>
+      <service name="expeditorimportprocess_client_ep">
+         <binding type="ws">
+            <attribute name="port">
+               <replace>http://ibd.specialized.com/WingPOS/ExpeditorImport/ExpeditorImportProcess#wsdl.endpoint(expeditorimportprocess_client_ep/ExpeditorImportProcess_pt)</replace>
+            </attribute>
+         </binding>
+         <callback>
+            <binding type="ws">
+               <attribute name="port">
+                  <replace>http://ibd.specialized.com/WingPOS/ExpeditorImport/ExpeditorImportProcess#wsdl.endpoint(expeditorimportprocess_client_ep/ExpeditorImportProcessCallback_pt)</replace>
+               </attribute>
+            </binding>
+         </callback>
+      </service>
+      <service name="expeditorimportprocess_client"/>
+      <property name="productVersion">
+         <replace>12.1.3.0.0</replace>
+      </property>
+      <!--Add search and replace rules for the component properties
+	For components and service/reference bindings, you can add policy references.
+	Example:
+	<component name="*">
+		<wsp:PolicyReference orawsp:category="management" orawsp:status="enabled" URI="oracle/log_policy"/>
+	</component>-->
+      <component name="ExpeditorImportProcess">
+         <property name="bpel.config.oneWayDeliveryPolicy">
+            <replace>async.persist</replace>
+         </property>
+         <property name="configuration.sensorLocation">
+            <replace>BPEL/ExpeditorImportProcess_sensor.xml</replace>
+         </property>
+         <property name="configuration.sensorActionLocation">
+            <replace>BPEL/ExpeditorImportProcess_sensorAction.xml</replace>
+         </property>
+         <property name="partnerLink.NotificationService1.nonBlockingInvoke">
+            <replace>true</replace>
+         </property>
+         <property name="partnerLink.NotificationServicePL.nonBlockingInvoke">
+            <replace>true</replace>
+         </property>
+         <property name="bpel.preference.copyFileSourceDir">
+            <replace>/prod/outbound/</replace>
+         </property>
+         <property name="bpel.preference.copyFileTargetDir">
+            <replace>/prod/archive/</replace>
+         </property>
+         <property name="bpel.preference.ENV">
+            <replace>GOLD</replace>
+         </property>
+         <property name="bpel.preference.URL">
+            <replace>http://api.specialized.shoptao.cn/api/rest/WingApi</replace>
+         </property>          
+         <property name="bpel.preference.SupportEmail">
+            <replace>Monir.Moniruzzaman@specialized.com,Iwan.vanRaaij@specialized.com</replace>
+         </property>
+         <property name="bpel.preference.BusinessEmail">
+            <replace>ssanagala@specialized.com</replace>
+         </property>
+      </component>
+      <reference name="Order"/>
+      <reference name="OrderPicking"/>
+      <reference name="WriteFile"/>
+      <reference name="CopyFile"/>
+      <reference name="InsertOrdersNew"/>
+      <reference name="NotificationService1"/>
+      <reference name="Order">
+         <binding type="rest"/>
+      </reference>
+      <reference name="OrderPicking">
+         <binding type="rest"/>
+      </reference>
+      <reference name="WriteFile">
+         <property name="EXPEDITOR_INBOUND">
+            <replace>/prod/outbound/</replace>
+         </property>
+         <binding type="jca"/>
+      </reference>
+      <reference name="CopyFile">
+         <binding type="jca"/>
+      </reference>
+      <reference name="InsertOrdersNew">
+         <property name="jca.retry.count">
+            <replace>4</replace>
+         </property>
+         <property name="jca.retry.interval">
+            <replace>1</replace>
+         </property>
+         <property name="jca.retry.backoff">
+            <replace>2</replace>
+         </property>
+         <property name="jca.retry.maxInterval">
+            <replace>120</replace>
+         </property>
+         <binding type="jca"/>
+      </reference>
+      <reference name="NotificationService1">
+         <binding type="wsif"/>
+      </reference>
+   </composite>
+   <!--To configure monitor.config: 
+	<property name="enabled"><replace>true</replace></property>
+	<property name="dataObjectsFolder"><searchReplace><search>mydev</search><replace>myproduction</replace></searchReplace></property>
+	
+	sample properties to configure for file/ftp adapter: 
+	<jca:property name="PhysicalDirectory"><replace>c:\temp</replace></jca:property>
+	<jca:property name="DeleteFile"><replace>true</replace></jca:property>
+	<jca:property name="PollingFrequency"><replace>3</replace></jca:property>
+	
+	To add search and replace rules for wsdls, xsd and jca files
+	Example:
+	<searchReplace>
+		<search>http://my-dev-server</search>
+		<replace>http://my-test-server</replace>
+	<searchReplace>
+	<searchReplace>
+		<search>8888</search>
+		<replace>8889</replace>
+	<searchReplace>
+	-->
+   <wsdlAndSchema name="Adapters/CopyFile_ftp.jca|Adapters/InsertOrdersNew_db.jca|Adapters/WriteFile_ftp.jca|Schemas/CommonError.xsd|Schemas/ExpeditorImportProcess.xsd|Schemas/InsertOrdersNew_table.xsd|Schemas/InsertOrders_table.xsd|Schemas/nxsd_file_data.xsd|Schemas/wingpos_order_request.xsd|Schemas/wingpos_order_response.xsd|Schemas/wingpos_pick_request.xsd|Schemas/wingpos_pick_response.xsd|WSDLs/CopyFile.wsdl|WSDLs/ExpeditorImportProcess.wsdl|WSDLs/InsertOrdersNew.wsdl|WSDLs/Order.wsdl|WSDLs/OrderPicking.wsdl|WSDLs/RuntimeFault.wsdl|WSDLs/WriteFile.wsdl">
+      <searchReplace>
+         <search/>
+         <replace/>
+      </searchReplace>
+   </wsdlAndSchema>
+</SOAConfigPlan>

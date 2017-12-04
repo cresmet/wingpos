@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dgm:gDiagram xmlns:dgm="http://xmlns.oracle.com/sca/soadgm">
+    <dgm:gService name="updateshipmentprocess_client_ep">
+        <dgm:body borderWidth="2" arcRad="20" X="21" Y="480" width="137" height="96">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="11" Y="473" width="156" height="110">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:outputPort name="updateshipmentprocess_client_ep" X="127" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/WingPOS/ExpeditorShipping/UpdateShipmentProcess#wsdl.interface(UpdateShipmentProcess)" callbackInterface="http://xmlns.oracle.com/WingPOS/ExpeditorShipping/UpdateShipmentProcess#wsdl.interface(UpdateShipmentProcessCallback)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/soap_service_20x20.png" X="20" Y="4" width="20" height="20"/>
+        <dgm:operations>
+            <dgm:item>process</dgm:item>
+            <dgm:item>processResponse</dgm:item>
+        </dgm:operations>
+    </dgm:gService>
+    <dgm:gService name="TrackingNumberPolling">
+        <dgm:body borderWidth="2" arcRad="20" X="21" Y="202" width="137" height="84">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="11" Y="195" width="156" height="98">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:outputPort name="TrackingNumberPolling" X="127" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorShipping/TrackingNumberPolling#wsdl.interface(TrackingNumberPolling_ptt)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/db_adapter_20x20.png" X="20" Y="4" width="20" height="20"/>
+        <dgm:operations>
+            <dgm:item>receive</dgm:item>
+        </dgm:operations>
+    </dgm:gService>
+    <dgm:gReference name="UpdateShipment">
+        <dgm:body borderWidth="2" arcRad="20" X="934" Y="262" width="136" height="84">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="924" Y="255" width="156" height="98">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="UpdateShipment" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/WingPOS/ExpeditorShipping/UpdateShipment#wsdl.interface(UpdateShipment_ptt)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/RestAdapterService20x20px.png" X="27" Y="4" width="20" height="20"/>
+        <dgm:operations>
+            <dgm:item>updateTracking</dgm:item>
+        </dgm:operations>
+    </dgm:gReference>
+    <dgm:gReference name="TrackingNumber">
+        <dgm:body borderWidth="2" arcRad="20" X="934" Y="582" width="136" height="84">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="924" Y="575" width="156" height="98">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="TrackingNumber" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorShipping/TrackingNumber#wsdl.interface(TrackingNumber_ptt)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/db_adapter_20x20.png" X="27" Y="4" width="20" height="20"/>
+        <dgm:operations>
+            <dgm:item>TrackingNumber</dgm:item>
+        </dgm:operations>
+    </dgm:gReference>
+    <dgm:gReference name="UpdateStagingTable">
+        <dgm:body borderWidth="2" arcRad="20" X="934" Y="700" width="136" height="84">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="924" Y="693" width="156" height="98">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="UpdateStagingTable" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorShipping/UpdateStagingTable#wsdl.interface(UpdateStagingTable_ptt)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/db_adapter_20x20.png" X="27" Y="4" width="20" height="20"/>
+        <dgm:operations>
+            <dgm:item>UpdateStagingTable</dgm:item>
+        </dgm:operations>
+    </dgm:gReference>
+    <dgm:gReference name="EmailNotification">
+        <dgm:body borderWidth="2" arcRad="20" X="934" Y="380" width="136" height="168">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="924" Y="373" width="156" height="182">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="EmailNotification" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/ias/pcbpel/NotificationService#wsdl.interface(NotificationService)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/soap_service_20x20.png" X="27" Y="4" width="20" height="20"/>
+        <dgm:operations>
+            <dgm:item>sendIMNotification</dgm:item>
+            <dgm:item>sendFaxNotification</dgm:item>
+            <dgm:item>sendVoiceNotification</dgm:item>
+            <dgm:item>sendSMSNotification</dgm:item>
+            <dgm:item>sendPagerNotification</dgm:item>
+            <dgm:item>sendURINotification</dgm:item>
+            <dgm:item>sendEmailNotification</dgm:item>
+            <dgm:item>sendNotificationToUser</dgm:item>
+            <dgm:item>sendNotificationToGroup</dgm:item>
+        </dgm:operations>
+    </dgm:gReference>
+    <dgm:gReference name="RollbackTBL">
+        <dgm:body borderWidth="2" arcRad="20" X="934" Y="26" width="136" height="84">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="924" Y="19" width="156" height="98">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="RollbackTBL" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorShipping/RollbackTBL#wsdl.interface(RollbackTBL_ptt)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/db_adapter_20x20.png" X="27" Y="4" width="20" height="20"/>
+        <dgm:operations>
+            <dgm:item>RollbackTBL</dgm:item>
+        </dgm:operations>
+    </dgm:gReference>
+    <dgm:gReference name="UpdateTBLNEW">
+        <dgm:body borderWidth="2" arcRad="20" X="934" Y="144" width="136" height="84">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="924" Y="137" width="156" height="98">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="UpdateTBLNEW" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorShipping/UpdateTBLNEW#wsdl.interface(UpdateTBLNEW_ptt)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/db_adapter_20x20.png" X="27" Y="4" width="20" height="20"/>
+        <dgm:operations>
+            <dgm:item>update</dgm:item>
+        </dgm:operations>
+    </dgm:gReference>
+    <dgm:gComponent name="UpdateShipmentProcess">
+        <dgm:body borderWidth="2" arcRad="20" X="582" Y="465" width="130" height="136">
+            <dgm:borderColor r="69" g="113" b="140"/>
+            <dgm:lightBgColor r="166" g="208" b="230"/>
+            <dgm:darkBgColor r="99" g="162" b="201"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="572" Y="458" width="150" height="152">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="updateshipmentprocess_client" X="-10" Y="15" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/WingPOS/ExpeditorShipping/UpdateShipmentProcess#wsdl.interface(UpdateShipmentProcess)" callbackInterface="http://xmlns.oracle.com/WingPOS/ExpeditorShipping/UpdateShipmentProcess#wsdl.interface(UpdateShipmentProcessCallback)"/>
+        <dgm:inputPort name="TrackingNumberPolling" X="-10" Y="40" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorShipping/TrackingNumberPolling#wsdl.interface(TrackingNumberPolling_ptt)"/>
+        <dgm:outputPort name="UpdateShipment" X="120" Y="15" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/WingPOS/ExpeditorShipping/UpdateShipment#wsdl.interface(UpdateShipment_ptt)"/>
+        <dgm:outputPort name="TrackingNumber" X="120" Y="40" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorShipping/TrackingNumber#wsdl.interface(TrackingNumber_ptt)"/>
+        <dgm:outputPort name="UpdateStagingTable" X="120" Y="65" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorShipping/UpdateStagingTable#wsdl.interface(UpdateStagingTable_ptt)"/>
+        <dgm:outputPort name="EmailNotification" X="120" Y="90" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/ias/pcbpel/NotificationService#wsdl.interface(NotificationService)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/bpel/shared/plugins/resources/images/soa/process_20x20.png" X="10" Y="4" width="20" height="20"/>
+    </dgm:gComponent>
+    <dgm:gComponent name="TrackingNumberPollingProcess">
+        <dgm:body borderWidth="2" arcRad="20" X="582" Y="187" width="130" height="136">
+            <dgm:borderColor r="69" g="113" b="140"/>
+            <dgm:lightBgColor r="166" g="208" b="230"/>
+            <dgm:darkBgColor r="99" g="162" b="201"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="572" Y="180" width="150" height="152">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="TrackingNumberPolling" X="-10" Y="15" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorShipping/TrackingNumberPolling#wsdl.interface(TrackingNumberPolling_ptt)"/>
+        <dgm:outputPort name="UpdateShipment" X="120" Y="15" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/WingPOS/ExpeditorShipping/UpdateShipment#wsdl.interface(UpdateShipment_ptt)"/>
+        <dgm:outputPort name="EmailNotification" X="120" Y="40" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/ias/pcbpel/NotificationService#wsdl.interface(NotificationService)"/>
+        <dgm:outputPort name="RollbackTBL" X="120" Y="65" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorShipping/RollbackTBL#wsdl.interface(RollbackTBL_ptt)"/>
+        <dgm:outputPort name="UpdateTBLNEW" X="120" Y="90" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorShipping/UpdateTBLNEW#wsdl.interface(UpdateTBLNEW_ptt)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/bpel/shared/plugins/resources/images/soa/process_20x20.png" X="10" Y="4" width="20" height="20"/>
+    </dgm:gComponent>
+    <dgm:gWireLink source="updateshipmentprocess_client_ep" target="UpdateShipmentProcess/updateshipmentprocess_client" width="2">
+        <dgm:gSegment X1="168" Y1="490" X2="572" Y2="490"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+    <dgm:gWireLink source="UpdateShipmentProcess/UpdateShipment" target="UpdateShipment" width="2">
+        <dgm:gSegment X1="722" Y1="490" X2="776" Y2="490"/>
+        <dgm:gSegment X1="776" Y1="490" X2="776" Y2="272"/>
+        <dgm:gSegment X1="776" Y1="272" X2="924" Y2="272"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+    <dgm:gWireLink source="UpdateShipmentProcess/TrackingNumber" target="TrackingNumber" width="2">
+        <dgm:gSegment X1="722" Y1="515" X2="821" Y2="515"/>
+        <dgm:gSegment X1="821" Y1="515" X2="821" Y2="592"/>
+        <dgm:gSegment X1="821" Y1="592" X2="924" Y2="592"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+    <dgm:gWireLink source="UpdateShipmentProcess/UpdateStagingTable" target="UpdateStagingTable" width="2">
+        <dgm:gSegment X1="722" Y1="540" X2="806" Y2="540"/>
+        <dgm:gSegment X1="806" Y1="540" X2="806" Y2="710"/>
+        <dgm:gSegment X1="806" Y1="710" X2="924" Y2="710"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+    <dgm:gWireLink source="TrackingNumberPolling" target="TrackingNumberPollingProcess/TrackingNumberPolling" width="2">
+        <dgm:gSegment X1="168" Y1="212" X2="572" Y2="212"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+    <dgm:gWireLink source="TrackingNumberPollingProcess/UpdateShipment" target="UpdateShipment" width="2">
+        <dgm:gSegment X1="722" Y1="212" X2="821" Y2="212"/>
+        <dgm:gSegment X1="821" Y1="212" X2="821" Y2="272"/>
+        <dgm:gSegment X1="821" Y1="272" X2="924" Y2="272"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+    <dgm:gWireLink source="TrackingNumberPollingProcess/EmailNotification" target="EmailNotification" width="2">
+        <dgm:gSegment X1="722" Y1="237" X2="806" Y2="237"/>
+        <dgm:gSegment X1="806" Y1="237" X2="806" Y2="390"/>
+        <dgm:gSegment X1="806" Y1="390" X2="924" Y2="390"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+    <dgm:gWireLink source="TrackingNumberPollingProcess/RollbackTBL" target="RollbackTBL" width="2">
+        <dgm:gSegment X1="722" Y1="262" X2="746" Y2="262"/>
+        <dgm:gSegment X1="746" Y1="262" X2="746" Y2="36"/>
+        <dgm:gSegment X1="746" Y1="36" X2="924" Y2="36"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+    <dgm:gWireLink source="TrackingNumberPollingProcess/UpdateTBLNEW" target="UpdateTBLNEW" width="2">
+        <dgm:gSegment X1="722" Y1="287" X2="761" Y2="287"/>
+        <dgm:gSegment X1="761" Y1="287" X2="761" Y2="154"/>
+        <dgm:gSegment X1="761" Y1="154" X2="924" Y2="154"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+    <dgm:gWireLink source="UpdateShipmentProcess/EmailNotification" target="EmailNotification" width="2">
+        <dgm:gSegment X1="722" Y1="565" X2="791" Y2="565"/>
+        <dgm:gSegment X1="791" Y1="565" X2="791" Y2="390"/>
+        <dgm:gSegment X1="791" Y1="390" X2="924" Y2="390"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+</dgm:gDiagram>

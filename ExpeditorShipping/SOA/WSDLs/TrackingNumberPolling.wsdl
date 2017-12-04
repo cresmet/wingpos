@@ -1,0 +1,69 @@
+<wsdl:definitions
+     name="TrackingNumberPolling"
+     targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorShipping/TrackingNumberPolling"
+     xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorShipping/TrackingNumberPolling"
+     xmlns:jca="http://xmlns.oracle.com/pcbpel/wsdl/jca/"
+     xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:pc="http://xmlns.oracle.com/pcbpel/"
+     xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/TrackingNumberPolling"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+  <plt:partnerLinkType name="TrackingNumberPolling_plt" >
+    <plt:role name="TrackingNumberPolling_role" >
+      <plt:portType name="tns:TrackingNumberPolling_ptt" />
+    </plt:role>
+  </plt:partnerLinkType>
+  <plt:partnerLinkType name="TrackingNumberPolling_plt" >
+    <plt:role name="TrackingNumberPolling_role" >
+      <plt:portType name="tns:TrackingNumberPolling_ptt" />
+    </plt:role>
+  </plt:partnerLinkType>
+  <plt:partnerLinkType name="TrackingNumberPolling_plt" >
+    <plt:role name="TrackingNumberPolling_role" >
+      <plt:portType name="tns:TrackingNumberPolling_ptt" />
+    </plt:role>
+  </plt:partnerLinkType>
+  <plt:partnerLinkType name="TrackingNumberPolling_plt" >
+    <plt:role name="TrackingNumberPolling_role" >
+      <plt:portType name="tns:TrackingNumberPolling_ptt" />
+    </plt:role>
+  </plt:partnerLinkType>
+  <plt:partnerLinkType name="TrackingNumberPolling_plt" >
+    <plt:role name="TrackingNumberPolling_role" >
+      <plt:portType name="tns:TrackingNumberPolling_ptt" />
+    </plt:role>
+  </plt:partnerLinkType>
+  <plt:partnerLinkType name="TrackingNumberPolling_plt" >
+    <plt:role name="TrackingNumberPolling_role" >
+      <plt:portType name="tns:TrackingNumberPolling_ptt" />
+    </plt:role>
+  </plt:partnerLinkType>
+  <plt:partnerLinkType name="TrackingNumberPolling_plt" >
+    <plt:role name="TrackingNumberPolling_role" >
+      <plt:portType name="tns:TrackingNumberPolling_ptt" />
+    </plt:role>
+  </plt:partnerLinkType>
+  <plt:partnerLinkType name="TrackingNumberPolling_plt" >
+    <plt:role name="TrackingNumberPolling_role" >
+      <plt:portType name="tns:TrackingNumberPolling_ptt" />
+    </plt:role>
+  </plt:partnerLinkType>
+  <plt:partnerLinkType name="TrackingNumberPolling_plt" >
+    <plt:role name="TrackingNumberPolling_role" >
+      <plt:portType name="tns:TrackingNumberPolling_ptt" />
+    </plt:role>
+  </plt:partnerLinkType>
+    <wsdl:types>
+      <schema xmlns="http://www.w3.org/2001/XMLSchema" >
+        <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/TrackingNumberPolling" schemaLocation="../Schemas/TrackingNumberPolling_table.xsd" />
+      </schema>
+    </wsdl:types>
+    <wsdl:message name="SbcExpeditorShipconfirmCollection_msg">
+        <wsdl:part name="SbcExpeditorShipconfirmCollection" element="top:SbcExpeditorShipconfirmCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="TrackingNumberPolling_ptt">
+        <wsdl:operation name="receive">
+            <wsdl:input message="tns:SbcExpeditorShipconfirmCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

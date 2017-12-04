@@ -1,0 +1,23 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://schema.ibd.specialized.com/pos/wing/picking"
+            targetNamespace="http://schema.ibd.specialized.com/pos/wing/picking" elementFormDefault="qualified"
+            xmlns:nxsd="http://xmlns.oracle.com/pcbpel/nxsd" nxsd:version="JSON" nxsd:encoding="US-ASCII">
+  <xsd:element name="PickResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Code" type="xsd:integer"/>
+        <xsd:element name="Message" type="xsd:string"/>
+        <xsd:element name="SubMessage"/>
+        <xsd:element name="TableDisplayName"/>
+        <xsd:element name="SearchDate"/>
+        <xsd:element name="TotalCount" type="xsd:integer"/>
+        <xsd:element name="Rows"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:annotation xmlns="">
+    <xsd:appinfo>NXSDSAMPLE=</xsd:appinfo>
+    <xsd:appinfo>USEHEADER=false</xsd:appinfo>
+  </xsd:annotation>
+</xsd:schema>

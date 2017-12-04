@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+        targetNamespace="http://ibd.specialized.com/WingPOS/ExpeditorImport/ExpeditorImportProcess"
+        xmlns="http://www.w3.org/2001/XMLSchema">
+  <element name="process">
+    <complexType>
+      <sequence>
+        <element name="StartDate" type="string" nillable="true" minOccurs="0"/>
+        <element name="PickOrders" type="string" nillable="false" minOccurs="1"/>
+        <element name="GenerateFile" type="string" nillable="false" minOccurs="1"/>
+        <element name="Status" type="integer" nillable="true" minOccurs="0"/>
+        <element name="OrderID" type="integer" nillable="true" minOccurs="0"/>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="processResponse">
+    <complexType>
+      <sequence>
+        <element name="Result" type="string"/>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="UserFault">
+    <complexType>
+      <sequence>
+        <element name="code" type="string"/>
+        <element name="summary" type="string"/>
+        <element name="detail" type="string"/>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="flowID" type="integer"/>
+</schema>

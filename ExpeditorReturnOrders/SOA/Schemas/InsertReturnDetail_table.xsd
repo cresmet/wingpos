@@ -1,0 +1,36 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertReturnDetail"
+           xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertReturnDetail" elementFormDefault="qualified"
+           attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="SbcCnPoOutboundDetailCollection" type="SbcCnPoOutboundDetailCollection"/>
+  <xs:complexType name="SbcCnPoOutboundDetailCollection">
+    <xs:sequence>
+      <xs:element name="SbcCnPoOutboundDetail" type="SbcCnPoOutboundDetail" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SbcCnPoOutboundDetail">
+    <xs:sequence>
+      <xs:element name="dossierNumber" type="xs:decimal" minOccurs="0" nillable="true"/>
+      <xs:element name="shipmentHeaderId" type="xs:decimal" minOccurs="0" nillable="true"/>
+      <xs:element name="lineNumber" type="xs:decimal" minOccurs="0" nillable="true"/>
+      <xs:element name="itemNum" type="string40" minOccurs="0" nillable="true"/>
+      <xs:element name="quantity" type="xs:decimal" minOccurs="0" nillable="true"/>
+      <xs:element name="comments" type="string240" minOccurs="0" nillable="true"/>
+      <xs:element name="lastUpdateDate" type="xs:dateTime" minOccurs="0" nillable="true"/>
+      <xs:element name="lastUpdatedBy" type="xs:decimal" minOccurs="0" nillable="true"/>
+      <xs:element name="lastUpdateLogin" type="xs:decimal" minOccurs="0" nillable="true"/>
+      <xs:element name="creationDate" type="xs:dateTime" minOccurs="0" nillable="true"/>
+      <xs:element name="createdBy" type="xs:decimal" minOccurs="0" nillable="true"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="string40">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="40"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="string240">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="240"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

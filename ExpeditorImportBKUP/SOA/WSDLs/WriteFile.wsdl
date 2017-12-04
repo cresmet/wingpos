@@ -1,0 +1,29 @@
+<wsdl:definitions
+     name="WriteFile"
+     targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/ftp/WingPOS/ExpeditorImport/WriteFile"
+     xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/ftp/WingPOS/ExpeditorImport/WriteFile"
+     xmlns:jca="http://xmlns.oracle.com/pcbpel/wsdl/jca/"
+     xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:imp1="http://schema.ibd.specialized.com/pos/wing/order/file"
+    >
+  <plt:partnerLinkType name="WriteFile_plt" >
+    <plt:role name="WriteFile_role" >
+      <plt:portType name="tns:WriteFile_ptt" />
+    </plt:role>
+  </plt:partnerLinkType>
+    <wsdl:types>
+      <schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/ftp/WingPOS/ExpeditorImport/WriteFile"
+              xmlns="http://www.w3.org/2001/XMLSchema" >
+        <import namespace="http://schema.ibd.specialized.com/pos/wing/order/file" schemaLocation="../Schemas/nxsd_file_data.xsd" />
+      </schema>
+    </wsdl:types>
+    <wsdl:message name="WriteFile_msg">
+        <wsdl:part name="body" element="imp1:Orders"/>
+    </wsdl:message>
+    <wsdl:portType name="WriteFile_ptt">
+        <wsdl:operation name="orders">
+            <wsdl:input message="tns:WriteFile_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

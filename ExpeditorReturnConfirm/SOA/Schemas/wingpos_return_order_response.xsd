@@ -1,0 +1,71 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schema.ibd.specialized.com/pos/wing/return"
+            targetNamespace="http://schema.ibd.specialized.com/pos/wing/return" elementFormDefault="qualified"
+            xmlns:nxsd="http://xmlns.oracle.com/pcbpel/nxsd" nxsd:version="JSON" nxsd:encoding="US-ASCII">
+  <xsd:element name="ReturnOrderResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Code" type="xsd:integer"/>
+        <xsd:element name="Message" type="xsd:string"/>
+        <xsd:element name="SubMessage"/>
+        <xsd:element name="TableDisplayName"/>
+        <xsd:element name="SearchDate" type="xsd:string"/>
+        <xsd:element name="TotalCount" type="xsd:integer"/>
+        <xsd:element name="Rows">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="TotalCount">
+                <xsd:complexType>
+                  <xsd:sequence>
+                    <xsd:element name="TotalCount" type="xsd:integer"/>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element name="ReturnOrders" maxOccurs="unbounded">
+                <xsd:complexType>
+                  <xsd:sequence>
+                    <xsd:element name="Id" type="xsd:integer"/>
+                    <xsd:element name="RefundType" type="xsd:integer"/>
+                    <xsd:element name="Status" type="xsd:integer"/>
+                    <xsd:element name="ReceivName" type="xsd:string"/>
+                    <xsd:element name="ReceivMobile" type="xsd:string"/>
+                    <xsd:element name="Created" type="xsd:date"/>
+                    <xsd:element name="ShopId" type="xsd:integer"/>
+                    <xsd:element name="Sid" type="xsd:string"/>
+                    <xsd:element name="OriginalOrderNo" type="xsd:integer"/>
+                    <xsd:element name="DrpStoreName" type="xsd:string"/>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element name="ReturnOrderProducts" maxOccurs="unbounded">
+                <xsd:complexType>
+                  <xsd:sequence>
+                    <xsd:element name="Id" type="xsd:integer"/>
+                    <xsd:element name="Title" type="xsd:string"/>
+                    <xsd:element name="ProductCode" type="xsd:integer"/>
+                    <xsd:element name="Sku" type="xsd:string"/>
+                    <xsd:element name="NormsDetailNames" type="xsd:string"/>
+                    <xsd:element name="Price" type="xsd:integer"/>
+                    <xsd:element name="AdjustAmount" type="xsd:integer"/>
+                    <xsd:element name="Num" type="xsd:integer"/>
+                    <xsd:element name="Refund_fee" type="xsd:integer"/>
+                    <xsd:element name="RefundNum" type="xsd:integer"/>
+                    <xsd:element name="InStoreNum" type="xsd:integer"/>
+                    <xsd:element name="IsReturnGoods" type="xsd:string"/>
+                    <xsd:element name="OMSRefundOrderId" type="xsd:integer"/>
+                    <xsd:element name="CreationDate" type="xsd:string"/>
+                    <xsd:element name="ModifiedDate" type="xsd:string"/>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:annotation xmlns="">
+    <xsd:appinfo>NXSDSAMPLE=</xsd:appinfo>
+    <xsd:appinfo>USEHEADER=false</xsd:appinfo>
+  </xsd:annotation>
+</xsd:schema>

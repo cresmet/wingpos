@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+            targetNamespace="http://schema.ibd.specialized.com/pos/wing/return"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schema.ibd.specialized.com/pos/wing/return">
+  <xsd:element name="ReturnReceiptRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="APP_KEY" type="xsd:string"/>
+        <xsd:element name="METHOD" type="xsd:string"/>
+        <xsd:element name="TIMESTAMP" type="xsd:string"/>
+        <xsd:element name="V" type="xsd:integer"/>
+        <xsd:element name="SIGN" type="xsd:string"/>
+        <xsd:element name="ADDPARAMS" type="xsd:string"/>
+        <!--xsd:element name="ADDPARAMS" type="tns:AddParamsType"/-->
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="AddParamsType">
+    <xsd:sequence>
+      <xsd:element name="ReceivName" type="xsd:string"/>
+      <xsd:element name="OriginalOrderNo" type="xsd:integer"/>
+      <xsd:element name="ReceivMobile" type="xsd:integer"/>
+      <xsd:element name="OMSStorageInProduct">
+        <xsd:complexType>
+          <xsd:sequence maxOccurs="unbounded">
+            <xsd:element name="Num" type="xsd:integer"/>
+            <xsd:element name="ROWSTATUS" type="xsd:string"/>
+            <xsd:element name="Sku" type="xsd:string"/>
+            <xsd:element name="Title" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="IESStoreId" type="xsd:integer"/>
+      <xsd:element name="ROWSTATUS" type="xsd:string"/>
+      <xsd:element name="OMSRefundOrderId" type="xsd:integer"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

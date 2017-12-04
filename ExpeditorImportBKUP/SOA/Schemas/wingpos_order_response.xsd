@@ -1,0 +1,108 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+xmlns="http://schema.ibd.specialized.com/pos/wing/order" 
+targetNamespace="http://schema.ibd.specialized.com/pos/wing/order" elementFormDefault="qualified" 
+xmlns:nxsd="http://xmlns.oracle.com/pcbpel/nxsd" nxsd:version="JSON" nxsd:encoding="US-ASCII">
+   <xsd:element name="OrderResponse">
+      <xsd:complexType>
+         <xsd:sequence>
+            <xsd:element name="Code" type="xsd:integer"/>
+            <xsd:element name="Message" type="xsd:string"/>
+            <xsd:element name="SubMessage"/>
+            <xsd:element name="TableDisplayName"/>
+            <xsd:element name="SearchDate" type="xsd:string"/>
+            <xsd:element name="TotalCount" type="xsd:integer"/>
+            <xsd:element name="Rows">
+               <xsd:complexType>
+                  <xsd:sequence>
+                     <xsd:element name="TotalCount">
+                        <xsd:complexType>
+                           <xsd:sequence>
+                              <xsd:element name="TotalCount" type="xsd:integer"/>
+                           </xsd:sequence>
+                        </xsd:complexType>
+                     </xsd:element>
+                     <xsd:element name="Orders" maxOccurs="unbounded">
+                        <xsd:complexType>
+                           <xsd:sequence>
+                              <xsd:element name="Id" type="xsd:integer"/>
+                              <xsd:element name="SourceCode" type="xsd:integer"/>
+                              <xsd:element name="OrderStatus" type="xsd:integer"/>
+                              <xsd:element name="OrderDate" type="xsd:date"/>
+                              <xsd:element name="OrderAmount" type="xsd:integer"/>
+                              <xsd:element name="OrderShopName" type="xsd:string"/>
+                              <xsd:element name="OrderShopId" type="xsd:integer"/>
+                              
+                              <xsd:element name="ShipperId" type="xsd:integer"/>
+                              <xsd:element name="LogisticsNumber"/>
+                              <xsd:element name="ShipperName" type="xsd:string"/>
+                              <xsd:element name="ShipperCode" type="xsd:string"/>
+                              <xsd:element name="ShipAmount" type="xsd:integer"/>
+                              
+                              <xsd:element name="ShortAddress" type="xsd:string"/>
+                              <xsd:element name="ReceivedAmount" type="xsd:integer"/>
+                              <xsd:element name="ReceivName" type="xsd:string"/>
+                              <xsd:element name="ReceivAddress" type="xsd:string"/>
+                              <xsd:element name="ReceivAreaName" type="xsd:string"/>
+                              <xsd:element name="ReceivCityName" type="xsd:string"/>
+                              <xsd:element name="ReceivProvinceName" type="xsd:string"/>
+                              <xsd:element name="ReceivZip" type="xsd:string"/>
+                              <xsd:element name="ReceivPhone" type="xsd:string"/>
+                              <xsd:element name="ReceivMobile" type="xsd:string"/>
+                              <xsd:element name="ProductAmount" type="xsd:integer"/>
+                              <xsd:element name="CodAmount" type="xsd:integer"/>
+                              <xsd:element name="PayType" type="xsd:integer"/>
+                              <xsd:element name="PlatForm" type="xsd:integer"/>
+                              <xsd:element name="ModifiedDate" type="xsd:date"/>
+                              <xsd:element name="ModifierId" type="xsd:string"/>
+                              <xsd:element name="IsInterecept" type="xsd:boolean"/>
+                              <xsd:element name="BuyerMessage" type="xsd:string"/>
+                              <xsd:element name="SellerMemo" type="xsd:string"/>
+                              <xsd:element name="InSideRemark" type="xsd:string"/>
+                              <xsd:element name="InvoiceHeader" type="xsd:string"/>
+                              <xsd:element name="InvoiceContent" type="xsd:string"/>
+                              <xsd:element name="PreSaleStatus" type="xsd:integer"/>
+                              <xsd:element name="AuditTime" type="xsd:date"/>
+                              <xsd:element name="ExtendText" type="xsd:string"/>
+                              <xsd:element name="DrpStoreName" type="xsd:string"/>
+                              <xsd:element name="ShopTitle" type="xsd:string"/>
+                              <xsd:element name="SendStoreCode" type="xsd:string"/>
+                              <xsd:element name="InvoiceContent" type="xsd:string"/>
+                           </xsd:sequence>
+                        </xsd:complexType>
+                     </xsd:element>
+                     <xsd:element name="OrderProducts" maxOccurs="unbounded">
+                        <xsd:complexType>
+                           <xsd:sequence>
+                              <xsd:element name="Id" type="xsd:integer"/>
+                              <xsd:element name="Num" type="xsd:integer"/>
+                              <xsd:element name="RefundId" type="xsd:integer"/>
+                              <xsd:element name="RefundStatus" type="xsd:integer"/>
+                              <xsd:element name="RefundQty" type="xsd:integer"/>
+                              <xsd:element name="OMSOnlineOrderId" type="xsd:integer"/>
+                              <xsd:element name="BuyerUsedJifen" type="xsd:integer"/>
+                              <xsd:element name="AdjustAmount" type="xsd:integer"/>
+                              <xsd:element name="DiscountAmount" type="xsd:integer"/>
+                              <xsd:element name="Price" type="xsd:integer"/>
+                              <xsd:element name="StandardPrice" type="xsd:integer"/>
+                              <xsd:element name="StandardWeight" type="xsd:integer"/>
+                              <xsd:element name="Sku" type="xsd:string"/>
+                              <xsd:element name="Title" type="xsd:string"/>
+                              <xsd:element name="SkuSpec" type="xsd:string"/>
+                              <xsd:element name="ProductCode" type="xsd:integer"/>
+                              <xsd:element name="AverageDiscount" type="xsd:integer"/>
+                              <xsd:element name="RealAmount" type="xsd:integer"/>
+                           </xsd:sequence>
+                        </xsd:complexType>
+                     </xsd:element>
+                  </xsd:sequence>
+               </xsd:complexType>
+            </xsd:element>
+         </xsd:sequence>
+      </xsd:complexType>
+   </xsd:element>
+<xsd:annotation xmlns="">
+      <xsd:appinfo>NXSDSAMPLE=</xsd:appinfo>
+      <xsd:appinfo>USEHEADER=false</xsd:appinfo>
+   </xsd:annotation>
+</xsd:schema>

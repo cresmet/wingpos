@@ -1,0 +1,25 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<application xmlns:soa="http://www.oracle.com/soa/rest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://xmlns.oracle.com/WingPOS/ExpeditorShipping/UpdateShipment" xmlns="http://wadl.dev.java.net/2009/02">
+   <doc title="UpdateShipment">RestReference</doc>
+   <grammars>
+      <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://TargetNamespace.com/UpdateShipment_updateTracking_request" schemaLocation="../Schemas/wingpos_updateShipment_request.xsd"/>
+        </xsd:schema>
+      <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://TargetNamespace.com/UpdateShipment_updateTracking_response" schemaLocation="../Schemas/wingpos_updateShipment_response.xsd"/>
+        </xsd:schema>
+   </grammars>
+   <resources>
+      <resource path="/api/rest/WingApi">
+         <method name="POST" soa:wsdlOperation="updateTracking">
+            <request>
+               <representation mediaType="application/x-www-form-urlencoded" element="cns:ShipmentUpdateRequest" xmlns:cns="http://TargetNamespace.com/UpdateShipment_updateTracking_request"/>
+            </request>
+            <response status="200">
+               <representation mediaType="application/xml" element="cns:ShipmentUpdateResponse" xmlns:cns="http://TargetNamespace.com/UpdateShipment_updateTracking_response"/>
+               <representation mediaType="application/json" element="cns:ShipmentUpdateResponse" xmlns:cns="http://TargetNamespace.com/UpdateShipment_updateTracking_response"/>
+            </response>
+         </method>
+      </resource>
+   </resources>
+</application>

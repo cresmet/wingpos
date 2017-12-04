@@ -1,0 +1,55 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+   <entry key="root_descriptor_alias">SBC.SBC_CN_PO_OUTBOUND_DETAIL</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL.SHIPMENT_HEADER_ID:db_column_scale">0</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL.CREATED_BY:db_column_scale">0</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL.LAST_UPDATE_LOGIN:db_column_scale">0</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL.CREATED_BY:db_column_precision">38</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL.LINE_NUMBER:db_column_scale">0</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL.COMMENTS:db_column_not_null">false</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL.LINE_NUMBER:db_column_precision">38</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL.LINE_NUMBER:db_column_type">NUMBER</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL.CREATED_BY:db_column_not_null">false</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL.QUANTITY:db_column_precision">38</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL.LINE_NUMBER:db_column_not_null">false</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL.LAST_UPDATE_LOGIN:db_column_type">NUMBER</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL:db_table_type">TABLE</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL:db_column_10">CREATED_BY</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL.DOSSIER_NUMBER:db_column_not_null">false</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL.LAST_UPDATED_BY:db_column_type">NUMBER</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL.QUANTITY:db_column_scale">0</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL.LAST_UPDATE_DATE:db_column_not_null">false</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL.LAST_UPDATE_LOGIN:db_column_precision">38</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL.ITEM_NUM:db_column_not_null">false</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL.CREATION_DATE:db_column_not_null">false</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL.LAST_UPDATE_DATE:db_column_type">DATE</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL:db_column_9">CREATION_DATE</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL.COMMENTS:db_column_type">VARCHAR2</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL.ITEM_NUM:db_column_type">VARCHAR2</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL.QUANTITY:db_column_type">NUMBER</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL:db_column_8">LAST_UPDATE_LOGIN</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL:db_column_7">LAST_UPDATED_BY</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL:db_column_6">LAST_UPDATE_DATE</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL.CREATION_DATE:db_column_type">DATE</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL.LAST_UPDATED_BY:db_column_not_null">false</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL:db_column_5">COMMENTS</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL.DOSSIER_NUMBER:db_column_scale">0</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL:db_column_4">QUANTITY</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL.CREATED_BY:db_column_type">NUMBER</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL:db_column_3">ITEM_NUM</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL:db_column_2">LINE_NUMBER</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL:db_column_1">SHIPMENT_HEADER_ID</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL:db_column_0">DOSSIER_NUMBER</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL.LAST_UPDATE_LOGIN:db_column_not_null">false</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL.ITEM_NUM:db_column_size">40</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL.COMMENTS:db_column_size">240</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL.SHIPMENT_HEADER_ID:db_column_not_null">false</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL.SHIPMENT_HEADER_ID:db_column_precision">38</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL.QUANTITY:db_column_not_null">false</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL.DOSSIER_NUMBER:db_column_type">NUMBER</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL.LAST_UPDATED_BY:db_column_precision">38</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL.DOSSIER_NUMBER:db_column_precision">38</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL.SHIPMENT_HEADER_ID:db_column_type">NUMBER</entry>
+   <entry key="SBC.SBC_CN_PO_OUTBOUND_DETAIL.LAST_UPDATED_BY:db_column_scale">0</entry>
+</properties>

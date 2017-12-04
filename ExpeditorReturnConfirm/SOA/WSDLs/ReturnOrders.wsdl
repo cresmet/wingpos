@@ -1,0 +1,34 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions name="ReturnOrders"
+                  targetNamespace="http://xmlns.oracle.com/WingPOS/ExpeditorReturnOrders/ReturnOrders"
+                  xmlns:tns="http://xmlns.oracle.com/WingPOS/ExpeditorReturnOrders/ReturnOrders"
+                  xmlns:inp1="http://schema.ibd.specialized.com/pos/wing/return"
+                  xmlns:inp2="http://schema.ibd.specialized.com/pos/wing/return"
+                  xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <plnk:partnerLinkType name="ReturnOrders">
+    <plnk:role name="ReturnOrdersProvider" portType="tns:ReturnOrders_ptt"/>
+  </plnk:partnerLinkType>
+  <wsdl:types>
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:import namespace="http://schema.ibd.specialized.com/pos/wing/return"
+                  schemaLocation="../Schemas/wingpos_return_order_request.xsd"/>
+    </xsd:schema>
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:import namespace="http://schema.ibd.specialized.com/pos/wing/return"
+                  schemaLocation="../Schemas/wingpos_return_order_response.xsd"/>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="Orders_inputMessage">
+    <wsdl:part name="request" element="inp1:ReturnOrderRequest"/>
+  </wsdl:message>
+  <wsdl:message name="Orders_outputMessage">
+    <wsdl:part name="reply" element="inp2:ReturnOrderResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="ReturnOrders_ptt">
+    <wsdl:operation name="Orders">
+      <wsdl:input message="tns:Orders_inputMessage"/>
+      <wsdl:output message="tns:Orders_outputMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

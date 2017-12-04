@@ -1,0 +1,59 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nxsd="http://xmlns.oracle.com/pcbpel/nxsd" 
+xmlns:tns="http://schema.ibd.specialized.com/pos/wing/order/file" 
+targetNamespace="http://schema.ibd.specialized.com/pos/wing/order/file" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" nxsd:version="NXSD" nxsd:stream="chars" nxsd:encoding="UTF-8">
+
+
+  <xsd:element name="Orders">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Order" minOccurs="0" maxOccurs="unbounded">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="WAYBILL" type="xsd:string" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <xsd:element name="LINE_NUMBER" type="xsd:string" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <xsd:element name="INDUSTRY_STANDARD_COD" type="xsd:string" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <xsd:element name="SEGMENT1" type="xsd:string" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <xsd:element name="DESCRIPTION_JA" type="xsd:string" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <xsd:element name="QUANTITY" type="xsd:int" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <xsd:element name="CUSTOMER_NUMBER" type="xsd:string" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <xsd:element name="SHIP_TO_ORG_ID" type="xsd:string" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <xsd:element name="CUSTOMER_NAME" type="xsd:string" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <xsd:element name="SHIP_TO_ADDRESS1" type="xsd:string" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <xsd:element name="SHIP_TO_ADDRESS2" type="xsd:string" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <xsd:element name="SHIP_TO_CITY" type="xsd:string" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <xsd:element name="SHIP_TO_STATE" type="xsd:string" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <xsd:element name="SHIP_TO_POSTAL_CODE" type="xsd:string" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <xsd:element name="SHIP_TO_COUNTRY" type="xsd:string" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <xsd:element name="SHIP_TO_CONTACT" type="xsd:string" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <xsd:element name="SHIP_TO_PHONE" type="xsd:string" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <xsd:element name="SELLING_PRICE" type="xsd:string" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <xsd:element name="LIST_PRICE" type="xsd:string" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <xsd:element name="LINE_TOTAL_AMOUNT" type="xsd:string" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <xsd:element name="ORDER_TOTAL_AMOUNT" type="xsd:string" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <xsd:element name="CUST_PO_NUMBER" type="xsd:string" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <xsd:element name="REQUEST_DATE" type="xsd:string" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <xsd:element name="PROMISED_DATE" type="xsd:string" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <xsd:element name="HEADER_NOTE" type="xsd:string" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <!--xsd:element name="LINE_NOTE" type="xsd:string" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/-->
+              <xsd:element name="ORDER_NUMBER" type="xsd:int" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <xsd:element name="ORDER_LINE_NUMBER" type="xsd:int" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <xsd:element name="ITEM_TYPE" type="xsd:string" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <xsd:element name="SHIP_METHOD" type="xsd:string" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <xsd:element name="ORDER_CLASS" type="xsd:string" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <xsd:element name="CUSTOMR_PHONE" type="xsd:string" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <xsd:element name="SHIP_TO_NAME" type="xsd:string" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="\t" nxsd:quotedBy="&quot;"/>
+              <xsd:element name="FREIGHT_AMOUNT" type="xsd:integer" minOccurs="0" nxsd:style="terminated" nxsd:terminatedBy="${eol}" nxsd:quotedBy="&quot;"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+<xsd:annotation>
+      <xsd:appinfo>NXSDSAMPLE=/C:/Users/ssanagala/Desktop/SBC/SBC_SOA/WingPOS/ODR0000036435.TXT</xsd:appinfo>
+      <xsd:appinfo>USEHEADER=false</xsd:appinfo>
+   </xsd:annotation>
+</xsd:schema>

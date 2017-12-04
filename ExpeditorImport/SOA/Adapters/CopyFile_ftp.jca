@@ -1,0 +1,12 @@
+<adapter-config name="CopyFile" adapter="ftp" wsdlLocation="../WSDLs/CopyFile.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  <connection-factory location="eid/ftp/expeditors"/>
+  <endpoint-interaction portType="CopyOrders_ptt" operation="CopyOrders">
+    <interaction-spec className="oracle.tip.adapter.ftp.outbound.FTPIoInteractionSpec">
+      <property name="SourcePhysicalDirectory" value="sourceDirectory"/>
+      <property name="SourceFileName" value="sourceFileName"/>
+      <property name="TargetPhysicalDirectory" value="targetDirectory"/>
+      <property name="TargetFileName" value="targetFileName"/>
+      <property name="Type" value="COPY"/>      
+    </interaction-spec>
+  </endpoint-interaction>
+</adapter-config>

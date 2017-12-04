@@ -1,0 +1,33 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<application xmlns:soa="http://www.oracle.com/soa/rest" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:tns="http://xmlns.oracle.com/WingPOS/ExpeditorReturnOrders/ReturnOrders"
+             xmlns="http://wadl.dev.java.net/2009/02">
+  <doc title="ReturnOrders">RestReference</doc>
+  <grammars>
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:import namespace="http://schema.ibd.specialized.com/pos/wing/return"
+                  schemaLocation="../Schemas/wingpos_return_order_request.xsd"/>
+    </xsd:schema>
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:import namespace="http://schema.ibd.specialized.com/pos/wing/return"
+                  schemaLocation="../Schemas/wingpos_return_order_response.xsd"/>
+    </xsd:schema>
+  </grammars>
+  <resources>
+    <resource path="/api/rest/WingApi">
+      <method name="POST" soa:wsdlOperation="Orders">
+        <request>
+          <representation mediaType="application/x-www-form-urlencoded" element="cns:ReturnOrderRequest"
+                          xmlns:cns="http://schema.ibd.specialized.com/pos/wing/return"/>
+        </request>
+        <response status="200">
+          <representation mediaType="application/xml" element="cns:ReturnOrderResponse"
+                          xmlns:cns="http://schema.ibd.specialized.com/pos/wing/return"/>
+          <representation mediaType="application/json" element="cns:ReturnOrderResponse"
+                          xmlns:cns="http://schema.ibd.specialized.com/pos/wing/return"/>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

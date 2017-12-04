@@ -1,0 +1,74 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/UpdateTBLNEW" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/UpdateTBLNEW" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="SbcExpeditorShipconfirmCollection" type="SbcExpeditorShipconfirmCollection"/>
+   <xs:complexType name="SbcExpeditorShipconfirmCollection">
+      <xs:sequence>
+         <xs:element name="SbcExpeditorShipconfirm" type="SbcExpeditorShipconfirm" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="SbcExpeditorShipconfirm">
+      <xs:sequence>
+         <xs:element name="waybill" type="string30" nillable="true"/>
+         <xs:element name="deliveryDetailId" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="item" type="string20" nillable="true"/>
+         <xs:element name="description" type="string100" minOccurs="0" nillable="true"/>
+         <xs:element name="orderedQty" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="shippedQty" type="xs:decimal" nillable="true"/>
+         <xs:element name="serialNumber" type="string50" minOccurs="0" nillable="true"/>
+         <xs:element name="weight" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="carrier" type="string50" minOccurs="0" nillable="true"/>
+         <xs:element name="shipDate" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="trackingNumber" type="string50" minOccurs="0" nillable="true"/>
+         <xs:element name="creationDate" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="uploadDate" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="uploadStatus" type="string40" minOccurs="0" nillable="true"/>
+         <xs:element name="printedFlag" type="string1" minOccurs="0" nillable="true"/>
+         <xs:element name="message" type="string2000" minOccurs="0" nillable="true"/>
+         <xs:element name="waybillLineNr" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="sagTracking" type="string20" minOccurs="0" nillable="true"/>
+         <xs:element name="freightAmt" type="string15" minOccurs="0" nillable="true"/>
+         <xs:element name="orgId" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="processed" type="string1" minOccurs="0" nillable="true"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:simpleType name="string30">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="30"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="string20">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="20"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="string100">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="100"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="string50">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="50"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="string40">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="40"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="string1">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="1"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="string2000">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="2000"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="string15">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="15"/>
+      </xs:restriction>
+   </xs:simpleType>
+</xs:schema>

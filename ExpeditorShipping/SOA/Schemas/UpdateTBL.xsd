@@ -1,0 +1,12 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/UpdateTBL" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/UpdateTBL" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="UpdateTBLInput" type="UpdateTBLInput"/>
+   <xs:complexType name="UpdateTBLInput">
+      <xs:sequence>
+         <xs:element name="status" type="xs:string" nillable="true"/>
+         <xs:element name="errmsg" type="xs:string" nillable="true"/>
+         <xs:element name="waybill" type="xs:string" nillable="true"/>
+         <xs:element name="sku" type="xs:string" nillable="true"/>
+      </xs:sequence>
+   </xs:complexType>
+</xs:schema>

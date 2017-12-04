@@ -1,0 +1,85 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertOrders" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertOrders" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="SbcExpeditorStgTblCollection" type="SbcExpeditorStgTblCollection"/>
+   <xs:complexType name="SbcExpeditorStgTblCollection">
+      <xs:sequence>
+         <xs:element name="SbcExpeditorStgTbl" type="SbcExpeditorStgTbl" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="SbcExpeditorStgTbl">
+      <xs:sequence>
+         <xs:element name="posSystemId" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="transactionId" type="xs:decimal"/>
+         <xs:element name="batchNumber" type="string2000" minOccurs="0" nillable="true"/>
+         <xs:element name="orderNumber" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="orderDate" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="orderStatus" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="orderLineId" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="orderLineNumber" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="item" type="string2000" minOccurs="0" nillable="true"/>
+         <xs:element name="upcCode" type="string2000" minOccurs="0" nillable="true"/>
+         <xs:element name="itemDescription" type="string2000" minOccurs="0" nillable="true"/>
+         <xs:element name="orderLineQuantity" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="skuSpec" type="string2000" minOccurs="0" nillable="true"/>
+         <xs:element name="productCode" type="string2000" minOccurs="0" nillable="true"/>
+         <xs:element name="productWeight" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="price" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="standardPrice" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="adjustAmount" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="taxAmount" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="discountAmount" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="averageDiscount" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="lineTotalAmount" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="orderTotalAmount" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="refundid" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="refundStatus" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="refundQuantity" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="omsonlineorderid" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="orderShopName" type="string2000" minOccurs="0" nillable="true"/>
+         <xs:element name="orderShopId" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="status" type="string2000" minOccurs="0" nillable="true"/>
+         <xs:element name="createdBy" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="creationDate" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="lastUpdatedBy" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="lastUpdateDate" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="shipperId" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="logisticsNumber" type="string2000" minOccurs="0" nillable="true"/>
+         <xs:element name="shipperName" type="string2000" minOccurs="0" nillable="true"/>
+         <xs:element name="shipperCode" type="string2000" minOccurs="0" nillable="true"/>
+         <xs:element name="shortAddress" type="string2000" minOccurs="0" nillable="true"/>
+         <xs:element name="customerName" type="string2000" minOccurs="0" nillable="true"/>
+         <xs:element name="customerAddress" type="string2000" minOccurs="0" nillable="true"/>
+         <xs:element name="customerAreaName" type="string2000" minOccurs="0" nillable="true"/>
+         <xs:element name="customerCityName" type="string2000" minOccurs="0" nillable="true"/>
+         <xs:element name="customerProvinceName" type="string2000" minOccurs="0" nillable="true"/>
+         <xs:element name="customerZip" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="customerPhone" type="string2000" minOccurs="0" nillable="true"/>
+         <xs:element name="customerMobile" type="string2000" minOccurs="0" nillable="true"/>
+         <xs:element name="productAmount" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="receivedAmount" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="shipAmount" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="codAmount" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="payType" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="platform" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="modifiedDate" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="modifierid" type="xs:string" minOccurs="0" nillable="true"/>
+         <xs:element name="isintercept" type="string2000" minOccurs="0" nillable="true"/>
+         <xs:element name="buyerMessage" type="string2000" minOccurs="0" nillable="true"/>
+         <xs:element name="sellerMemo" type="string2000" minOccurs="0" nillable="true"/>
+         <xs:element name="insideRemark" type="string2000" minOccurs="0" nillable="true"/>
+         <xs:element name="invoiceHeader" type="string2000" minOccurs="0" nillable="true"/>
+         <xs:element name="invoiceContent" type="string2000" minOccurs="0" nillable="true"/>
+         <xs:element name="presaleStatus" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="auditTime" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="extendText" type="string2000" minOccurs="0" nillable="true"/>
+         <xs:element name="drpstorename" type="string2000" minOccurs="0" nillable="true"/>
+         <xs:element name="shoptitle" type="string2000" minOccurs="0" nillable="true"/>
+         <xs:element name="sendstoreCode" type="string2000" minOccurs="0" nillable="true"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:simpleType name="string2000">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="2000"/>
+      </xs:restriction>
+   </xs:simpleType>
+</xs:schema>

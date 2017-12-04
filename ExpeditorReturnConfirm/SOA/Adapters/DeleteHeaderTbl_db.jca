@@ -1,0 +1,11 @@
+<adapter-config name="DeleteHeaderTbl" adapter="db" wsdlLocation="../WSDLs/DeleteHeaderTbl.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory UIConnectionName="DEV" location="eid/db/soaApps"/>
+  <endpoint-interaction portType="DeleteHeaderTbl_ptt" operation="DeleteHeaderTbl">
+    <interaction-spec className="oracle.tip.adapter.db.DBPureSQLInteractionSpec">
+      <property name="SqlString" value="delete from sbc.sbc_cn_expeditor_return_header where dossier_number = #dossier_number"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

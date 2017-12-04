@@ -1,0 +1,6 @@
+<view_states>
+   <function arity="2" name="funcInsertreturnheader">
+      <source_tree_view last.visible.row="1" last.visible.path="/sourceRoot[[0]]/ReturnOrderResponse[[1]]" expanded.paths="" selected.paths="" first.visible.path="/sourceRoot[[0]]/dossierNum[[0]]" first.visible.row="0"/>
+      <target_tree_view last.visible.row="25" last.visible.path="/TargetRoot[[0]]/SbcCnExpeditorReturnHeaderCollection[[0]]/SbcCnExpeditorReturnHeader[[0]]/printedFlag[[23]]" expanded.paths="/TargetRoot[[0]]/SbcCnExpeditorReturnHeaderCollection[[0]]&#xA;/TargetRoot[[0]]/SbcCnExpeditorReturnHeaderCollection[[0]]/SbcCnExpeditorReturnHeader[[0]]" selected.paths="" first.visible.path="/TargetRoot[[0]]/SbcCnExpeditorReturnHeaderCollection[[0]]/SbcCnExpeditorReturnHeader[[0]]" first.visible.row="1"/>
+   </function>
+</view_states>

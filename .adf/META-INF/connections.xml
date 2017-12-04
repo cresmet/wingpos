@@ -1,0 +1,75 @@
+<References xmlns="http://xmlns.oracle.com/adf/jndi">
+  <Reference name="DEVMDS" className="oracle.jdeveloper.db.adapter.DatabaseProvider" credentialStoreKey="DEVMDS"
+             xmlns="">
+    <Factory className="oracle.jdevimpl.db.adapter.DatabaseProviderFactory1212"/>
+    <RefAddresses>
+      <StringRefAddr addrType="subtype">
+        <Contents>oraJDBC</Contents>
+      </StringRefAddr>
+      <StringRefAddr addrType="port">
+        <Contents>1553</Contents>
+      </StringRefAddr>
+      <StringRefAddr addrType="hostname">
+        <Contents>sbcclient04-vip.specialized.com</Contents>
+      </StringRefAddr>
+      <StringRefAddr addrType="user">
+        <Contents>apps</Contents>
+      </StringRefAddr>
+      <SecureRefAddr addrType="password"/>
+      <StringRefAddr addrType="serviceName">
+        <Contents>DEV</Contents>
+      </StringRefAddr>
+      <StringRefAddr addrType="oraDriverType">
+        <Contents>thin</Contents>
+      </StringRefAddr>
+    </RefAddresses>
+  </Reference>
+  <Reference name="CRPSC" className="oracle.jdeveloper.db.adapter.DatabaseProvider" credentialStoreKey="CRPSC" xmlns="">
+    <Factory className="oracle.jdevimpl.db.adapter.DatabaseProviderFactory1212"/>
+    <RefAddresses>
+      <StringRefAddr addrType="subtype">
+        <Contents>oraJDBC</Contents>
+      </StringRefAddr>
+      <StringRefAddr addrType="user">
+        <Contents>apps</Contents>
+      </StringRefAddr>
+      <StringRefAddr addrType="hostname">
+        <Contents>sbcclient02-vip.specialized.com</Contents>
+      </StringRefAddr>
+      <StringRefAddr addrType="port">
+        <Contents>1521</Contents>
+      </StringRefAddr>
+      <SecureRefAddr addrType="password"/>
+      <StringRefAddr addrType="serviceName">
+        <Contents>CRPSC</Contents>
+      </StringRefAddr>
+      <StringRefAddr addrType="oraDriverType">
+        <Contents>thin</Contents>
+      </StringRefAddr>
+    </RefAddresses>
+  </Reference>
+  <Reference name="DEV" className="oracle.jdeveloper.db.adapter.DatabaseProvider" credentialStoreKey="DEV" xmlns="">
+    <Factory className="oracle.jdevimpl.db.adapter.DatabaseProviderFactory1212"/>
+    <RefAddresses>
+      <StringRefAddr addrType="subtype">
+        <Contents>oraJDBC</Contents>
+      </StringRefAddr>
+      <StringRefAddr addrType="user">
+        <Contents>apps</Contents>
+      </StringRefAddr>
+      <StringRefAddr addrType="hostname">
+        <Contents>sbcclient04-vip.specialized.com</Contents>
+      </StringRefAddr>
+      <StringRefAddr addrType="port">
+        <Contents>1553</Contents>
+      </StringRefAddr>
+      <SecureRefAddr addrType="password"/>
+      <StringRefAddr addrType="serviceName">
+        <Contents>DEV</Contents>
+      </StringRefAddr>
+      <StringRefAddr addrType="oraDriverType">
+        <Contents>thin</Contents>
+      </StringRefAddr>
+    </RefAddresses>
+  </Reference>
+</References>

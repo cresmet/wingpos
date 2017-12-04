@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAConfigPlan xmlns:jca="http://platform.integration.oracle/blocks/adapter/fw/metadata" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:orawsp="http://schemas.oracle.com/ws/2006/01/policy" xmlns:edl="http://schemas.oracle.com/events/edl" xmlns="http://schemas.oracle.com/soa/configplan">
+   <composite name="ExpeditorShipping">
+      <!--Add search and replace rules for the import section of a composite
+	Example:
+	<searchReplace>
+		<search>http://my-dev-server</search>
+		<replace>http://my-test-server</replace>
+	<searchReplace>
+	<searchReplace>
+		<search>8888</search>
+		<replace>8889</replace>
+	<searchReplace>-->
+      <import>
+         <searchReplace>
+            <search/>
+            <replace/>
+         </searchReplace>
+      </import>
+      <service name="updateshipmentprocess_client_ep">
+         <binding type="ws">
+            <attribute name="port">
+               <replace>http://xmlns.oracle.com/WingPOS/ExpeditorShipping/UpdateShipmentProcess#wsdl.endpoint(updateshipmentprocess_client_ep/UpdateShipmentProcess_pt)</replace>
+            </attribute>
+         </binding>
+         <callback>
+            <binding type="ws">
+               <attribute name="port">
+                  <replace>http://xmlns.oracle.com/WingPOS/ExpeditorShipping/UpdateShipmentProcess#wsdl.endpoint(updateshipmentprocess_client_ep/UpdateShipmentProcessCallback_pt)</replace>
+               </attribute>
+            </binding>
+         </callback>
+      </service>
+      <service name="TrackingNumberPolling">
+         <property name="jca.retry.count">
+            <replace>2147483647</replace>
+         </property>
+         <property name="jca.retry.interval">
+            <replace>1</replace>
+         </property>
+         <property name="jca.retry.backoff">
+            <replace>2</replace>
+         </property>
+         <property name="jca.retry.maxInterval">
+            <replace>120</replace>
+         </property>
+         <!--Add search and replace rules for the binding properties-->
+         <binding type="jca">
+            <property name="singleton">
+               <replace>true</replace>
+            </property>
+            <property name="useRejectedMessageRecovery">
+               <replace>true</replace>
+            </property>
+         </binding>
+      </service>
+      <service name="updateshipmentprocess_client"/>
+      <service name="TrackingNumberPolling"/>
+      <service name="TrackingNumberPolling"/>
+      <property name="productVersion">
+         <replace>12.1.3.0.0</replace>
+      </property>
+      <!--Add search and replace rules for the component properties
+	For components and service/reference bindings, you can add policy references.
+	Example:
+	<component name="*">
+		<wsp:PolicyReference orawsp:category="management" orawsp:status="enabled" URI="oracle/log_policy"/>
+	</component>-->
+      <component name="UpdateShipmentProcess">
+         <property name="bpel.config.oneWayDeliveryPolicy">
+            <replace>async.persist</replace>
+         </property>
+         <property name="bpel.preference.ENV">
+            <replace>GOLD</replace>
+         </property>
+         <property name="bpel.preference.SupportEmail">
+            <replace>ssanagala@specialized.com,Iwan.vanRaaij@specialized.com</replace>
+         </property>
+         <property name="bpel.preference.BusinessEmail">
+            <replace>ssanagala@specialized.com</replace>
+         </property>         
+      </component>
+      <component name="TrackingNumberPollingProcess">
+         <property name="bpel.config.transaction">
+            <replace>required</replace>
+         </property>
+         <property name="bpel.config.oneWayDeliveryPolicy">
+            <replace>sync</replace>
+         </property>
+         <property name="bpel.preference.ENV">
+            <replace>GOLD</replace>
+         </property>
+         <property name="bpel.preference.SupportEmail">
+            <replace>ssanagala@specialized.com,Iwan.vanRaaij@specialized.com</replace>
+         </property>
+         <property name="bpel.preference.BusinessEmail">
+            <replace>ssanagala@specialized.com</replace>
+         </property>
+      </component>
+      <reference name="UpdateShipment"/>
+      <reference name="TrackingNumber"/>
+      <reference name="UpdateStagingTable"/>
+      <reference name="UpdateShipment"/>
+      <reference name="EmailNotification"/>
+      <reference name="RollbackTBL"/>
+      <reference name="UpdateTBL"/>
+      <reference name="UpdateShipment">
+         <binding type="rest"/>
+      </reference>
+      <reference name="TrackingNumber">
+         <property name="jca.retry.count">
+            <replace>4</replace>
+         </property>
+         <property name="jca.retry.interval">
+            <replace>1</replace>
+         </property>
+         <property name="jca.retry.backoff">
+            <replace>2</replace>
+         </property>
+         <property name="jca.retry.maxInterval">
+            <replace>120</replace>
+         </property>
+         <binding type="jca"/>
+      </reference>
+      <reference name="UpdateStagingTable">
+         <property name="jca.retry.count">
+            <replace>4</replace>
+         </property>
+         <property name="jca.retry.interval">
+            <replace>1</replace>
+         </property>
+         <property name="jca.retry.backoff">
+            <replace>2</replace>
+         </property>
+         <property name="jca.retry.maxInterval">
+            <replace>120</replace>
+         </property>
+         <binding type="jca"/>
+      </reference>
+      <reference name="EmailNotification">
+         <binding type="wsif"/>
+      </reference>
+      <reference name="RollbackTBL">
+         <property name="jca.retry.count">
+            <replace>4</replace>
+         </property>
+         <property name="jca.retry.interval">
+            <replace>1</replace>
+         </property>
+         <property name="jca.retry.backoff">
+            <replace>2</replace>
+         </property>
+         <property name="jca.retry.maxInterval">
+            <replace>120</replace>
+         </property>
+         <binding type="jca"/>
+      </reference>
+      <reference name="UpdateTBL">
+         <property name="jca.retry.count">
+            <replace>4</replace>
+         </property>
+         <property name="jca.retry.interval">
+            <replace>1</replace>
+         </property>
+         <property name="jca.retry.backoff">
+            <replace>2</replace>
+         </property>
+         <property name="jca.retry.maxInterval">
+            <replace>120</replace>
+         </property>
+         <binding type="jca"/>
+      </reference>
+   </composite>
+   <!--To configure monitor.config: 
+	<property name="enabled"><replace>true</replace></property>
+	<property name="dataObjectsFolder"><searchReplace><search>mydev</search><replace>myproduction</replace></searchReplace></property>
+	
+	sample properties to configure for adapter: 
+	<jca:property name="QueueName"><replace>medmq1</replace></jca:property>
+	
+	To add search and replace rules for wsdls, xsd and jca files
+	Example:
+	<searchReplace>
+		<search>http://my-dev-server</search>
+		<replace>http://my-test-server</replace>
+	<searchReplace>
+	<searchReplace>
+		<search>8888</search>
+		<replace>8889</replace>
+	<searchReplace>
+	-->
+   <wsdlAndSchema name="Adapters/RollbackTBL_db.jca|Adapters/TrackingNumberPolling_db.jca|Adapters/TrackingNumber_db.jca|Adapters/UpdateStagingTable_db.jca|Adapters/UpdateTBL_db.jca|Schemas/RollbackTBL.xsd|Schemas/TrackingNumber.xsd|Schemas/TrackingNumberPolling_table.xsd|Schemas/UpdateShipmentProcess.xsd|Schemas/UpdateStagingTable.xsd|Schemas/UpdateStagingTable_table.xsd|Schemas/UpdateTBL.xsd|Schemas/wingpos_updateShipment_request.xsd|Schemas/wingpos_updateShipment_response.xsd|WSDLs/RollbackTBL.wsdl|WSDLs/TrackingNumber.wsdl|WSDLs/TrackingNumberPolling.wsdl|WSDLs/UpdateShipment.wsdl|WSDLs/UpdateShipmentProcess.wsdl|WSDLs/UpdateStagingTable.wsdl|WSDLs/UpdateTBL.wsdl">
+      <searchReplace>
+         <search/>
+         <replace/>
+      </searchReplace>
+   </wsdlAndSchema>
+</SOAConfigPlan>

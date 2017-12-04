@@ -1,0 +1,90 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/UpdateReceiptDB" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/UpdateReceiptDB" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="SbcCnReceiptInboundCollection" type="SbcCnReceiptInboundCollection"/>
+   <xs:complexType name="SbcCnReceiptInboundCollection">
+      <xs:sequence>
+         <xs:element name="SbcCnReceiptInbound" type="SbcCnReceiptInbound" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="SbcCnReceiptInbound">
+      <xs:sequence>
+         <xs:element name="dossierNumber" type="xs:decimal" nillable="true"/>
+         <xs:element name="shipmentHeaderId" type="xs:decimal" nillable="true"/>
+         <xs:element name="shipmentNum" type="string30" minOccurs="0" nillable="true"/>
+         <xs:element name="lineNum" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="itemNum" type="string40" nillable="true"/>
+         <xs:element name="quantityReceipt" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="quantityShipped" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="uomAbbrev" type="string2" minOccurs="0" nillable="true"/>
+         <xs:element name="arrivalDate" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="vendorId" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="vendorSiteId" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="vendorName" type="string66" minOccurs="0" nillable="true"/>
+         <xs:element name="customerName" type="string30" minOccurs="0" nillable="true"/>
+         <xs:element name="notes" type="string80" minOccurs="0" nillable="true"/>
+         <xs:element name="uploadDate" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="uploadStatus" type="string10" minOccurs="0" nillable="true"/>
+         <xs:element name="comments" type="string240" minOccurs="0" nillable="true"/>
+         <xs:element name="printedFlag" type="string1" minOccurs="0" nillable="true"/>
+         <xs:element name="shipToOrganizationId" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="employeeName" type="string80" minOccurs="0" nillable="true"/>
+         <xs:element name="expectedReceiptDate" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="locationId" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="lastUpdateDate" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="lastUpdatedBy" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="lastUpdateLogin" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="creationDate" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="createdBy" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="destSubinventory" type="string100" minOccurs="0" nillable="true"/>
+         <xs:element name="shipmentLineId" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="groupId" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="requestId" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="recCondition" type="string10" minOccurs="0" nillable="true"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:simpleType name="string30">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="30"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="string40">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="40"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="string2">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="2"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="string66">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="66"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="string80">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="80"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="string10">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="10"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="string240">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="240"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="string1">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="1"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="string100">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="100"/>
+      </xs:restriction>
+   </xs:simpleType>
+</xs:schema>

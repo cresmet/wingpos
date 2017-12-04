@@ -1,0 +1,6 @@
+<view_states>
+   <function arity="1" name="funcTransformshipmentrequest">
+      <source_tree_view last.visible.row="22" last.visible.path="/sourceRoot[[0]]/SbcExpeditorShipconfirmCollection[[0]]/SbcExpeditorShipconfirm[[0]]/processed[[20]]" expanded.paths="/sourceRoot[[0]]/SbcExpeditorShipconfirmCollection[[0]]&#xA;/sourceRoot[[0]]/SbcExpeditorShipconfirmCollection[[0]]/SbcExpeditorShipconfirm[[0]]" selected.paths="" first.visible.path="/sourceRoot[[0]]/SbcExpeditorShipconfirmCollection[[0]]" first.visible.row="0"/>
+      <target_tree_view last.visible.row="9" last.visible.path="/TargetRoot[[0]]/ShipmentUpdateRequest[[0]]/LOGISTICSID[[8]]" expanded.paths="/TargetRoot[[0]]/ShipmentUpdateRequest[[0]]" selected.paths="" first.visible.path="/TargetRoot[[0]]/ShipmentUpdateRequest[[0]]" first.visible.row="0"/>
+   </function>
+</view_states>

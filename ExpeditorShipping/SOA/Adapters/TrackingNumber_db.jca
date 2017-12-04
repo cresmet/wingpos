@@ -1,0 +1,11 @@
+<adapter-config name="TrackingNumber" adapter="db" wsdlLocation="../WSDLs/TrackingNumber.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory UIConnectionName="CRPSC" location="eid/db/soaApps"/>
+  <endpoint-interaction portType="TrackingNumber_ptt" operation="TrackingNumber">
+    <interaction-spec className="oracle.tip.adapter.db.DBPureSQLInteractionSpec">
+      <property name="SqlString" value="select distinct waybill,tracking_number from sbc.sbc_expeditor_shipconfirm where processed = #FLAG and upload_status = #status"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

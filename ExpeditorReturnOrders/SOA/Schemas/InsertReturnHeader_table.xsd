@@ -1,0 +1,72 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertReturnHeader" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertReturnHeader" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="SbcCnPoOutboundHeaderCollection" type="SbcCnPoOutboundHeaderCollection"/>
+   <xs:complexType name="SbcCnPoOutboundHeaderCollection">
+      <xs:sequence>
+         <xs:element name="SbcCnPoOutboundHeader" type="SbcCnPoOutboundHeader" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="SbcCnPoOutboundHeader">
+      <xs:sequence>
+         <xs:element name="dossierNumber" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="shipmentHeaderId" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="shipmentNum" type="string30" minOccurs="0" nillable="true"/>
+         <xs:element name="invoiceNum" type="string50" minOccurs="0" nillable="true"/>
+         <xs:element name="containerNum" type="string30" minOccurs="0" nillable="true"/>
+         <xs:element name="portName" type="string30" minOccurs="0" nillable="true"/>
+         <xs:element name="vesselName" type="string30" minOccurs="0" nillable="true"/>
+         <xs:element name="readyYn" type="string1" minOccurs="0" nillable="true"/>
+         <xs:element name="docReceivedYn" type="string1" minOccurs="0" nillable="true"/>
+         <xs:element name="originalDocYn" type="string1" minOccurs="0" nillable="true"/>
+         <xs:element name="billOfLading" type="string25" minOccurs="0" nillable="true"/>
+         <xs:element name="packingSlip" type="string25" minOccurs="0" nillable="true"/>
+         <xs:element name="etdDate" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="otaDate" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="numOfContainers" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="waybillAirbillNum" type="string20" minOccurs="0" nillable="true"/>
+         <xs:element name="freightBillNumber" type="string35" minOccurs="0" nillable="true"/>
+         <xs:element name="comments" type="string240" minOccurs="0" nillable="true"/>
+         <xs:element name="lastUpdateDate" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="lastUpdatedBy" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="lastUpdateLogin" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="creationDate" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="createdBy" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="printedFlag" type="string1" minOccurs="0" nillable="true"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:simpleType name="string30">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="30"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="string50">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="50"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="string1">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="1"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="string25">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="25"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="string20">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="20"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="string35">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="35"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="string240">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="240"/>
+      </xs:restriction>
+   </xs:simpleType>
+</xs:schema>

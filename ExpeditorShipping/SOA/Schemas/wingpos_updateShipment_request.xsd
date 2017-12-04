@@ -1,0 +1,25 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nxsd="http://xmlns.oracle.com/pcbpel/nxsd"
+            xmlns:tns="http://schema.ibd.specialized.com/pos/wing/shipment"
+            targetNamespace="http://schema.ibd.specialized.com/pos/wing/shipment" elementFormDefault="qualified"
+            attributeFormDefault="unqualified" nxsd:encoding="US-ASCII">
+  <xsd:element name="ShipmentUpdateRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="APP_KEY" type="xsd:string"/>
+        <xsd:element name="METHOD" type="xsd:string"/>
+        <xsd:element name="ORDERID" type="xsd:string"/>
+        <xsd:element name="LOGISTICSNO" type="xsd:string"/>
+        <xsd:element name="TIMESTAMP" type="xsd:string"/>
+        <xsd:element name="V" type="xsd:string"/>
+        <xsd:element name="SIGN" type="xsd:string"/>
+        <xsd:element name="TYPE" type="xsd:string"/>
+        <xsd:element name="LOGISTICSID" type="xsd:string"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:annotation>
+    <xsd:appinfo>NXSDSAMPLE=</xsd:appinfo>
+    <xsd:appinfo>USEHEADER=false</xsd:appinfo>
+  </xsd:annotation>
+</xsd:schema>

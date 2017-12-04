@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Generated from Oracle SOA Archetype version 12.1.3.0.0  -->
+<composite name="ExpeditorImport"
+           revision="1.9-SNAPSHOT"
+           label="2013-10-14_14-36-17_928"
+           mode="active"
+           state="on"
+           xmlns="http://xmlns.oracle.com/sca/1.0"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+           xmlns:orawsp="http://schemas.oracle.com/ws/2006/01/policy"
+           xmlns:ui="http://xmlns.oracle.com/soa/designer/"
+           xmlns:sca-ext="http://xmlns.oracle.com/sca/1.0-ext">
+  <import namespace="http://xmlns.oracle.com/WingPOS/ExpeditorImport/Order" location="WSDLs/Order.wsdl"
+          importType="wsdl"/>
+  <import namespace="http://ibd.specialized.com/WingPOS/ExpeditorImport/ExpeditorImportProcess"
+          location="WSDLs/ExpeditorImportProcess.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/WingPOS/ExpeditorImport/OrderPicking" location="WSDLs/OrderPicking.wsdl"
+          importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/ftp/WingPOS/ExpeditorImport/WriteFile"
+          location="WSDLs/WriteFile.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/ftp/WingPOS/ExpeditorImport/CopyFile"
+          location="WSDLs/CopyFile.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorImport/InsertOrdersNew"
+          location="WSDLs/InsertOrdersNew.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/ias/pcbpel/NotificationService"
+          location="oramds:/soa/shared/workflow/NotificationService.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorImport/RollbackTbl"
+          location="WSDLs/RollbackTbl.wsdl" importType="wsdl"/>
+  <service name="expeditorimportprocess_client_ep" ui:wsdlLocation="WSDLs/ExpeditorImportProcess.wsdl">
+    <interface.wsdl interface="http://ibd.specialized.com/WingPOS/ExpeditorImport/ExpeditorImportProcess#wsdl.interface(ExpeditorImportProcess)"
+                    callbackInterface="http://ibd.specialized.com/WingPOS/ExpeditorImport/ExpeditorImportProcess#wsdl.interface(ExpeditorImportProcessCallback)"/>
+    <binding.ws port="http://ibd.specialized.com/WingPOS/ExpeditorImport/ExpeditorImportProcess#wsdl.endpoint(expeditorimportprocess_client_ep/ExpeditorImportProcess_pt)"/>
+    <callback>
+      <binding.ws port="http://ibd.specialized.com/WingPOS/ExpeditorImport/ExpeditorImportProcess#wsdl.endpoint(expeditorimportprocess_client_ep/ExpeditorImportProcessCallback_pt)"/>
+    </callback>
+  </service>
+  <property name="productVersion" type="xs:string" many="false">12.1.3.0.0</property>  
+  <component name="ExpeditorImportProcess" version="2.0">
+    <implementation.bpel src="BPEL/ExpeditorImportProcess.bpel"/>    
+    <componentType>
+      <service name="expeditorimportprocess_client" ui:wsdlLocation="WSDLs/ExpeditorImportProcess.wsdl">
+        <interface.wsdl interface="http://ibd.specialized.com/WingPOS/ExpeditorImport/ExpeditorImportProcess#wsdl.interface(ExpeditorImportProcess)"
+                        callbackInterface="http://ibd.specialized.com/WingPOS/ExpeditorImport/ExpeditorImportProcess#wsdl.interface(ExpeditorImportProcessCallback)"/>
+      </service>
+      <reference name="Order" ui:wsdlLocation="WSDLs/Order.wsdl">
+        <interface.wsdl interface="http://xmlns.oracle.com/WingPOS/ExpeditorImport/Order#wsdl.interface(Order_ptt)"/>
+      </reference>
+      <reference name="OrderPicking" ui:wsdlLocation="WSDLs/OrderPicking.wsdl">
+        <interface.wsdl interface="http://xmlns.oracle.com/WingPOS/ExpeditorImport/OrderPicking#wsdl.interface(OrderPicking_ptt)"/>
+      </reference>
+      <reference name="WriteFile" ui:wsdlLocation="WSDLs/WriteFile.wsdl">
+        <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/ftp/WingPOS/ExpeditorImport/WriteFile#wsdl.interface(WriteFile_ptt)"/>
+      </reference>
+      <reference name="CopyFile" ui:wsdlLocation="WSDLs/CopyFile.wsdl">
+        <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/ftp/WingPOS/ExpeditorImport/CopyFile#wsdl.interface(CopyOrders_ptt)"/>
+      </reference>
+      <reference name="InsertOrdersNew" ui:wsdlLocation="WSDLs/InsertOrdersNew.wsdl">
+        <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorImport/InsertOrdersNew#wsdl.interface(InsertOrdersNew_ptt)"/>
+      </reference>
+      <reference name="NotificationService1" ui:wsdlLocation="oramds:/soa/shared/workflow/NotificationService.wsdl">
+        <interface.wsdl interface="http://xmlns.oracle.com/ias/pcbpel/NotificationService#wsdl.interface(NotificationService)"/>
+      </reference>
+      <reference name="RollbackTbl" ui:wsdlLocation="WSDLs/RollbackTbl.wsdl">
+        <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorImport/RollbackTbl#wsdl.interface(RollbackTbl_ptt)"/>
+      </reference>
+    </componentType>
+    <property name="bpel.config.oneWayDeliveryPolicy" type="xs:string" many="false">async.persist</property>
+    <property name="configuration.sensorLocation" type="xs:string" many="false">BPEL/ExpeditorImportProcess_sensor.xml</property>
+    <property name="configuration.sensorActionLocation" type="xs:string" many="false">BPEL/ExpeditorImportProcess_sensorAction.xml</property>
+    <property name="partnerLink.NotificationService1.nonBlockingInvoke" type="xs:string" many="false">true</property>
+    <property name="partnerLink.NotificationServicePL.nonBlockingInvoke" type="xs:string" many="false">true</property>
+    <property name="bpel.preference.copyFileSourceDir" type="xs:string" many="false"></property>
+    <property name="bpel.preference.copyFileTargetDir" type="xs:string" many="false"></property>
+    <property name="bpel.preference.ENV" type="xs:string" many="false"></property>
+    <property name="bpel.preference.SupportEmail" type="xs:string" many="false"></property>
+    <property name="bpel.preference.BusinessEmail" type="xs:string" many="false"></property>    
+  </component>
+  <reference name="Order" ui:wsdlLocation="WSDLs/Order.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/WingPOS/ExpeditorImport/Order#wsdl.interface(Order_ptt)"/>
+    <binding.rest config="Adapters/Order.wadl" location="http://api.specialized.shoptao.cn"/>
+  </reference>
+  <reference name="OrderPicking" ui:wsdlLocation="WSDLs/OrderPicking.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/WingPOS/ExpeditorImport/OrderPicking#wsdl.interface(OrderPicking_ptt)"/>
+    <binding.rest config="Adapters/OrderPicking.wadl" location="http://api.specialized.shoptao.cn"/>
+  </reference>
+  <reference name="WriteFile" ui:wsdlLocation="WSDLs/WriteFile.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/ftp/WingPOS/ExpeditorImport/WriteFile#wsdl.interface(WriteFile_ptt)"/>
+    <binding.jca config="Adapters/WriteFile_ftp.jca"/>
+    <property name="EXPEDITOR_INBOUND" type="xs:string" many="false" override="may"></property>
+  </reference>
+  <reference name="CopyFile" ui:wsdlLocation="WSDLs/CopyFile.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/ftp/WingPOS/ExpeditorImport/CopyFile#wsdl.interface(CopyOrders_ptt)"/>
+    <binding.jca config="Adapters/CopyFile_ftp.jca"/>
+  </reference>
+  <reference name="InsertOrdersNew" ui:wsdlLocation="WSDLs/InsertOrdersNew.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorImport/InsertOrdersNew#wsdl.interface(InsertOrdersNew_ptt)"/>
+    <binding.jca config="Adapters/InsertOrdersNew_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false" override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false" override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:int" many="false" override="may">120</property>
+  </reference>
+  <reference name="NotificationService1" ui:wsdlLocation="oramds:/soa/shared/workflow/NotificationService.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/ias/pcbpel/NotificationService#wsdl.interface(NotificationService)"/>
+    <binding.wsif port="http://xmlns.oracle.com/ias/pcbpel/NotificationService#wsdl.endpoint(NotificationService/JavaPort)"
+                  location="oramds:/soa/shared/workflow/NotificationService.wsdl"/>
+  </reference>
+  <reference name="RollbackTbl" ui:wsdlLocation="WSDLs/RollbackTbl.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorImport/RollbackTbl#wsdl.interface(RollbackTbl_ptt)"/>
+    <binding.jca config="Adapters/RollbackTbl_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false" override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false" override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:int" many="false" override="may">120</property>
+  </reference>
+  <wire>
+    <source.uri>expeditorimportprocess_client_ep</source.uri>
+    <target.uri>ExpeditorImportProcess/expeditorimportprocess_client</target.uri>
+  </wire>
+  <wire>
+    <source.uri>ExpeditorImportProcess/Order</source.uri>
+    <target.uri>Order</target.uri>
+  </wire>
+  <wire>
+    <source.uri>ExpeditorImportProcess/OrderPicking</source.uri>
+    <target.uri>OrderPicking</target.uri>
+  </wire>
+  <wire>
+    <source.uri>ExpeditorImportProcess/WriteFile</source.uri>
+    <target.uri>WriteFile</target.uri>
+  </wire>
+  <wire>
+    <source.uri>ExpeditorImportProcess/CopyFile</source.uri>
+    <target.uri>CopyFile</target.uri>
+  </wire>
+  <wire>
+    <source.uri>ExpeditorImportProcess/InsertOrdersNew</source.uri>
+    <target.uri>InsertOrdersNew</target.uri>
+  </wire>
+  <wire>
+    <source.uri>ExpeditorImportProcess/NotificationService1</source.uri>
+    <target.uri>NotificationService1</target.uri>
+  </wire>
+  <wire>
+    <source.uri>ExpeditorImportProcess/RollbackTbl</source.uri>
+    <target.uri>RollbackTbl</target.uri>
+  </wire>
+</composite>

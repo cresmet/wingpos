@@ -1,0 +1,10 @@
+<view_states>
+   <function arity="1" name="funcInsertorders">
+      <source_tree_view last.visible.row="8" last.visible.path="/sourceRoot[[0]]/integer[[1]]" expanded.paths="/sourceRoot[[0]]/OrderResponse[[0]]" selected.paths="" first.visible.path="/sourceRoot[[0]]/OrderResponse[[0]]" first.visible.row="0"/>
+      <target_tree_view last.visible.row="40" last.visible.path="/TargetRoot[[0]]/SbcExpeditorStgTblCollection[[0]]/SbcExpeditorStgTbl[[0]]/shortAddress[[38]]" expanded.paths="/TargetRoot[[0]]/SbcExpeditorStgTblCollection[[0]]&#xA;/TargetRoot[[0]]/SbcExpeditorStgTblCollection[[0]]/SbcExpeditorStgTbl[[0]]" selected.paths="" first.visible.path="/TargetRoot[[0]]/SbcExpeditorStgTblCollection[[0]]/SbcExpeditorStgTbl[[0]]/orderLineNumber[[7]]" first.visible.row="9"/>
+   </function>
+   <function arity="2" name="funcInsertorders">
+      <source_tree_view last.visible.row="3" last.visible.path="/sourceRoot[[0]]/string[[3]]" expanded.paths="" selected.paths="" first.visible.path="/sourceRoot[[0]]/batchNum[[0]]" first.visible.row="0"/>
+      <target_tree_view last.visible.row="1" last.visible.path="/TargetRoot[[0]]/SbcExpeditorStgTblCollection[[0]]/SbcExpeditorStgTbl[[0]]" expanded.paths="/TargetRoot[[0]]/SbcExpeditorStgTblCollection[[0]]" selected.paths="" first.visible.path="/TargetRoot[[0]]/SbcExpeditorStgTblCollection[[0]]" first.visible.row="0"/>
+   </function>
+</view_states>

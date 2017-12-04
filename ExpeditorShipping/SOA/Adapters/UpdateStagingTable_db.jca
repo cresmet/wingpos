@@ -1,0 +1,11 @@
+<adapter-config name="UpdateStagingTable" adapter="db" wsdlLocation="../WSDLs/UpdateStagingTable.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory UIConnectionName="CRPSC" location="eid/db/soaApps"/>
+  <endpoint-interaction portType="UpdateStagingTable_ptt" operation="UpdateStagingTable">
+    <interaction-spec className="oracle.tip.adapter.db.DBPureSQLInteractionSpec">
+      <property name="SqlString" value="update sbc.sbc_expeditor_shipconfirm       set processed = #FLAG, upload_status = #status, message = #msg where waybill = #WAYBILL and tracking_number = #tracking_number"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

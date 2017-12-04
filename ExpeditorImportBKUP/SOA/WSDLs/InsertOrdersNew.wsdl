@@ -1,0 +1,28 @@
+<wsdl:definitions
+     name="InsertOrdersNew"
+     targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorImport/InsertOrdersNew"
+     xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorImport/InsertOrdersNew"
+     xmlns:jca="http://xmlns.oracle.com/pcbpel/wsdl/jca/"
+     xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertOrdersNew"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+  <plt:partnerLinkType name="InsertOrdersNew_plt" >
+    <plt:role name="InsertOrdersNew_role" >
+      <plt:portType name="tns:InsertOrdersNew_ptt" />
+    </plt:role>
+  </plt:partnerLinkType>
+    <wsdl:types>
+      <schema xmlns="http://www.w3.org/2001/XMLSchema" >
+        <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertOrdersNew" schemaLocation="../Schemas/InsertOrdersNew_table.xsd" />
+      </schema>
+    </wsdl:types>
+    <wsdl:message name="SbcExpeditorSentOlCollection_msg">
+        <wsdl:part name="SbcExpeditorSentOlCollection" element="top:SbcExpeditorSentOlCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="InsertOrdersNew_ptt">
+        <wsdl:operation name="insert">
+            <wsdl:input message="tns:SbcExpeditorSentOlCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

@@ -1,0 +1,759 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Thu Feb 09 20:23:10 PST 2017
+  Author:  ssanagala
+  Type: BPEL 2.0 Process
+  Purpose: Asynchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="ExpeditorReturnOrderProcess"
+         targetNamespace="http://ibd.specialized.com/WingPOS/ExpeditorReturnOrders"
+         xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:client="http://ibd.specialized.com/WingPOS/ExpeditorReturnOrders"
+         xmlns:ora="http://schemas.oracle.com/xpath/extension"
+         xmlns:ui="http://xmlns.oracle.com/soa/designer"
+         xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://xmlns.oracle.com/WingPOS/ExpeditorReturnOrders/ReturnOrders"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:ess="http://xmlns.oracle.com/scheduler"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+         xmlns:ns2="http://schema.ibd.specialized.com/pos/wing/return"
+         xmlns:ns3="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnOrders/InsertReturnHeader"
+         xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnOrders/InsertReturnDetail"
+         xmlns:ns5="http://xmlns.oracle.com/ias/pcbpel/NotificationService"
+         xmlns:ns6="http://xmlns.oracle.com/pcbpel/adapter/ftp/WingPOS/ExpeditorReturnOrders/WriteReturnFile"
+         xmlns:ns7="http://xmlns.oracle.com/pcbpel/adapter/ftp/WingPOS/ExpeditorReturnOrders/CopyReturnFile"
+         xmlns:ns8="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnOrders/RollbackTbl"
+         xmlns:ns9="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnOrders/DeleteTbl"
+         xmlns:ns10="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnOrders/DeleteHeaderTbl"
+         xmlns:ns11="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnOrders/DeleteDetailTbl"
+         xmlns:ns12="http://xmlns.oracle.com/pcbpel/adapter/db/DeleteHeaderTbl"
+         xmlns:ns13="http://xmlns.oracle.com/pcbpel/adapter/db/DeleteDetailTbl"
+         xmlns:ns14="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnOrders/GenerateFileDB"
+         xmlns:ns15="http://xmlns.oracle.com/pcbpel/adapter/db/sp/GenerateFileDB">
+    <bpelx:inlineSubProcess name="SendEmail">
+        <bpelx:annotation>
+            <bpelx:pattern patternName="bpelx:email"></bpelx:pattern>
+            <bpelx:general>
+                <bpelx:property name="userLabel">
+                    <![CDATA[SendEmail]]>
+                </bpelx:property>
+            </bpelx:general>
+        </bpelx:annotation>
+        <variables>
+            <variable name="status" type="xsd:string"/>
+            <variable name="EmailSubj" type="xsd:string"/>
+        </variables>
+        <sequence name="Sequence6">
+            <scope name="Email">
+                <bpelx:annotation>
+                    <bpelx:pattern patternName="bpelx:email"></bpelx:pattern>
+                </bpelx:annotation>
+                <variables>
+                    <variable name="varNotificationReq" messageType="ns5:EmailNotificationRequest"/>
+                    <variable name="varNotificationResponse" messageType="ns5:ArrayOfResponse"/>
+                    <variable name="NotificationServiceFaultVariable"
+                              messageType="ns5:NotificationServiceErrorMessage"/>
+                </variables>
+                <sequence name="Sequence7">
+                    <assign name="EmailParamsAssign">
+                        <copy>
+                            <from>string('Default')</from>
+                            <to>$varNotificationReq.EmailPayload/ns5:FromAccountName</to>
+                        </copy>
+                        <copy ignoreMissingFromData="yes">
+                            <from>$emailOBJ.EmailPayload/ns5:Bcc</from>
+                            <to>$varNotificationReq.EmailPayload/ns5:Bcc</to>
+                        </copy>
+                        <copy ignoreMissingFromData="yes">
+                            <from>$emailOBJ.EmailPayload/ns5:Cc</from>
+                            <to>$varNotificationReq.EmailPayload/ns5:Cc</to>
+                        </copy>
+                        <copy ignoreMissingFromData="yes">
+                            <from>$emailOBJ.EmailPayload/ns5:ReplyToAddress</from>
+                            <to>$varNotificationReq.EmailPayload/ns5:ReplyToAddress</to>
+                        </copy>
+                        <copy ignoreMissingFromData="yes">
+                            <from>$emailOBJ.EmailPayload/ns5:Subject</from>
+                            <to>$varNotificationReq.EmailPayload/ns5:Subject</to>
+                        </copy>
+                        <copy ignoreMissingFromData="yes">
+                            <from>$emailOBJ.EmailPayload/ns5:To</from>
+                            <to>$varNotificationReq.EmailPayload/ns5:To</to>
+                        </copy>
+                        <copy ignoreMissingFromData="yes">
+                            <from>$emailOBJ.EmailPayload/ns5:Content/ns5:ContentBody</from>
+                            <to>$varNotificationReq.EmailPayload/ns5:Content/ns5:ContentBody</to>
+                        </copy>
+                        <copy ignoreMissingFromData="yes">
+                            <from>string('text/html; charset=UTF-8')</from>
+                            <to>$varNotificationReq.EmailPayload/ns5:Content/ns5:MimeType</to>
+                        </copy>
+                    </assign>
+                    <invoke name="InvokeNotificationService" portType="ns5:NotificationService"
+                            partnerLink="NotificationService1" inputVariable="varNotificationReq"
+                            outputVariable="varNotificationResponse" operation="sendEmailNotification"/>
+                </sequence>
+            </scope>
+        </sequence>
+    </bpelx:inlineSubProcess>
+    <import ui:processWSDL="true" namespace="http://ibd.specialized.com/WingPOS/ExpeditorReturnOrders" location="../WSDLs/ExpeditorReturnOrderProcess.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import location="oracle.xml.parser.v2.XMLElement" importType="http://schemas.oracle.com/bpel/extension/java"/>
+    <import location="org.w3c.dom.Element" importType="http://schemas.oracle.com/bpel/extension/java"/>
+    <import location="java.security.*" importType="http://schemas.oracle.com/bpel/extension/java"/>
+    <import location="java.math.*" importType="http://schemas.oracle.com/bpel/extension/java"/>
+
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+    <partnerLinks>
+        <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+        <partnerLink name="expeditorreturnorderprocess_client" partnerLinkType="client:ExpeditorReturnOrderProcess" myRole="ExpeditorReturnOrderProcessProvider" partnerRole="ExpeditorReturnOrderProcessRequester"/>
+        <partnerLink name="ReturnOrders" partnerLinkType="ns1:ReturnOrders" partnerRole="ReturnOrdersProvider"/>
+        <partnerLink name="InsertReturnHeader" partnerLinkType="ns3:InsertReturnHeader_plt"
+                     partnerRole="InsertReturnHeader_role"/>
+        <partnerLink name="InsertReturnDetail" partnerLinkType="ns4:InsertReturnDetail_plt"
+                     partnerRole="InsertReturnDetail_role"/>
+        <partnerLink name="NotificationService1" partnerLinkType="ns5:NotificationServiceLink"
+                     partnerRole="NotificationServiceProvider"/>
+        <partnerLink name="WriteReturnFile" partnerLinkType="ns6:Write_plt" partnerRole="Write_role"/>
+        <partnerLink name="CopyReturnFile" partnerLinkType="ns7:Copy_plt" partnerRole="Copy_role"/>
+        <partnerLink name="RollbackTbl" partnerLinkType="ns8:RollbackTbl_plt" partnerRole="RollbackTbl_role"/>
+        <partnerLink name="DeleteHeaderTbl" partnerLinkType="ns10:DeleteHeaderTbl_plt"
+                     partnerRole="DeleteHeaderTbl_role"/>
+        <partnerLink name="DeleteDetailTbl" partnerLinkType="ns11:DeleteDetailTbl_plt"
+                     partnerRole="DeleteDetailTbl_role"/>
+        <partnerLink name="GenerateFileDB" partnerLinkType="ns14:GenerateFileDB_plt" partnerRole="GenerateFileDB_role"/>
+    </partnerLinks>
+
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        VARIABLES                                                        
+        List of messages and XML documents used within this BPEL process 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    -->
+    <variables>
+        <!-- Reference to the message passed as input during initiation -->
+        <variable name="inputVariable" messageType="client:ExpeditorReturnOrderProcessRequestMessage"/>
+
+        <!-- Reference to the message that will be sent back to the requester during callback -->
+        <variable name="outputVariable" messageType="client:ExpeditorReturnOrderProcessResponseMessage"/>
+        <variable name="batch_number" element="client:flowID"/>
+        <variable name="GetReturnOrderCount_Orders_InputVariable" messageType="ns1:Orders_inputMessage"/>
+        <variable name="GetReturnOrderCount_Orders_OutputVariable" messageType="ns1:Orders_outputMessage"/>
+        <variable name="UserFault" type="xsd:string"/>
+        <variable name="UserFaultMsgType" messageType="client:UserFaultMessage"/>
+        <variable name="InvokeReturnOrders_InputVariable" messageType="ns1:Orders_inputMessage"/>
+        <variable name="InvokeReturnOrders_OutputVariable" messageType="ns1:Orders_outputMessage"/>
+        <variable name="InsertReturnHeader_InputVariable" messageType="ns3:SbcCnPoOutboundHeaderCollection_msg"/>
+        <variable name="InsertReturnDetail_InputVariable" messageType="ns4:SbcCnPoOutboundDetailCollection_msg"/>
+        <variable name="InvokeWriteFile_Write_InputVariable" messageType="ns6:Write_msg"/>
+        <variable name="return_file_name" type="xsd:string"/>
+        <variable name="sourceDirectory" type="xsd:string"/>
+        <variable name="sourceFileName" type="xsd:string"/>
+        <variable name="targetDirectory" type="xsd:string"/>
+        <variable name="targetFileName" type="xsd:string"/>
+        <variable name="InvokeCopyFile_Copy_InputVariable" messageType="ns7:Copy_msg"/>
+        <variable name="emailOBJ" messageType="ns5:EmailNotificationRequest"/>
+        <variable name="callRollback_InputVariable" messageType="ns8:RollbackTblInput_msg"/>
+        <variable name="clientSecret" type="xsd:string"/>
+        <variable name="DeleteHeader_InputVariable" messageType="ns10:DeleteHeaderTblInput_msg"/>
+        <variable name="DeleteLines_InputVariable" messageType="ns11:DeleteDetailTblInput_msg"/>
+        <variable name="CreateFile_InputVariable" messageType="ns14:args_in_msg"/>
+        <variable name="CreateFile_OutputVariable" messageType="ns14:args_out_msg"/>
+        <variable name="api_url" type="xsd:string"/>
+    </variables>
+    <faultHandlers>
+        <catch faultName="xsd:UserFault" faultVariable="FaultVarInCatch" faultMessageType="client:UserFaultMessage">
+            <sequence name="Sequence4">
+                <assign name="AssignUserFault">
+                    <copy>
+                        <from>$FaultVarInCatch.payload/client:summary</from>
+                        <to>$outputVariable.payload/client:Result</to>
+                    </copy>
+                    <copy>
+                        <from>ora:getPreference("SupportEmail")</from>
+                        <to>$emailOBJ.EmailPayload/ns5:Cc</to>
+                    </copy>
+                    <copy>
+                        <from>ora:getPreference("BusinessEmail")</from>
+                        <to>$emailOBJ.EmailPayload/ns5:To</to>
+                    </copy>
+                    <copy>
+                        <from>concat(ora:getPreference("ENV"),': Batch Number - ', ora:getFlowId(), '  ',ora:getCompositeName(), '  ',xp20:current-date())</from>
+                        <to>$emailOBJ.EmailPayload/ns5:Subject</to>
+                    </copy>
+                    <copy>
+                        <from>concat('Message:',$FaultVarInCatch.payload/client:summary)</from>
+                        <to>$emailOBJ.EmailPayload/ns5:Content/ns5:ContentBody</to>
+                    </copy>
+                </assign>
+                <extensionActivity>
+                    <bpelx:call name="UserFaultEmail" target="SendEmail"/>
+                </extensionActivity><invoke name="DeleteHeader" partnerLink="DeleteHeaderTbl"
+                                            portType="ns10:DeleteHeaderTbl_ptt" operation="DeleteHeaderTbl"
+                                            inputVariable="DeleteHeader_InputVariable" bpelx:invokeAsDetail="no"
+                                            xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+                                            xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"/><invoke name="DeleteLines"
+                                                                                                                      partnerLink="DeleteDetailTbl"
+                                                                                                                      portType="ns11:DeleteDetailTbl_ptt"
+                                                                                                                      operation="DeleteDetailTbl"
+                                                                                                                      inputVariable="DeleteLines_InputVariable"
+                                                                                                                      bpelx:invokeAsDetail="no"
+                                                                                                                      xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+                                                                                                                      xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"/><invoke name="callRollback" partnerLink="RollbackTbl"
+                        portType="ns8:RollbackTbl_ptt" operation="RollbackTbl"
+                        inputVariable="callRollback_InputVariable" bpelx:invokeAsDetail="no">
+                    <bpelx:skipCondition>true()</bpelx:skipCondition>
+                </invoke>
+                <throw name="ThrowFault" faultName="bpelx:rollback"
+                                xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
+                    <bpelx:skipCondition>true()</bpelx:skipCondition>
+                </throw><invoke name="CallbackFault" partnerLink="expeditorreturnorderprocess_client"
+                        portType="client:ExpeditorReturnOrderProcessCallback" operation="onResult"
+                        inputVariable="outputVariable" bpelx:invokeAsDetail="no"
+                        xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+                        xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"/>
+            </sequence>
+        </catch>
+        <catchAll>
+            <sequence name="Sequence1">
+                <assign name="AssignServerFault">
+                    <copy>
+                        <from>substring-before(substring-after(ora:getFaultAsString(), "&amp;lt;detail&amp;gt;"), "&amp;lt;/detail&amp;gt;")</from>
+                        <to>$outputVariable.payload/client:Result</to>
+                    </copy>
+                    <copy>
+                        <from>ora:getPreference("BusinessEmail")</from>
+                        <to>$emailOBJ.EmailPayload/ns5:To</to>
+                    </copy>
+                    <copy>
+                        <from>ora:getPreference("SupportEmail")</from>
+                        <to>$emailOBJ.EmailPayload/ns5:Cc</to>
+                    </copy>
+                    <copy>
+                        <from>concat(ora:getPreference("ENV"),': Batch Number - ', ora:getFlowId(), '  ',ora:getCompositeName(), '  ',xp20:current-date())</from>
+                        <to>$emailOBJ.EmailPayload/ns5:Subject</to>
+                    </copy>
+                    <copy>
+                        <from>ora:getFlowId()</from>
+                        <to>$DeleteHeader_InputVariable.DeleteHeaderTblInput_msg/ns12:dossier_number</to>
+                    </copy>
+                    <copy>
+                        <from>ora:getFlowId()</from>
+                        <to>$DeleteLines_InputVariable.DeleteDetailTblInput_msg/ns13:dossier_number</to>
+                    </copy>
+                    <copy>
+                        <from>concat('Message:',substring-before(substring-after(ora:getFaultAsString(), "&amp;lt;detail&amp;gt;"), "&amp;lt;/detail&amp;gt;"))</from>
+                        <to>$emailOBJ.EmailPayload/ns5:Content/ns5:ContentBody</to>
+                    </copy>
+                </assign>
+                <extensionActivity>
+                    <bpelx:call name="ServerFaultEmail" target="SendEmail"/>
+                </extensionActivity>
+                <invoke name="DeleteHeader" partnerLink="DeleteHeaderTbl"
+                        portType="ns10:DeleteHeaderTbl_ptt" operation="DeleteHeaderTbl"
+                        inputVariable="DeleteHeader_InputVariable" bpelx:invokeAsDetail="no"/>
+                <invoke name="DeleteLines" partnerLink="DeleteDetailTbl"
+                        portType="ns11:DeleteDetailTbl_ptt" operation="DeleteDetailTbl"
+                        inputVariable="DeleteLines_InputVariable" bpelx:invokeAsDetail="no"/>
+                <invoke name="callRollback" partnerLink="RollbackTbl" portType="ns8:RollbackTbl_ptt"
+                        operation="RollbackTbl" inputVariable="callRollback_InputVariable" bpelx:invokeAsDetail="no">
+                    <bpelx:skipCondition>true()</bpelx:skipCondition>
+                </invoke>
+                <throw name="ThrowFault" faultName="bpelx:rollback">
+                    <bpelx:skipCondition>true()</bpelx:skipCondition>
+                </throw>
+                <invoke name="CallbackFault" partnerLink="expeditorreturnorderprocess_client"
+                        portType="client:ExpeditorReturnOrderProcessCallback" operation="onResult"
+                        inputVariable="outputVariable" bpelx:invokeAsDetail="no"/>
+            </sequence>
+        </catchAll>
+    </faultHandlers>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+       ORCHESTRATION LOGIC                                               
+       Set of activities coordinating the flow of messages across the    
+       services integrated within this business process                  
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    -->
+    <sequence name="main">
+        <!-- Receive input from requestor. (Note: This maps to operation defined in ExpeditorReturnOrderProcess.wsdl) -->
+        <receive name="receiveInput" partnerLink="expeditorreturnorderprocess_client" portType="client:ExpeditorReturnOrderProcess" operation="Initiate" variable="inputVariable" createInstance="yes"/>
+        <if name="IfStartdDateExists">
+            <condition>string-length($inputVariable.payload/client:StartDate) &gt; 0</condition>
+            <assign name="AssignStartDate">
+                <copy>
+                    <from>$inputVariable.payload/client:StartDate</from>
+                    <to>$inputVariable.payload/client:StartDate</to>
+                </copy>
+                <copy>
+                    <from>$inputVariable.payload/client:GenerateFile</from>
+                    <to>$inputVariable.payload/client:GenerateFile</to>
+                </copy>
+                <copy>
+                    <from>ora:getFlowId()</from>
+                    <to>$batch_number</to>
+                </copy>
+            </assign>
+            <else>
+                <assign name="AssignStartDate">
+                    <copy>
+                        <from>xp20:current-date()</from>
+                        <to>$inputVariable.payload/client:StartDate</to>
+                    </copy>
+                    <copy>
+                        <from>$inputVariable.payload/client:GenerateFile</from>
+                        <to>$inputVariable.payload/client:GenerateFile</to>
+                    </copy>
+                    <copy>
+                        <from>ora:getFlowId()</from>
+                        <to>$batch_number</to>
+                    </copy>
+                </assign>
+            </else>
+        </if>
+        <assign name="AssignURI">
+            <copy>
+                <from>dvm:lookupValue('oramds:/apps/DVMs/WingReturnOrders.dvm','Property','app_key','Value','TBD')</from>
+                <to>$GetReturnOrderCount_Orders_InputVariable.request/ns2:APP_KEY</to>
+            </copy>
+            <copy>
+                <from>ora:getPreference("URL")</from>
+                <to>$api_url</to>
+            </copy>
+            <copy ignoreMissingFromData="yes">
+                <from>$inputVariable.payload/client:RefundOrderID</from>
+                <to>$GetReturnOrderCount_Orders_InputVariable.request/ns2:REFUNDORDERID</to>
+            </copy>
+            <copy>
+                <from>xp20:add-dayTimeDuration-to-dateTime(xp20:current-date(),'P1D')</from>
+                <to>$GetReturnOrderCount_Orders_InputVariable.request/ns2:ENDDATE</to>
+            </copy>
+            <copy>
+                <from>dvm:lookupValue('oramds:/apps/DVMs/WingReturnOrders.dvm','Property','fields','Value','TBD')</from>
+                <to>$GetReturnOrderCount_Orders_InputVariable.request/ns2:FIELDS</to>
+            </copy>
+            <copy>
+                <from>dvm:lookupValue('oramds:/apps/DVMs/WingReturnOrders.dvm','Property','method','Value','TBD')</from>
+                <to>$GetReturnOrderCount_Orders_InputVariable.request/ns2:METHOD</to>
+            </copy>
+            <copy>
+                <from>dvm:lookupValue('oramds:/apps/DVMs/WingReturnOrders.dvm','Property','status','Value','TBD')</from>
+                <to>$GetReturnOrderCount_Orders_InputVariable.request/ns2:STATUS</to>
+            </copy>
+            <copy>
+                <from>dvm:lookupValue('oramds:/apps/DVMs/WingReturnOrders.dvm','Property','version','Value','TBD')</from>
+                <to>$GetReturnOrderCount_Orders_InputVariable.request/ns2:V</to>
+            </copy>
+            <copy>
+                <from>xp20:current-dateTime()</from>
+                <to>$GetReturnOrderCount_Orders_InputVariable.request/ns2:TIMESTAMP</to>
+            </copy>
+            <copy>
+                <from>$inputVariable.payload/client:StartDate</from>
+                <to>$GetReturnOrderCount_Orders_InputVariable.request/ns2:STARTDATE</to>
+            </copy>
+        </assign>
+        <extensionActivity>
+            <bpelx:exec name="encryptURI" language="java">
+                <![CDATA[try {          
+ XMLElement app_key_input = (XMLElement) getVariableData("GetReturnOrderCount_Orders_InputVariable", "request", "/ns2:ReturnOrderRequest/ns2:APP_KEY");       
+ XMLElement fields_input = (XMLElement) getVariableData("GetReturnOrderCount_Orders_InputVariable", "request", "/ns2:ReturnOrderRequest/ns2:FIELDS");       
+ XMLElement method_input = (XMLElement) getVariableData("GetReturnOrderCount_Orders_InputVariable", "request", "/ns2:ReturnOrderRequest/ns2:METHOD");        
+ XMLElement status_input = (XMLElement) getVariableData("GetReturnOrderCount_Orders_InputVariable", "request", "/ns2:ReturnOrderRequest/ns2:STATUS"); 
+ //XMLElement page_no_input = (XMLElement) getVariableData("GetReturnOrderCount_Orders_InputVariable", "request", "/ns2:ReturnOrderRequest/ns2:PAGE_NO");       
+ //XMLElement page_size_input = (XMLElement) getVariableData("GetReturnOrderCount_Orders_InputVariable", "request", "/ns2:ReturnOrderRequest/ns2:PAGE_SIZE");       
+ XMLElement start_date_input = (XMLElement) getVariableData("GetReturnOrderCount_Orders_InputVariable", "request", "/ns2:ReturnOrderRequest/ns2:STARTDATE");       
+ XMLElement end_date_input = (XMLElement) getVariableData("GetReturnOrderCount_Orders_InputVariable", "request", "/ns2:ReturnOrderRequest/ns2:ENDDATE");        
+ XMLElement timestamp_input = (XMLElement) getVariableData("GetReturnOrderCount_Orders_InputVariable", "request", "/ns2:ReturnOrderRequest/ns2:TIMESTAMP");       
+ XMLElement version_input = (XMLElement) getVariableData("GetReturnOrderCount_Orders_InputVariable", "request", "/ns2:ReturnOrderRequest/ns2:V");       
+ XMLElement refundorderid_input = (XMLElement) getVariableData("GetReturnOrderCount_Orders_InputVariable", "request", "/ns2:ReturnOrderRequest/ns2:REFUNDORDERID");       
+       
+ String app_key = app_key_input.getTextContent();       
+ String fields = fields_input.getTextContent();        
+ String method = method_input.getTextContent(); 
+ String status = status_input.getTextContent();          
+ //String page_no = page_no_input.getTextContent();       
+ //String page_size = page_size_input.getTextContent();       
+ String start_date = start_date_input.getTextContent();       
+ String end_date = end_date_input.getTextContent();       
+ String timestamp = timestamp_input.getTextContent();       
+ String version = version_input.getTextContent(); 
+ String refundorderid = refundorderid_input.getTextContent(); 
+          
+          
+ //String s = "48b8b97fa6a9172e866ad4d7dee8162d" + app_key + end_modified + fields + method + page_no + page_size + start_modified + timestamp + version;   
+String s = "48b8b97fa6a9172e866ad4d7dee8162d" + "APP_KEY"+app_key + "ENDDATE"+end_date + "FIELDS"+fields + "METHOD"+method + "STATUS"+status + "STARTDATE"+start_date + "TIMESTAMP"+timestamp + "REFUNDORDERID"+refundorderid + "V"+version;   
+ MessageDigest m = MessageDigest.getInstance("MD5");    
+ m.reset();    
+ m.update(s.getBytes(), 0, s.length());          
+ addAuditTrailEntry("====JavaEmbeddingInstances===");      
+ addAuditTrailEntry("Input URI Values "+s);       
+ //addAuditTrailEntry("MD5: " + new BigInteger(1,m.digest()).toString(16).toUpperCase());      
+ setVariableData("GetReturnOrderCount_Orders_InputVariable", "request", "/ns2:ReturnOrderRequest/ns2:SIGN",new BigInteger(1, m.digest()).toString(16).toUpperCase());          
+          
+} catch (Exception e) {          
+ System.out.println("exception " + e.getMessage());          
+ addAuditTrailEntry(e);          
+}]]>
+            </bpelx:exec>
+        </extensionActivity>
+        <invoke name="GetReturnOrderCount" partnerLink="ReturnOrders"
+                portType="ns1:ReturnOrders_ptt" operation="Orders"
+                inputVariable="GetReturnOrderCount_Orders_InputVariable"
+                outputVariable="GetReturnOrderCount_Orders_OutputVariable" bpelx:invokeAsDetail="no">
+            <bpelx:toProperties>
+                <bpelx:toProperty name="rest.binding.requestURI" variable="api_url"/>
+            </bpelx:toProperties>
+        </invoke>
+        <if name="IfReturnOrdersExists">
+            <condition>$GetReturnOrderCount_Orders_OutputVariable.reply/ns2:TotalCount &gt; 0 and $GetReturnOrderCount_Orders_OutputVariable.reply/ns2:Code = 0</condition>
+            <sequence name="Sequence5">
+                <forEach parallel="no" counterName="page_count" name="order_loop">
+                    <startCounterValue>1</startCounterValue>
+                    <finalCounterValue>ceiling($GetReturnOrderCount_Orders_OutputVariable.reply/ns2:TotalCount div 500)</finalCounterValue>
+                    <scope name="Scope1">
+                        <variables>
+                            <variable name="dossierNum" type="xsd:string"/>
+                        </variables>
+                        <sequence>
+                            <assign name="AssignURI" xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
+                                <copy>
+                                    <from>dvm:lookupValue('oramds:/apps/DVMs/WingReturnOrders.dvm','Property','app_key','Value','TBD')</from>
+                                    <to>$InvokeReturnOrders_InputVariable.request/ns2:APP_KEY</to>
+                                </copy>
+                                <copy ignoreMissingFromData="yes">
+                                    <from>$inputVariable.payload/client:RefundOrderID</from>
+                                    <to>$InvokeReturnOrders_InputVariable.request/ns2:REFUNDORDERID</to>
+                                </copy>
+                                <copy>
+                                    <from>xp20:add-dayTimeDuration-to-dateTime(xp20:current-date(),'P1D')</from>
+                                    <to>$InvokeReturnOrders_InputVariable.request/ns2:ENDDATE</to>
+                                </copy>
+                                <copy>
+                                    <from>dvm:lookupValue('oramds:/apps/DVMs/WingReturnOrders.dvm','Property','fields','Value','TBD')</from>
+                                    <to>$InvokeReturnOrders_InputVariable.request/ns2:FIELDS</to>
+                                </copy>
+                                <copy>
+                                    <from>dvm:lookupValue('oramds:/apps/DVMs/WingReturnOrders.dvm','Property','pagesize','Value','TBD')</from>
+                                    <to>$InvokeReturnOrders_InputVariable.request/ns2:PAGESIZE</to>
+                                </copy>
+                                <copy>
+                                    <from>dvm:lookupValue('oramds:/apps/DVMs/WingReturnOrders.dvm','Property','method','Value','TBD')</from>
+                                    <to>$InvokeReturnOrders_InputVariable.request/ns2:METHOD</to>
+                                </copy>
+                                <copy>
+                                    <from>$page_count</from>
+                                    <to>$InvokeReturnOrders_InputVariable.request/ns2:PAGENO</to>
+                                </copy>
+                                <copy>
+                                    <from>dvm:lookupValue('oramds:/apps/DVMs/WingReturnOrders.dvm','Property','status','Value','TBD')</from>
+                                    <to>$InvokeReturnOrders_InputVariable.request/ns2:STATUS</to>
+                                </copy>
+                                <copy>
+                                    <from>dvm:lookupValue('oramds:/apps/DVMs/WingReturnOrders.dvm','Property','version','Value','TBD')</from>
+                                    <to>$InvokeReturnOrders_InputVariable.request/ns2:V</to>
+                                </copy>
+                                <copy>
+                                    <from>xp20:current-dateTime()</from>
+                                    <to>$InvokeReturnOrders_InputVariable.request/ns2:TIMESTAMP</to>
+                                </copy>
+                                <copy>
+                                    <from>$inputVariable.payload/client:StartDate</from>
+                                    <to>$InvokeReturnOrders_InputVariable.request/ns2:STARTDATE</to>
+                                </copy>
+                            </assign>
+                            <extensionActivity xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
+      <bpelx:exec name="encryptURI" language="java" xmlns:bpelx="http://schemas.oracle.com/bpel/extension">
+                                    <![CDATA[try {             
+ XMLElement app_key_input = (XMLElement) getVariableData("InvokeReturnOrders_InputVariable", "request", "/ns2:ReturnOrderRequest/ns2:APP_KEY");          
+ XMLElement fields_input = (XMLElement) getVariableData("InvokeReturnOrders_InputVariable", "request", "/ns2:ReturnOrderRequest/ns2:FIELDS");          
+ XMLElement method_input = (XMLElement) getVariableData("InvokeReturnOrders_InputVariable", "request", "/ns2:ReturnOrderRequest/ns2:METHOD");           
+ XMLElement status_input = (XMLElement) getVariableData("InvokeReturnOrders_InputVariable", "request", "/ns2:ReturnOrderRequest/ns2:STATUS");    
+ XMLElement pageno_input = (XMLElement) getVariableData("InvokeReturnOrders_InputVariable", "request", "/ns2:ReturnOrderRequest/ns2:PAGENO");          
+ XMLElement pagesize_input = (XMLElement) getVariableData("InvokeReturnOrders_InputVariable", "request", "/ns2:ReturnOrderRequest/ns2:PAGESIZE");          
+ XMLElement start_date_input = (XMLElement) getVariableData("InvokeReturnOrders_InputVariable", "request", "/ns2:ReturnOrderRequest/ns2:STARTDATE");          
+ XMLElement end_date_input = (XMLElement) getVariableData("InvokeReturnOrders_InputVariable", "request", "/ns2:ReturnOrderRequest/ns2:ENDDATE");           
+ XMLElement timestamp_input = (XMLElement) getVariableData("InvokeReturnOrders_InputVariable", "request", "/ns2:ReturnOrderRequest/ns2:TIMESTAMP");          
+ XMLElement version_input = (XMLElement) getVariableData("InvokeReturnOrders_InputVariable", "request", "/ns2:ReturnOrderRequest/ns2:V");          
+ XMLElement refundorderid_input = (XMLElement) getVariableData("InvokeReturnOrders_InputVariable", "request", "/ns2:ReturnOrderRequest/ns2:REFUNDORDERID");          
+          
+ String app_key = app_key_input.getTextContent();          
+ String fields = fields_input.getTextContent();           
+ String method = method_input.getTextContent();    
+ String status = status_input.getTextContent();             
+ String pageno= pageno_input.getTextContent();          
+ String pagesize = pagesize_input.getTextContent();          
+ String start_date = start_date_input.getTextContent();          
+ String end_date = end_date_input.getTextContent();          
+ String timestamp = timestamp_input.getTextContent();          
+ String version = version_input.getTextContent();          
+ String refundorderid = refundorderid_input.getTextContent();            
+             
+ //String s = "48b8b97fa6a9172e866ad4d7dee8162d" + app_key + end_modified + fields + method + page_no + page_size + start_modified + timestamp + version;      
+ String s = "48b8b97fa6a9172e866ad4d7dee8162d" + "APP_KEY"+app_key + "ENDDATE"+end_date + "FIELDS"+fields + "METHOD"+method + "STATUS"+status + "STARTDATE"+start_date + "TIMESTAMP"+timestamp + "REFUNDORDERID"+refundorderid + "PAGENO"+pageno + "PAGESIZE"+pagesize + "V"+version;      
+ MessageDigest m = MessageDigest.getInstance("MD5");       
+ m.reset();       
+ m.update(s.getBytes(), 0, s.length());             
+ addAuditTrailEntry("====JavaEmbeddingInstances===");         
+ addAuditTrailEntry("Input URI Values "+s);          
+ //addAuditTrailEntry("MD5: " + new BigInteger(1,m.digest()).toString(16).toUpperCase());         
+ setVariableData("InvokeReturnOrders_InputVariable", "request", "/ns2:ReturnOrderRequest/ns2:SIGN",new BigInteger(1, m.digest()).toString(16).toUpperCase());             
+             
+} catch (Exception e) {             
+ System.out.println("exception " + e.getMessage());             
+ addAuditTrailEntry(e);             
+}]]>
+                                </bpelx:exec>
+   </extensionActivity>
+                            <invoke name="InvokeReturnOrders" partnerLink="ReturnOrders"
+                                    portType="ns1:ReturnOrders_ptt" operation="Orders"
+                                    inputVariable="InvokeReturnOrders_InputVariable"
+                                    outputVariable="InvokeReturnOrders_OutputVariable" bpelx:invokeAsDetail="no">
+                                <bpelx:toProperties>
+                                    <bpelx:toProperty name="rest.binding.requestURI" variable="api_url"/>
+                                </bpelx:toProperties>
+                            </invoke>
+                            <assign name="XformReturnHeader">
+                                <bpelx:annotation>
+                                    <bpelx:pattern patternName="bpelx:xquery"></bpelx:pattern>
+                                </bpelx:annotation>
+                                <copy>
+                                    <from>ora:processXQuery10('../Transformations/InsertReturnHeader.xqy', 'InvokeReturnOrders_OutputVariable.reply', $InvokeReturnOrders_OutputVariable.reply, 'dossierNum', $batch_number)</from>
+                                    <to variable="InsertReturnHeader_InputVariable"
+                                        part="SbcCnPoOutboundHeaderCollection"/>
+                                </copy>
+                            </assign>
+                            <invoke name="InsertReturnHeader"
+                                    partnerLink="InsertReturnHeader" portType="ns3:InsertReturnHeader_ptt"
+                                    operation="insert" inputVariable="InsertReturnHeader_InputVariable"
+                                    bpelx:invokeAsDetail="no"/>
+                            <assign name="XformReturnLines">
+                                <bpelx:annotation>
+                                    <bpelx:pattern patternName="bpelx:xquery"></bpelx:pattern>
+                                </bpelx:annotation>
+                                <copy>
+                                    <from>ora:processXQuery10('../Transformations/InserReturnDetail.xqy', 'InvokeReturnOrders_OutputVariable.reply', $InvokeReturnOrders_OutputVariable.reply, 'dossierNum', $batch_number)</from>
+                                    <to variable="InsertReturnDetail_InputVariable"
+                                        part="SbcCnPoOutboundDetailCollection"/>
+                                </copy>
+                            </assign>
+                            <invoke name="InsertReturnDetail"
+                                    partnerLink="InsertReturnDetail" portType="ns4:InsertReturnDetail_ptt"
+                                    operation="insert" inputVariable="InsertReturnDetail_InputVariable"
+                                    bpelx:invokeAsDetail="no"/>
+                            <if name="GenerateFile">
+                                <condition>xp20:upper-case($inputVariable.payload/client:GenerateFile) = 'Y'</condition>
+                                <sequence name="Sequence8">
+                                    <assign name="AssignDB">
+                                        <copy>
+                                            <from>ora:getFlowId()</from>
+                                            <to>$CreateFile_InputVariable.InputParameters/ns15:P_BATCH_NUMBER</to>
+                                        </copy>
+                                    </assign>
+                                    <invoke name="CreateFile" partnerLink="GenerateFileDB"
+                                            portType="ns14:GenerateFileDB_ptt" operation="GenerateFileDB"
+                                            inputVariable="CreateFile_InputVariable"
+                                            outputVariable="CreateFile_OutputVariable" bpelx:invokeAsDetail="no"/>
+                                    <scope name="AdapterFileCreationSKIP">
+                                        <bpelx:skipCondition>true()</bpelx:skipCondition>
+                                        <sequence>
+                                            <bpelx:skipCondition>true()</bpelx:skipCondition>
+                                            <assign name="WriteFileXSL">
+                                                <bpelx:annotation>
+                                                    <bpelx:pattern patternName="bpelx:transformation"></bpelx:pattern>
+                                                </bpelx:annotation>
+                                                <copy>
+                                                    <from>ora:doXSLTransformForDoc("../Transformations/TransformWriteFileNew.xsl", $InvokeReturnOrders_OutputVariable.reply, "batch_number", $batch_number)</from>
+                                                    <to variable="InvokeWriteFile_Write_InputVariable" part="body"/>
+                                                </copy>
+                                            </assign>
+                                            <assign name="WriteFileXQ">
+                                                <bpelx:skipCondition>true()</bpelx:skipCondition>
+                                                <bpelx:annotation>
+                                                    <bpelx:pattern patternName="bpelx:xquery"></bpelx:pattern>
+                                                </bpelx:annotation>
+                                                <copy>
+                                                    <from>ora:processXQuery10('../Transformations/TransformWriteFile.xqy', 'InvokeReturnOrders_OutputVariable.reply', $InvokeReturnOrders_OutputVariable.reply, 'batchNum', $batch_number)</from>
+                                                    <to variable="InvokeWriteFile_Write_InputVariable" part="body"/>
+                                                </copy>
+                                            </assign>
+                                            <assign name="AssignFileName">
+                                                <copy>
+                                                    <from>concat('POR',ora:getCurrentTime('yyyyMMddHHmmss'),'.TXT')</from>
+                                                    <to>$return_file_name</to>
+                                                </copy>
+                                            </assign>
+                                            <invoke name="WriteFile" partnerLink="WriteReturnFile"
+                                                    portType="ns6:Write_ptt" operation="Write"
+                                                    inputVariable="InvokeWriteFile_Write_InputVariable"
+                                                    bpelx:invokeAsDetail="no">
+                                                <bpelx:toProperties>
+                                                    <bpelx:toProperty name="jca.ftp.FileName"
+                                                                      variable="return_file_name"/>
+                                                </bpelx:toProperties>
+                                            </invoke>
+                                            <invoke name="WriteArchiveFile" partnerLink="WriteReturnFile"
+                                                    portType="ns6:Write_ptt" operation="Write"
+                                                    inputVariable="InvokeWriteFile_Write_InputVariable"
+                                                    xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+                                                    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+                                                    bpelx:invokeAsDetail="no">
+                                                <bpelx:toProperties>
+                                                    <bpelx:toProperty name="jca.ftp.FileName"
+                                                                      variable="return_file_name"/>
+                                                    <bpelx:toProperty name="jca.ftp.Directory">ora:getPreference('copyFileTargetDir')</bpelx:toProperty>
+                                                </bpelx:toProperties>
+                                            </invoke>
+                                            <assign name="AssignCopyParams">
+                                                <bpelx:skipCondition>true()</bpelx:skipCondition>
+                                                <copy>
+                                                    <from>ora:getPreference('copyFileSourceDir')</from>
+                                                    <to>$sourceDirectory</to>
+                                                </copy>
+                                                <copy>
+                                                    <from>ora:getPreference('copyFileTargetDir')</from>
+                                                    <to>$targetDirectory</to>
+                                                </copy>
+                                                <copy>
+                                                    <from>$return_file_name</from>
+                                                    <to>$sourceFileName</to>
+                                                </copy>
+                                                <copy>
+                                                    <from>$return_file_name</from>
+                                                    <to>$targetFileName</to>
+                                                </copy>
+                                            </assign>
+                                            <invoke name="InvokeCopyFile" partnerLink="CopyReturnFile"
+                                                    portType="ns7:Copy_ptt" operation="Copy"
+                                                    inputVariable="InvokeCopyFile_Copy_InputVariable"
+                                                    bpelx:invokeAsDetail="no">
+                                                <bpelx:skipCondition>true()</bpelx:skipCondition>
+                                                <bpelx:toProperties>
+                                                    <bpelx:toProperty name="jca.file.SourceDirectory"
+                                                                      variable="sourceDirectory"/>
+                                                    <bpelx:toProperty name="jca.file.SourceFileName"
+                                                                      variable="sourceFileName"/>
+                                                    <bpelx:toProperty name="jca.file.TargetDirectory"
+                                                                      variable="targetDirectory"/>
+                                                    <bpelx:toProperty name="jca.file.TargetFileName"
+                                                                      variable="targetFileName"/>
+                                                </bpelx:toProperties>
+                                            </invoke>
+                                        </sequence>
+                                    </scope>
+                                </sequence>
+                                <else>
+                                    <empty name="DO_NOTHING"/>
+                                </else>
+                            </if>
+                        </sequence>
+                    </scope>
+                </forEach>
+                <assign name="AssignOutput">
+                    <copy>
+                        <from> ora:getFlowId()</from>
+                        <to>$outputVariable.payload/client:Result</to>
+                    </copy>
+                    <copy ignoreMissingFromData="yes">
+                        <from>concat(ora:getPreference("ENV"),': Batch Number - ', ora:getFlowId(), '  ',ora:getCompositeName(), '  ',xp20:current-date())</from>
+                        <to>$emailOBJ.EmailPayload/ns5:Subject</to>
+                    </copy>
+                    <copy ignoreMissingFromData="yes">
+                        <from>ora:getPreference("BusinessEmail")</from>
+                        <to>$emailOBJ.EmailPayload/ns5:To</to>
+                    </copy>
+                    <copy ignoreMissingFromData="yes">
+                        <from>ora:getPreference("SupportEmail")</from>
+                        <to>$emailOBJ.EmailPayload/ns5:Cc</to>
+                    </copy>
+                    <copy ignoreMissingFromData="yes">
+                        <from>'Message: SUCCESS' </from>
+                        <to>$emailOBJ.EmailPayload/ns5:Content/ns5:ContentBody</to>
+                    </copy>
+                </assign>
+                <extensionActivity>
+                    <bpelx:call name="SuccessEmail" target="SendEmail">
+                        <bpelx:skipCondition>true()</bpelx:skipCondition>
+                    </bpelx:call>
+                </extensionActivity>
+            </sequence>
+            <else>
+                <if name="NO_DATA">
+                    <condition>$GetReturnOrderCount_Orders_OutputVariable.reply/ns2:TotalCount = 0 and $GetReturnOrderCount_Orders_OutputVariable.reply/ns2:Code = 0</condition><sequence name="Sequence2"><assign name="AssignOutput">
+                            <copy>
+                                <from>'No valid records to import'</from>
+                                <to>$outputVariable.payload/client:Result</to>
+                            </copy>
+                            <copy>
+                                <from>concat(ora:getPreference("ENV"),': Batch Number - ', ora:getFlowId(), '  ',ora:getCompositeName(), '  ',xp20:current-date())</from>
+                                <to>$emailOBJ.EmailPayload/ns5:Subject</to>
+                            </copy>
+                            <copy>
+                                <from>ora:getPreference("BusinessEmail")</from>
+                                <to>$emailOBJ.EmailPayload/ns5:To</to>
+                            </copy>
+                            <copy>
+                                <from>ora:getPreference("SupportEmail")</from>
+                                <to>$emailOBJ.EmailPayload/ns5:Cc</to>
+                            </copy>
+                            <copy>
+                                <from>'Message: No records to import'</from>
+                                <to>$emailOBJ.EmailPayload/ns5:Content/ns5:ContentBody</to>
+                            </copy>
+                        </assign>
+                        <extensionActivity>
+                            <bpelx:call name="NoDataEmail" target="SendEmail">
+                            </bpelx:call>
+                        </extensionActivity>
+                        <invoke name="CallbackClient"
+                                                                                                                                                                                                                                                   partnerLink="expeditorreturnorderprocess_client"
+                                                                                                                                                                                                                                                   portType="client:ExpeditorReturnOrderProcessCallback"
+                                                                                                                                                                                                                                                   operation="onResult"
+                                                                                                                                                                                                                                                   inputVariable="outputVariable"
+                                                                                                                                                                                                                                                   bpelx:invokeAsDetail="no"
+                                                                                                                                                                                                                                                   xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+                                                                                                                                                                                                                                                   xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"/></sequence><else>
+                        <sequence name="Sequence3">
+                            <assign name="AssignAPIFault">
+                                <copy>
+                                    <from>$GetReturnOrderCount_Orders_OutputVariable.reply/ns2:Message</from>
+                                    <to>$UserFaultMsgType.payload/client:summary</to>
+                                </copy>
+                                <copy>
+                                    <from>'userFault'</from>
+                                    <to>$UserFaultMsgType.payload/client:code</to>
+                                </copy>
+                            </assign>
+                            <throw name="ThrowAPIFault" faultName="xsd:UserFault" faultVariable="UserFaultMsgType"/>
+                        </sequence>
+                    </else>
+                </if>
+            </else>
+        </if>
+        <!-- 
+          Asynchronous callback to the requester. (Note: the callback location and correlation id is transparently handled using WS-addressing.)
+        -->
+        <invoke name="callbackClient" partnerLink="expeditorreturnorderprocess_client" portType="client:ExpeditorReturnOrderProcessCallback" operation="onResult" inputVariable="outputVariable"/>
+    </sequence>
+</process>

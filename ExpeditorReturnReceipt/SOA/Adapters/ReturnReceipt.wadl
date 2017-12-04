@@ -1,0 +1,25 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<application xmlns:soa="http://www.oracle.com/soa/rest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://xmlns.oracle.com/WingPOS/ExpeditorReturnReceipt/ReturnReceipt" xmlns="http://wadl.dev.java.net/2009/02" xmlns:inp1="http://schema.ibd.specialized.com/pos/wing/return">
+   <doc title="ReturnReceipt">RestReference</doc>
+   <grammars>
+      <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://schema.ibd.specialized.com/pos/wing/return" schemaLocation="../Schemas/wingpos_return_receipt_request.xsd"/>
+        </xsd:schema>
+      <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://schema.ibd.specialized.com/pos/wing/return" schemaLocation="../Schemas/wingpos_return_receipt_response.xsd"/>
+        </xsd:schema>
+   </grammars>
+   <resources>
+      <resource path="/api/rest/WingApi">
+         <method name="POST" soa:wsdlOperation="process">
+            <request>
+               <representation mediaType="application/x-www-form-urlencoded" element="cns:ReturnReceiptRequest" xmlns:cns="http://schema.ibd.specialized.com/pos/wing/return"/>
+            </request>
+            <response status="200">
+               <representation mediaType="application/xml" element="cns:ReturnReceiptResponse" xmlns:cns="http://schema.ibd.specialized.com/pos/wing/return"/>
+               <representation mediaType="application/json" element="cns:ReturnReceiptResponse" xmlns:cns="http://schema.ibd.specialized.com/pos/wing/return"/>
+            </response>
+         </method>
+      </resource>
+   </resources>
+</application>

@@ -1,0 +1,35 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="schema.ibd.specialized.com/Common/CommonError"
+     targetNamespace="http://schema.ibd.specialized.com/Common/CommonError" elementFormDefault="qualified"
+     xmlns:tns="http://schema.ibd.specialized.com/Common/CommonError">
+    <xsd:element name="LogRequest" type="tns:LogRequestType"/>
+    <xsd:element name="LogResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="code" type="xsd:string"/>
+                <xsd:element name="message" type="xsd:string"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:complexType name="LogRequestType">
+        <xsd:sequence>
+            <xsd:element name="errorcode" type="xsd:string"/>
+            <xsd:element name="severity" type="xsd:integer"/>
+            <xsd:element name="servicename" type="xsd:string"/>
+            <xsd:element name="uuid" type="xsd:string"/>
+            <xsd:element name="serviceinstanceid" type="xsd:string" minOccurs="0" nillable="true"/>
+            <xsd:element name="functionalid" type="xsd:string" minOccurs="0" nillable="true"/>
+            <xsd:element name="functionaldescription" type="xsd:string" minOccurs="0" nillable="true"/>
+            <xsd:element name="technicaldescription" type="xsd:string" minOccurs="0" nillable="true"/>
+            <xsd:element name="servername" type="xsd:string" minOccurs="0" nillable="true"/>
+            <xsd:element name="notify" type="xsd:string" minOccurs="0" nillable="true"/>
+            <xsd:element name="componentname" type="xsd:string" minOccurs="0" nillable="true"/>
+            <xsd:element name="servicecontext" type="xsd:string" minOccurs="0" nillable="true"/>
+            <xsd:element name="faultcode" type="xsd:string" minOccurs="0" nillable="true"/>
+            <xsd:element name="faultmessage" type="xsd:string" minOccurs="0" nillable="true"/>
+            <xsd:element name="faultlocation" type="xsd:string" minOccurs="0" nillable="true"/>
+            <xsd:element name="faultdetails" type="xsd:string" minOccurs="0" nillable="true"/>
+            <xsd:element name="servicestarttime" type="xsd:string" minOccurs="0" nillable="true"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

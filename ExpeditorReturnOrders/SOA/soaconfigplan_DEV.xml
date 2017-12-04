@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAConfigPlan xmlns:jca="http://platform.integration.oracle/blocks/adapter/fw/metadata" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:orawsp="http://schemas.oracle.com/ws/2006/01/policy" xmlns:edl="http://schemas.oracle.com/events/edl" xmlns="http://schemas.oracle.com/soa/configplan">
+   <composite name="ExpeditorReturnOrders">
+      <!--Add search and replace rules for the import section of a composite
+	Example:
+	<searchReplace>
+		<search>http://my-dev-server</search>
+		<replace>http://my-test-server</replace>
+	<searchReplace>
+	<searchReplace>
+		<search>8888</search>
+		<replace>8889</replace>
+	<searchReplace>-->
+      <import>
+         <searchReplace>
+            <search/>
+            <replace/>
+         </searchReplace>
+      </import>
+      <service name="expeditorreturnorderprocess_client_ep">
+         <binding type="ws">
+            <attribute name="port">
+               <replace>http://ibd.specialized.com/WingPOS/ExpeditorReturnOrders#wsdl.endpoint(expeditorreturnorderprocess_client_ep/ExpeditorReturnOrderProcess_pt)</replace>
+            </attribute>
+         </binding>
+         <callback>
+            <binding type="ws">
+               <attribute name="port">
+                  <replace>http://ibd.specialized.com/WingPOS/ExpeditorReturnOrders#wsdl.endpoint(expeditorreturnorderprocess_client_ep/ExpeditorReturnOrderProcessCallback_pt)</replace>
+               </attribute>
+            </binding>
+         </callback>
+      </service>
+      <service name="expeditorreturnorderprocess_client"/>
+      <property name="productVersion">
+         <replace>12.1.3.0.0</replace>
+      </property>
+      <!--Add search and replace rules for the component properties
+	For components and service/reference bindings, you can add policy references.
+	Example:
+	<component name="*">
+		<wsp:PolicyReference orawsp:category="management" orawsp:status="enabled" URI="oracle/log_policy"/>
+	</component>-->
+      <component name="ExpeditorReturnOrderProcess">
+         <property name="bpel.config.oneWayDeliveryPolicy">
+            <replace>async.persist</replace>
+         </property>
+         <property name="bpel.preference.copyFileSourceDir">
+            <replace>/test/outbound/history/</replace>
+         </property>
+         <property name="bpel.preference.copyFileTargetDir">
+            <replace>/test/archive/</replace>
+         </property>
+         <property name="bpel.preference.ENV">
+            <replace>DEV</replace>
+         </property>
+         <property name="bpel.preference.URL">
+            <replace>http://api.specializedtest.shoptao.cn/api/rest/WingApi</replace>
+         </property>         
+         <property name="bpel.preference.SupportEmail">
+            <replace>ssanagala@specialized.com</replace>
+         </property>
+         <property name="bpel.preference.BusinessEmail">
+            <replace>ssanagala@specialized.com</replace>
+         </property>
+      </component>
+      <reference name="ReturnOrders"/>
+      <reference name="InsertReturnHeader"/>
+      <reference name="InsertReturnDetail"/>
+      <reference name="NotificationService1"/>
+      <reference name="WriteReturnFile"/>
+      <reference name="CopyReturnFile"/>
+      <reference name="ReturnOrders">
+         <binding type="rest"/>
+      </reference>
+      <reference name="InsertReturnHeader">
+         <property name="jca.retry.count">
+            <replace>4</replace>
+         </property>
+         <property name="jca.retry.interval">
+            <replace>1</replace>
+         </property>
+         <property name="jca.retry.backoff">
+            <replace>2</replace>
+         </property>
+         <property name="jca.retry.maxInterval">
+            <replace>120</replace>
+         </property>
+         <binding type="jca"/>
+      </reference>
+      <reference name="InsertReturnDetail">
+         <property name="jca.retry.count">
+            <replace>4</replace>
+         </property>
+         <property name="jca.retry.interval">
+            <replace>1</replace>
+         </property>
+         <property name="jca.retry.backoff">
+            <replace>2</replace>
+         </property>
+         <property name="jca.retry.maxInterval">
+            <replace>120</replace>
+         </property>
+         <binding type="jca"/>
+      </reference>
+      <reference name="NotificationService1">
+         <binding type="wsif"/>
+      </reference>
+      <reference name="WriteReturnFile">
+         <property name="EXPEDITOR_INBOUND">
+            <replace>/test/outbound/</replace>
+         </property>
+         <binding type="jca"/>
+      </reference>
+      <reference name="CopyReturnFile">
+         <binding type="jca"/>
+      </reference>
+   </composite>
+   <!--To configure monitor.config: 
+	<property name="enabled"><replace>true</replace></property>
+	<property name="dataObjectsFolder"><searchReplace><search>mydev</search><replace>myproduction</replace></searchReplace></property>
+	
+	sample properties to configure for file/ftp adapter: 
+	<jca:property name="PhysicalDirectory"><replace>c:\temp</replace></jca:property>
+	<jca:property name="DeleteFile"><replace>true</replace></jca:property>
+	<jca:property name="PollingFrequency"><replace>3</replace></jca:property>
+	
+	To add search and replace rules for wsdls, xsd and jca files
+	Example:
+	<searchReplace>
+		<search>http://my-dev-server</search>
+		<replace>http://my-test-server</replace>
+	<searchReplace>
+	<searchReplace>
+		<search>8888</search>
+		<replace>8889</replace>
+	<searchReplace>
+	-->
+   <wsdlAndSchema name="Adapters/CopyReturnFile_ftp.jca|Adapters/InsertReturnDetail_db.jca|Adapters/InsertReturnHeader_db.jca|Adapters/WriteReturnFile_ftp.jca|Schemas/ExpeditorReturnOrderProcess.xsd|Schemas/InsertReturnDetail_table.xsd|Schemas/InsertReturnHeader_table.xsd|Schemas/nxsd_return_order_file.xsd|Schemas/wingpos_return_order_request.xsd|Schemas/wingpos_return_order_response.xsd|WSDLs/CopyReturnFile.wsdl|WSDLs/ExpeditorReturnOrderProcess.wsdl|WSDLs/InsertReturnDetail.wsdl|WSDLs/InsertReturnHeader.wsdl|WSDLs/ReturnOrders.wsdl|WSDLs/WriteReturnFile.wsdl">
+      <searchReplace>
+         <search/>
+         <replace/>
+      </searchReplace>
+   </wsdlAndSchema>
+</SOAConfigPlan>

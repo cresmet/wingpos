@@ -1,0 +1,28 @@
+<wsdl:definitions
+     name="UpdateReceiptDB"
+     targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnReceipt/UpdateReceiptDB"
+     xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnReceipt/UpdateReceiptDB"
+     xmlns:jca="http://xmlns.oracle.com/pcbpel/wsdl/jca/"
+     xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/UpdateReceiptDB"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+  <plt:partnerLinkType name="UpdateReceiptDB_plt" >
+    <plt:role name="UpdateReceiptDB_role" >
+      <plt:portType name="tns:UpdateReceiptDB_ptt" />
+    </plt:role>
+  </plt:partnerLinkType>
+    <wsdl:types>
+      <schema xmlns="http://www.w3.org/2001/XMLSchema" >
+        <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/UpdateReceiptDB" schemaLocation="../Schemas/UpdateReceiptDB_table.xsd" />
+      </schema>
+    </wsdl:types>
+    <wsdl:message name="SbcCnReceiptInboundCollection_msg">
+        <wsdl:part name="SbcCnReceiptInboundCollection" element="top:SbcCnReceiptInboundCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="UpdateReceiptDB_ptt">
+        <wsdl:operation name="update">
+            <wsdl:input message="tns:SbcCnReceiptInboundCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

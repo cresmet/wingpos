@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-persistence xmlns="http://www.eclipse.org/eclipselink/xsds/persistence" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:eclipselink="http://www.eclipse.org/eclipselink/xsds/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="Eclipse Persistence Services - 2.5.2.v20140319-9ad6abd">
+   <name>InsertOrders-OR</name>
+   <class-mapping-descriptors>
+      <class-mapping-descriptor xsi:type="object-relational-class-mapping-descriptor">
+         <class>InsertOrders.SbcExpeditorStgTbl</class>
+         <alias>SBC_EXPEDITOR_STG_TBL</alias>
+         <primary-key>
+            <field table="SBC_EXPEDITOR_STG_TBL" name="TRANSACTION_ID" xsi:type="column"/>
+         </primary-key>
+         <events/>
+         <querying>
+            <queries>
+               <query name="InsertOrdersSelect" xsi:type="read-all-query">
+                  <reference-class>InsertOrders.SbcExpeditorStgTbl</reference-class>
+                  <container xsi:type="list-container-policy">
+                     <collection-type>java.util.Vector</collection-type>
+                  </container>
+               </query>
+            </queries>
+         </querying>
+         <attribute-mappings>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>posSystemId</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="POS_SYSTEM_ID" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>transactionId</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="TRANSACTION_ID" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>batchNumber</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="BATCH_NUMBER" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>orderNumber</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="ORDER_NUMBER" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>orderDate</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="ORDER_DATE" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>orderStatus</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="ORDER_STATUS" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>orderLineId</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="ORDER_LINE_ID" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>orderLineNumber</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="ORDER_LINE_NUMBER" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>item</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="ITEM" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>upcCode</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="UPC_CODE" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>itemDescription</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="ITEM_DESCRIPTION" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>orderLineQuantity</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="ORDER_LINE_QUANTITY" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>skuSpec</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="SKU_SPEC" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>productCode</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="PRODUCT_CODE" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>productWeight</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="PRODUCT_WEIGHT" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>price</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="PRICE" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>standardPrice</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="STANDARD_PRICE" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>adjustAmount</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="ADJUST_AMOUNT" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>taxAmount</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="TAX_AMOUNT" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>discountAmount</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="DISCOUNT_AMOUNT" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>averageDiscount</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="AVERAGE_DISCOUNT" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>lineTotalAmount</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="LINE_TOTAL_AMOUNT" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>orderTotalAmount</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="ORDER_TOTAL_AMOUNT" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>refundid</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="REFUNDID" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>refundStatus</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="REFUND_STATUS" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>refundQuantity</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="REFUND_QUANTITY" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>omsonlineorderid</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="OMSONLINEORDERID" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>orderShopName</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="ORDER_SHOP_NAME" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>orderShopId</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="ORDER_SHOP_ID" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>status</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="STATUS" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>createdBy</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="CREATED_BY" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>creationDate</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="CREATION_DATE" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>lastUpdatedBy</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="LAST_UPDATED_BY" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>lastUpdateDate</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="LAST_UPDATE_DATE" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>shipperId</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="SHIPPER_ID" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>logisticsNumber</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="LOGISTICS_NUMBER" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>shipperName</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="SHIPPER_NAME" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>shipperCode</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="SHIPPER_CODE" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>shortAddress</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="SHORT_ADDRESS" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>customerName</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="CUSTOMER_NAME" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>customerAddress</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="CUSTOMER_ADDRESS" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>customerAreaName</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="CUSTOMER_AREA_NAME" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>customerCityName</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="CUSTOMER_CITY_NAME" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>customerProvinceName</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="CUSTOMER_PROVINCE_NAME" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>customerZip</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="CUSTOMER_ZIP" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>customerPhone</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="CUSTOMER_PHONE" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>customerMobile</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="CUSTOMER_MOBILE" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>productAmount</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="PRODUCT_AMOUNT" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>receivedAmount</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="RECEIVED_AMOUNT" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>shipAmount</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="SHIP_AMOUNT" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>codAmount</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="COD_AMOUNT" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>payType</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="PAY_TYPE" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>platform</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="PLATFORM" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>modifiedDate</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="MODIFIED_DATE" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>modifierid</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="MODIFIERID" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>isintercept</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="ISINTERCEPT" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>buyerMessage</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="BUYER_MESSAGE" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>sellerMemo</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="SELLER_MEMO" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>insideRemark</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="INSIDE_REMARK" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>invoiceHeader</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="INVOICE_HEADER" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>invoiceContent</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="INVOICE_CONTENT" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>presaleStatus</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="PRESALE_STATUS" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>auditTime</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="AUDIT_TIME" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>extendText</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="EXTEND_TEXT" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>drpstorename</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="DRPSTORENAME" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>shoptitle</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="SHOPTITLE" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>sendstoreCode</attribute-name>
+               <field table="SBC_EXPEDITOR_STG_TBL" name="SENDSTORE_CODE" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+         </attribute-mappings>
+         <descriptor-type>independent</descriptor-type>
+         <caching>
+            <cache-type>weak-reference</cache-type>
+            <cache-size>-1</cache-size>
+            <always-refresh>true</always-refresh>
+         </caching>
+         <remote-caching>
+            <cache-type>weak-reference</cache-type>
+            <cache-size>-1</cache-size>
+         </remote-caching>
+         <instantiation/>
+         <copying xsi:type="instantiation-copy-policy"/>
+         <tables>
+            <table name="SBC_EXPEDITOR_STG_TBL"/>
+         </tables>
+         <structure>structureName</structure>
+      </class-mapping-descriptor>
+   </class-mapping-descriptors>
+   <login xsi:type="database-login">
+      <platform-class>org.eclipse.persistence.platform.database.oracle.Oracle9Platform</platform-class>
+      <connection-url></connection-url>
+   </login>
+</object-persistence>

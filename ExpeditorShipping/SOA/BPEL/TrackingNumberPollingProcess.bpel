@@ -1,0 +1,333 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Fri Apr 14 12:16:02 PDT 2017
+  Author:  ssanagala
+  Type: BPEL 2.0 Process
+  Purpose: Empty BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="TrackingNumberPollingProcess"
+               targetNamespace="http://xmlns.oracle.com/WingPOS/ExpeditorShipping/TrackingNumberPollingProcess"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/WingPOS/ExpeditorShipping/TrackingNumberPollingProcess"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorShipping/TrackingNumberPolling"
+         xmlns:ns2="http://xmlns.oracle.com/WingPOS/ExpeditorShipping/UpdateShipment"
+         xmlns:ns3="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorShipping/UpdateStagingTable"
+         xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:ess="http://xmlns.oracle.com/scheduler"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/db/top/TrackingNumberPolling"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+         xmlns:ns5="http://schema.ibd.specialized.com/pos/wing/shipment"
+         xmlns:ns6="http://xmlns.oracle.com/ias/pcbpel/NotificationService"
+         xmlns:ui="http://xmlns.oracle.com/soa/designer"
+         xmlns:ns7="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorShipping/RollbackTBL"
+         xmlns:ns8="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorShipping/UpdateTBL"
+         xmlns:ns9="http://xmlns.oracle.com/pcbpel/adapter/db/UpdateTBL"
+         xmlns:ns10="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorShipping/UpdateTBLNEW"
+         xmlns:ns11="http://xmlns.oracle.com/pcbpel/adapter/db/top/UpdateTBLNEW">
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <bpelx:inlineSubProcess name="SendEmail">
+    <bpelx:annotation>
+      <bpelx:pattern patternName="bpelx:email"></bpelx:pattern>
+    </bpelx:annotation>
+        <variables>
+            <variable name="varNotificationReq" messageType="ns6:EmailNotificationRequest"/>
+            <variable name="varNotificationResponse" messageType="ns6:ArrayOfResponse"/>
+            <variable name="NotificationServiceFaultVariable" messageType="ns6:NotificationServiceErrorMessage"/>
+        </variables>
+        <sequence name="Sequence5">
+            <assign name="EmailParamsAssign">
+                <copy>
+                    <from>string('Default')</from>
+                    <to>$varNotificationReq.EmailPayload/ns6:FromAccountName</to>
+                </copy>
+                <copy>
+                    <from>string('text/html; charset=UTF-8')</from>
+                    <to>$varNotificationReq.EmailPayload/ns6:Content/ns6:MimeType</to>
+                </copy>
+                <copy ignoreMissingFromData="yes">
+                    <from>$emailOBJ.EmailPayload/ns6:Bcc</from>
+                    <to>$varNotificationReq.EmailPayload/ns6:Bcc</to>
+                </copy>
+                <copy ignoreMissingFromData="yes">
+                    <from>$emailOBJ.EmailPayload/ns6:Cc</from>
+                    <to>$varNotificationReq.EmailPayload/ns6:Cc</to>
+                </copy>
+                <copy ignoreMissingFromData="yes">
+                    <from>$emailOBJ.EmailPayload/ns6:ReplyToAddress</from>
+                    <to>$varNotificationReq.EmailPayload/ns6:ReplyToAddress</to>
+                </copy>
+                <copy ignoreMissingFromData="yes">
+                    <from>$emailOBJ.EmailPayload/ns6:Subject</from>
+                    <to>$varNotificationReq.EmailPayload/ns6:Subject</to>
+                </copy>
+                <copy ignoreMissingFromData="yes">
+                    <from>$emailOBJ.EmailPayload/ns6:To</from>
+                    <to>$varNotificationReq.EmailPayload/ns6:To</to>
+                </copy>
+                <copy ignoreMissingFromData="yes">
+                    <from>$emailOBJ.EmailPayload/ns6:Content/ns6:ContentBody</from>
+                    <to>$varNotificationReq.EmailPayload/ns6:Content/ns6:ContentBody</to>
+                </copy>
+            </assign>
+            <invoke name="InvokeNotificationService" portType="ns6:NotificationService"
+                    partnerLink="EmailNotification" inputVariable="varNotificationReq"
+                    outputVariable="varNotificationResponse" operation="sendEmailNotification"
+                    bpelx:invokeAsDetail="no"/>
+        </sequence>
+  </bpelx:inlineSubProcess>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorShipping/TrackingNumberPolling"
+          location="../WSDLs/TrackingNumberPolling.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"
+          ui:processWSDL="true"/>
+    <import location="oracle.xml.parser.v2.XMLElement" importType="http://schemas.oracle.com/bpel/extension/java"/>
+    <import location="org.w3c.dom.Element" importType="http://schemas.oracle.com/bpel/extension/java"/>
+    <import location="java.security.*" importType="http://schemas.oracle.com/bpel/extension/java"/>
+    <import location="java.math.*" importType="http://schemas.oracle.com/bpel/extension/java"/>          
+  <partnerLinks>
+    <partnerLink name="TrackingNumberPolling" partnerLinkType="ns1:TrackingNumberPolling_plt"
+                 myRole="TrackingNumberPolling_role"/>
+    <partnerLink name="UpdateShipment" partnerLinkType="ns2:UpdateShipment" partnerRole="UpdateShipmentProvider"/>
+    <partnerLink name="EmailNotification" partnerLinkType="ns6:NotificationServiceLink"
+                 partnerRole="NotificationServiceProvider"/>
+        <partnerLink name="RollbackTBL" partnerLinkType="ns7:RollbackTBL_plt" partnerRole="RollbackTBL_role"/>
+        <partnerLink name="UpdateTBLNEW" partnerLinkType="ns10:UpdateTBLNEW_plt" partnerRole="UpdateTBLNEW_role"/>
+    </partnerLinks>
+  <variables>
+    <variable name="ReceiveInput_InputVariable" messageType="ns1:SbcExpeditorShipconfirmCollection_msg"/>
+    <variable name="DlvyID" type="xsd:integer"/>
+    <variable name="UpdateTrackingInfo_InputVariable" messageType="ns2:updateTracking_inputMessage"/>
+    <variable name="UpdateTrackingInfo_OutputVariable" messageType="ns2:updateTracking_outputMessage"/>
+    <variable name="UserFault" type="xsd:string"/>
+    <variable name="emailOBJ" messageType="ns6:EmailNotificationRequest"/>
+        <variable name="CallRollback_InputVariable" messageType="ns7:RollbackTBLInput_msg"/>
+        <variable name="UpdateDBNEW_InputVariable" messageType="ns10:SbcExpeditorShipconfirmCollection_msg"/>
+    </variables>
+  <faultHandlers>
+    <catchAll>
+      <sequence name="Sequence4">
+        <if name="FaultExists">
+          <condition>$UpdateTrackingInfo_OutputVariable.reply/ns5:Code = 1</condition>
+                    <sequence name="Sequence6">
+                        <assign name="AssignAPIFault">
+                            <copy>
+                                <from>concat(ora:getPreference("ENV"),': Batch Number - ', ora:getFlowId(), '  ',ora:getCompositeName(), '  ',xp20:current-date())</from>
+                                <to>$emailOBJ.EmailPayload/ns6:Subject</to>
+                            </copy>
+                            <copy>
+                                <from>$UpdateTrackingInfo_OutputVariable.reply/ns5:Message</from>
+                                <to>$UpdateDBNEW_InputVariable.SbcExpeditorShipconfirmCollection/ns11:SbcExpeditorShipconfirm/ns11:message</to>
+                            </copy>
+                            <copy>
+                                <from>'ERROR'</from>
+                                <to>$UpdateDBNEW_InputVariable.SbcExpeditorShipconfirmCollection/ns11:SbcExpeditorShipconfirm/ns11:uploadStatus</to>
+                            </copy>
+                            <copy>
+                                <from>$ReceiveInput_InputVariable.SbcExpeditorShipconfirmCollection/ns4:SbcExpeditorShipconfirm/ns4:waybill</from>
+                                <to>$UpdateDBNEW_InputVariable.SbcExpeditorShipconfirmCollection/ns11:SbcExpeditorShipconfirm/ns11:waybill</to>
+                            </copy>
+                            <copy>
+                                <from>$ReceiveInput_InputVariable.SbcExpeditorShipconfirmCollection/ns4:SbcExpeditorShipconfirm/ns4:item</from>
+                                <to>$UpdateDBNEW_InputVariable.SbcExpeditorShipconfirmCollection/ns11:SbcExpeditorShipconfirm/ns11:item</to>
+                            </copy>
+                            <copy>
+                                <from>$ReceiveInput_InputVariable.SbcExpeditorShipconfirmCollection/ns4:SbcExpeditorShipconfirm/ns4:shippedQty</from>
+                                <to>$UpdateDBNEW_InputVariable.SbcExpeditorShipconfirmCollection/ns11:SbcExpeditorShipconfirm/ns11:shippedQty</to>
+                            </copy>
+                            <copy>
+                                <from>ora:getPreference("BusinessEmail")</from>
+                                <to>$emailOBJ.EmailPayload/ns6:To</to>
+                            </copy>
+                            <copy>
+                                <from>ora:getPreference("SupportEmail")</from>
+                                <to>$emailOBJ.EmailPayload/ns6:Cc</to>
+                            </copy>
+                            <copy>
+                                <from>concat('Message: ',$UpdateTrackingInfo_OutputVariable.reply/ns5:Message)</from>
+                                <to>$emailOBJ.EmailPayload/ns6:Content/ns6:ContentBody</to>
+                            </copy>
+                        </assign>
+                    </sequence>
+                    <else>
+                        <assign name="AssignServerFault">
+                            <copy>
+                                <from>concat('Message: ',substring-before(substring-after(ora:getFaultAsString(), "&amp;lt;detail&amp;gt;"), "&amp;lt;/detail&amp;gt;"))</from>
+                                <to>$emailOBJ.EmailPayload/ns6:Content/ns6:ContentBody</to>
+                            </copy>
+                            <copy>
+                                <from>substring-before(substring-after(ora:getFaultAsString(), "&amp;lt;detail&amp;gt;"), "&amp;lt;/detail&amp;gt;")</from>
+                                <to>$UpdateDBNEW_InputVariable.SbcExpeditorShipconfirmCollection/ns11:SbcExpeditorShipconfirm/ns11:message</to>
+                            </copy>
+                            <copy>
+                                <from>$ReceiveInput_InputVariable.SbcExpeditorShipconfirmCollection/ns4:SbcExpeditorShipconfirm/ns4:waybill</from>
+                                <to>$UpdateDBNEW_InputVariable.SbcExpeditorShipconfirmCollection/ns11:SbcExpeditorShipconfirm/ns11:waybill</to>
+                            </copy>
+                            <copy>
+                                <from>$ReceiveInput_InputVariable.SbcExpeditorShipconfirmCollection/ns4:SbcExpeditorShipconfirm/ns4:item</from>
+                                <to>$UpdateDBNEW_InputVariable.SbcExpeditorShipconfirmCollection/ns11:SbcExpeditorShipconfirm/ns11:item</to>
+                            </copy>
+                            <copy>
+                                <from>$ReceiveInput_InputVariable.SbcExpeditorShipconfirmCollection/ns4:SbcExpeditorShipconfirm/ns4:shippedQty</from>
+                                <to>$UpdateDBNEW_InputVariable.SbcExpeditorShipconfirmCollection/ns11:SbcExpeditorShipconfirm/ns11:shippedQty</to>
+                            </copy>
+                            <copy>
+                                <from>'ERROR'</from>
+                                <to>$UpdateDBNEW_InputVariable.SbcExpeditorShipconfirmCollection/ns11:SbcExpeditorShipconfirm/ns11:uploadStatus</to>
+                            </copy>
+                            <copy>
+                                <from>concat(ora:getPreference("ENV"),': Batch Number - ', ora:getFlowId(), '  ',ora:getCompositeName(), '  ',xp20:current-date())</from>
+                                <to>$emailOBJ.EmailPayload/ns6:Subject</to>
+                            </copy>
+                            <copy>
+                                <from>ora:getPreference("BusinessEmail")</from>
+                                <to>$emailOBJ.EmailPayload/ns6:To</to>
+                            </copy>
+                            <copy>
+                                <from>ora:getPreference("SupportEmail")</from>
+                                <to>$emailOBJ.EmailPayload/ns6:Cc</to>
+                            </copy>
+                        </assign>
+                    </else>
+        </if>
+                <invoke name="UpdateDBNEW" partnerLink="UpdateTBLNEW" portType="ns10:UpdateTBLNEW_ptt"
+                        operation="update" inputVariable="UpdateDBNEW_InputVariable" bpelx:invokeAsDetail="no"
+                        xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+                        xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"/>
+                <extensionActivity>
+                    <bpelx:call name="SendEmail" target="SendEmail"/>
+                </extensionActivity><invoke name="CallRollback" partnerLink="RollbackTBL"
+                        portType="ns7:RollbackTBL_ptt" operation="RollbackTBL"
+                        inputVariable="CallRollback_InputVariable" bpelx:invokeAsDetail="no">
+                    <bpelx:skipCondition>true()</bpelx:skipCondition>
+                </invoke>
+            </sequence>
+    </catchAll>
+  </faultHandlers>
+  <sequence name="main">
+    <receive name="ReceiveInput" partnerLink="TrackingNumberPolling" portType="ns1:TrackingNumberPolling_ptt"
+             operation="receive" variable="ReceiveInput_InputVariable" createInstance="yes"/>
+        <if name="TrackingNumberExists">
+      <condition>count($ReceiveInput_InputVariable.SbcExpeditorShipconfirmCollection/ns4:SbcExpeditorShipconfirm/ns4:waybill) &gt; 0</condition>
+      <sequence name="Sequence1">
+                <assign name="AssignInputXSL">
+          <bpelx:annotation>
+            <bpelx:pattern patternName="bpelx:transformation"></bpelx:pattern>
+          </bpelx:annotation>
+          <copy>
+            <from>ora:doXSLTransformForDoc("../Transformations/TransformUpdateShippingRequest.xsl", $ReceiveInput_InputVariable.SbcExpeditorShipconfirmCollection)</from>
+            <to variable="UpdateTrackingInfo_InputVariable" part="request"/>
+          </copy>
+        </assign>
+        <extensionActivity>
+          <bpelx:exec name="encryptURI" language="java">
+            <bpelx:skipCondition>true()</bpelx:skipCondition>
+            <![CDATA[try {              
+ XMLElement app_key_input = (XMLElement) getVariableData("UpdateTrackingInfo_InputVariable", "request", "/ns3:OrderRequest/ns3:APP_KEY");           
+ XMLElement fields_input = (XMLElement) getVariableData("UpdateTrackingInfo_InputVariable", "request", "/ns3:OrderRequest/ns3:FIELDS");           
+ XMLElement method_input = (XMLElement) getVariableData("UpdateTrackingInfo_InputVariable", "request", "/ns3:OrderRequest/ns3:METHOD");            
+ XMLElement page_no_input = (XMLElement) getVariableData("UpdateTrackingInfo_InputVariable", "request", "/ns3:OrderRequest/ns3:PAGE_NO");           
+ XMLElement page_size_input = (XMLElement) getVariableData("UpdateTrackingInfo_InputVariable", "request", "/ns3:OrderRequest/ns3:PAGE_SIZE");           
+ XMLElement start_modified_input = (XMLElement) getVariableData("UpdateTrackingInfo_InputVariable", "request", "/ns3:OrderRequest/ns3:START_MODIFIED");           
+ XMLElement end_modified_input = (XMLElement) getVariableData("UpdateTrackingInfo_InputVariable", "request", "/ns3:OrderRequest/ns3:END_MODIFIED");            
+ XMLElement timestamp_input = (XMLElement) getVariableData("UpdateTrackingInfo_InputVariable", "request", "/ns3:OrderRequest/ns3:TIMESTAMP");           
+ XMLElement version_input = (XMLElement) getVariableData("UpdateTrackingInfo_InputVariable", "request", "/ns3:OrderRequest/ns3:V");           
+ XMLElement orderid_input = (XMLElement) getVariableData("UpdateTrackingInfo_InputVariable", "request", "/ns3:OrderRequest/ns3:ORDERID");       
+ XMLElement status_input = (XMLElement) getVariableData("UpdateTrackingInfo_InputVariable", "request", "/ns3:OrderRequest/ns3:STATUS");    
+   
+ String app_key = app_key_input.getTextContent();           
+ String fields = fields_input.getTextContent();            
+ String method = method_input.getTextContent();              
+ String page_no = page_no_input.getTextContent();           
+ String page_size = page_size_input.getTextContent();           
+ String start_modified = start_modified_input.getTextContent();           
+ String end_modified = end_modified_input.getTextContent();           
+ String timestamp = timestamp_input.getTextContent();           
+ String version = version_input.getTextContent();           
+ String orderid = orderid_input.getTextContent();   
+ String status = status_input.getTextContent();    
+              
+ //String s = "48b8b97fa6a9172e866ad4d7dee8162d" + app_key + end_modified + fields + method + page_no + page_size + start_modified + timestamp + version;       
+String s = "48b8b97fa6a9172e866ad4d7dee8162d" + "APP_KEY"+app_key + "END_MODIFIED"+end_modified + "FIELDS"+fields + "METHOD"+method + "PAGE_NO"+page_no + "PAGE_SIZE"+page_size + "START_MODIFIED"+start_modified + "TIMESTAMP"+timestamp + "STATUS"+status + "ORDERID"+orderid + "V"+version;       
+ MessageDigest m = MessageDigest.getInstance("MD5");        
+ m.reset();        
+ m.update(s.getBytes(), 0, s.length());              
+ addAuditTrailEntry("====JavaEmbeddingInstances===");          
+ addAuditTrailEntry("Input URI Values "+s);           
+ //addAuditTrailEntry("MD5: " + new BigInteger(1,m.digest()).toString(16).toUpperCase());          
+ setVariableData("GetOrderCount_InputVariable", "request", "/ns3:OrderRequest/ns3:SIGN",new BigInteger(1, m.digest()).toString(16).toUpperCase());              
+              
+} catch (Exception e) {              
+ System.out.println("exception " + e.getMessage());              
+ addAuditTrailEntry(e);              
+}]]>
+          </bpelx:exec>
+        </extensionActivity>
+        <invoke name="UpdateTrackingInfo" partnerLink="UpdateShipment"
+                portType="ns2:UpdateShipment_ptt" operation="updateTracking"
+                inputVariable="UpdateTrackingInfo_InputVariable"
+                outputVariable="UpdateTrackingInfo_OutputVariable" bpelx:invokeAsDetail="no"/>
+        <if name="API_STATUS">
+          <documentation>
+            <![CDATA[SUCCESS]]>
+          </documentation>
+          <condition>$UpdateTrackingInfo_OutputVariable.reply/ns5:Code = 0</condition><sequence name="Sequence7">
+                        <assign name="AssignUPD">
+                            <copy>
+                                <from>$ReceiveInput_InputVariable.SbcExpeditorShipconfirmCollection/ns4:SbcExpeditorShipconfirm/ns4:waybill</from>
+                                <to>$UpdateDBNEW_InputVariable.SbcExpeditorShipconfirmCollection/ns11:SbcExpeditorShipconfirm/ns11:waybill</to>
+                            </copy>
+                            <copy>
+                                <from>$ReceiveInput_InputVariable.SbcExpeditorShipconfirmCollection/ns4:SbcExpeditorShipconfirm/ns4:shippedQty</from>
+                                <to>$UpdateDBNEW_InputVariable.SbcExpeditorShipconfirmCollection/ns11:SbcExpeditorShipconfirm/ns11:shippedQty</to>
+                            </copy>
+                            <copy>
+                                <from>$ReceiveInput_InputVariable.SbcExpeditorShipconfirmCollection/ns4:SbcExpeditorShipconfirm/ns4:item</from>
+                                <to>$UpdateDBNEW_InputVariable.SbcExpeditorShipconfirmCollection/ns11:SbcExpeditorShipconfirm/ns11:item</to>
+                            </copy>
+                            <copy>
+                                <from>'SHIP_CONFIRMED'</from>
+                                <to>$UpdateDBNEW_InputVariable.SbcExpeditorShipconfirmCollection/ns11:SbcExpeditorShipconfirm/ns11:uploadStatus</to>
+                            </copy>
+                        </assign>
+                        <invoke name="UpdateDBNEW" partnerLink="UpdateTBLNEW"
+                                portType="ns10:UpdateTBLNEW_ptt" operation="update"
+                                inputVariable="UpdateDBNEW_InputVariable" bpelx:invokeAsDetail="no"/>
+                        <empty name="DO_NOTHING"/></sequence><else>
+            <sequence name="Sequence2">
+              <assign name="AssignAPIFault">
+                <copy>
+                  <from>$UpdateTrackingInfo_OutputVariable.reply/ns5:Message</from>
+                  <to>$UserFault</to>
+                </copy>
+              </assign>
+              <throw name="ThrowAPIFault" faultName="xsd:UserFault"/>
+            </sequence>
+          </else>
+        </if>
+      </sequence>
+      <else>
+        <empty name="DO_Nothing"/>
+      </else>
+    </if>
+  </sequence>
+</process>

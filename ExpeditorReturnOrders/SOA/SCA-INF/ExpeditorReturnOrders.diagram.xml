@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dgm:gDiagram xmlns:dgm="http://xmlns.oracle.com/sca/soadgm">
+    <dgm:gService name="expeditorreturnorderprocess_client_ep">
+        <dgm:body borderWidth="2" arcRad="20" X="21" Y="525" width="137" height="96">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="11" Y="518" width="156" height="110">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:outputPort name="expeditorreturnorderprocess_client_ep" X="127" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://ibd.specialized.com/WingPOS/ExpeditorReturnOrders#wsdl.interface(ExpeditorReturnOrderProcess)" callbackInterface="http://ibd.specialized.com/WingPOS/ExpeditorReturnOrders#wsdl.interface(ExpeditorReturnOrderProcessCallback)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/soap_service_20x20.png" X="20" Y="4" width="20" height="20"/>
+        <dgm:operations>
+            <dgm:item>Initiate</dgm:item>
+            <dgm:item>onResult</dgm:item>
+        </dgm:operations>
+    </dgm:gService>
+    <dgm:gReference name="ReturnOrders">
+        <dgm:body borderWidth="2" arcRad="20" X="914" Y="26" width="136" height="84">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="904" Y="19" width="156" height="98">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="ReturnOrders" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/WingPOS/ExpeditorReturnOrders/ReturnOrders#wsdl.interface(ReturnOrders_ptt)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/RestAdapterService20x20px.png" X="27" Y="4" width="20" height="20"/>
+        <dgm:operations>
+            <dgm:item>Orders</dgm:item>
+        </dgm:operations>
+    </dgm:gReference>
+    <dgm:gReference name="InsertReturnHeader">
+        <dgm:body borderWidth="2" arcRad="20" X="914" Y="144" width="136" height="84">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="904" Y="137" width="156" height="98">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="InsertReturnHeader" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnOrders/InsertReturnHeader#wsdl.interface(InsertReturnHeader_ptt)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/db_adapter_20x20.png" X="27" Y="4" width="20" height="20"/>
+        <dgm:operations>
+            <dgm:item>insert</dgm:item>
+        </dgm:operations>
+    </dgm:gReference>
+    <dgm:gReference name="InsertReturnDetail">
+        <dgm:body borderWidth="2" arcRad="20" X="914" Y="262" width="136" height="84">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="904" Y="255" width="156" height="98">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="InsertReturnDetail" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnOrders/InsertReturnDetail#wsdl.interface(InsertReturnDetail_ptt)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/db_adapter_20x20.png" X="27" Y="4" width="20" height="20"/>
+        <dgm:operations>
+            <dgm:item>insert</dgm:item>
+        </dgm:operations>
+    </dgm:gReference>
+    <dgm:gReference name="NotificationService1">
+        <dgm:body borderWidth="2" arcRad="20" X="914" Y="380" width="136" height="168">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="904" Y="373" width="156" height="182">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="NotificationService1" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/ias/pcbpel/NotificationService#wsdl.interface(NotificationService)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/soap_service_20x20.png" X="27" Y="4" width="20" height="20"/>
+        <dgm:operations>
+            <dgm:item>sendIMNotification</dgm:item>
+            <dgm:item>sendFaxNotification</dgm:item>
+            <dgm:item>sendVoiceNotification</dgm:item>
+            <dgm:item>sendSMSNotification</dgm:item>
+            <dgm:item>sendPagerNotification</dgm:item>
+            <dgm:item>sendURINotification</dgm:item>
+            <dgm:item>sendEmailNotification</dgm:item>
+            <dgm:item>sendNotificationToUser</dgm:item>
+            <dgm:item>sendNotificationToGroup</dgm:item>
+        </dgm:operations>
+    </dgm:gReference>
+    <dgm:gReference name="WriteReturnFile">
+        <dgm:body borderWidth="2" arcRad="20" X="914" Y="582" width="136" height="84">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="904" Y="575" width="156" height="98">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="WriteReturnFile" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/ftp/WingPOS/ExpeditorReturnOrders/WriteReturnFile#wsdl.interface(Write_ptt)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/ftp_adapter_20x20.png" X="27" Y="4" width="20" height="20"/>
+        <dgm:operations>
+            <dgm:item>Write</dgm:item>
+        </dgm:operations>
+    </dgm:gReference>
+    <dgm:gReference name="CopyReturnFile">
+        <dgm:body borderWidth="2" arcRad="20" X="914" Y="700" width="136" height="84">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="904" Y="693" width="156" height="98">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="CopyReturnFile" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/ftp/WingPOS/ExpeditorReturnOrders/CopyReturnFile#wsdl.interface(Copy_ptt)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/ftp_adapter_20x20.png" X="27" Y="4" width="20" height="20"/>
+        <dgm:operations>
+            <dgm:item>Copy</dgm:item>
+        </dgm:operations>
+    </dgm:gReference>
+    <dgm:gReference name="RollbackTbl">
+        <dgm:body borderWidth="2" arcRad="20" X="914" Y="818" width="136" height="84">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="904" Y="811" width="156" height="98">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="RollbackTbl" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnOrders/RollbackTbl#wsdl.interface(RollbackTbl_ptt)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/db_adapter_20x20.png" X="27" Y="4" width="20" height="20"/>
+        <dgm:operations>
+            <dgm:item>RollbackTbl</dgm:item>
+        </dgm:operations>
+    </dgm:gReference>
+    <dgm:gReference name="DeleteHeaderTbl">
+        <dgm:body borderWidth="2" arcRad="20" X="914" Y="936" width="136" height="84">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="904" Y="929" width="156" height="98">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="DeleteHeaderTbl" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnOrders/DeleteHeaderTbl#wsdl.interface(DeleteHeaderTbl_ptt)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/db_adapter_20x20.png" X="27" Y="4" width="20" height="20"/>
+        <dgm:operations>
+            <dgm:item>DeleteHeaderTbl</dgm:item>
+        </dgm:operations>
+    </dgm:gReference>
+    <dgm:gReference name="DeleteDetailTbl">
+        <dgm:body borderWidth="2" arcRad="20" X="914" Y="1054" width="136" height="84">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="904" Y="1047" width="156" height="98">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="DeleteDetailTbl" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnOrders/DeleteDetailTbl#wsdl.interface(DeleteDetailTbl_ptt)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/db_adapter_20x20.png" X="27" Y="4" width="20" height="20"/>
+        <dgm:operations>
+            <dgm:item>DeleteDetailTbl</dgm:item>
+        </dgm:operations>
+    </dgm:gReference>
+    <dgm:gReference name="GenerateFileDB">
+        <dgm:body borderWidth="2" arcRad="20" X="914" Y="1172" width="136" height="84">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="904" Y="1165" width="156" height="98">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="GenerateFileDB" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnOrders/GenerateFileDB#wsdl.interface(GenerateFileDB_ptt)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/db_adapter_20x20.png" X="27" Y="4" width="20" height="20"/>
+        <dgm:operations>
+            <dgm:item>GenerateFileDB</dgm:item>
+        </dgm:operations>
+    </dgm:gReference>
+    <dgm:gComponent name="ExpeditorReturnOrderProcess">
+        <dgm:body borderWidth="2" arcRad="20" X="471" Y="510" width="130" height="286">
+            <dgm:borderColor r="69" g="113" b="140"/>
+            <dgm:lightBgColor r="166" g="208" b="230"/>
+            <dgm:darkBgColor r="99" g="162" b="201"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="461" Y="503" width="150" height="302">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="expeditorreturnorderprocess_client" X="-10" Y="15" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://ibd.specialized.com/WingPOS/ExpeditorReturnOrders#wsdl.interface(ExpeditorReturnOrderProcess)" callbackInterface="http://ibd.specialized.com/WingPOS/ExpeditorReturnOrders#wsdl.interface(ExpeditorReturnOrderProcessCallback)"/>
+        <dgm:outputPort name="ReturnOrders" X="120" Y="15" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/WingPOS/ExpeditorReturnOrders/ReturnOrders#wsdl.interface(ReturnOrders_ptt)"/>
+        <dgm:outputPort name="InsertReturnHeader" X="120" Y="40" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnOrders/InsertReturnHeader#wsdl.interface(InsertReturnHeader_ptt)"/>
+        <dgm:outputPort name="InsertReturnDetail" X="120" Y="65" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnOrders/InsertReturnDetail#wsdl.interface(InsertReturnDetail_ptt)"/>
+        <dgm:outputPort name="NotificationService1" X="120" Y="90" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/ias/pcbpel/NotificationService#wsdl.interface(NotificationService)"/>
+        <dgm:outputPort name="WriteReturnFile" X="120" Y="115" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/ftp/WingPOS/ExpeditorReturnOrders/WriteReturnFile#wsdl.interface(Write_ptt)"/>
+        <dgm:outputPort name="CopyReturnFile" X="120" Y="140" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/ftp/WingPOS/ExpeditorReturnOrders/CopyReturnFile#wsdl.interface(Copy_ptt)"/>
+        <dgm:outputPort name="RollbackTbl" X="120" Y="165" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnOrders/RollbackTbl#wsdl.interface(RollbackTbl_ptt)"/>
+        <dgm:outputPort name="DeleteHeaderTbl" X="120" Y="190" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnOrders/DeleteHeaderTbl#wsdl.interface(DeleteHeaderTbl_ptt)"/>
+        <dgm:outputPort name="DeleteDetailTbl" X="120" Y="215" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnOrders/DeleteDetailTbl#wsdl.interface(DeleteDetailTbl_ptt)"/>
+        <dgm:outputPort name="GenerateFileDB" X="120" Y="240" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorReturnOrders/GenerateFileDB#wsdl.interface(GenerateFileDB_ptt)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/bpel/shared/plugins/resources/images/soa/process_20x20.png" X="10" Y="4" width="20" height="20"/>
+    </dgm:gComponent>
+    <dgm:gWireLink source="expeditorreturnorderprocess_client_ep" target="ExpeditorReturnOrderProcess/expeditorreturnorderprocess_client" width="2">
+        <dgm:gSegment X1="168" Y1="535" X2="461" Y2="535"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+    <dgm:gWireLink source="ExpeditorReturnOrderProcess/ReturnOrders" target="ReturnOrders" width="2">
+        <dgm:gSegment X1="611" Y1="535" X2="635" Y2="535"/>
+        <dgm:gSegment X1="635" Y1="535" X2="635" Y2="36"/>
+        <dgm:gSegment X1="635" Y1="36" X2="904" Y2="36"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+    <dgm:gWireLink source="ExpeditorReturnOrderProcess/InsertReturnHeader" target="InsertReturnHeader" width="2">
+        <dgm:gSegment X1="611" Y1="560" X2="650" Y2="560"/>
+        <dgm:gSegment X1="650" Y1="560" X2="650" Y2="154"/>
+        <dgm:gSegment X1="650" Y1="154" X2="904" Y2="154"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+    <dgm:gWireLink source="ExpeditorReturnOrderProcess/InsertReturnDetail" target="InsertReturnDetail" width="2">
+        <dgm:gSegment X1="611" Y1="585" X2="665" Y2="585"/>
+        <dgm:gSegment X1="665" Y1="585" X2="665" Y2="272"/>
+        <dgm:gSegment X1="665" Y1="272" X2="904" Y2="272"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+    <dgm:gWireLink source="ExpeditorReturnOrderProcess/NotificationService1" target="NotificationService1" width="2">
+        <dgm:gSegment X1="611" Y1="610" X2="680" Y2="610"/>
+        <dgm:gSegment X1="680" Y1="610" X2="680" Y2="390"/>
+        <dgm:gSegment X1="680" Y1="390" X2="904" Y2="390"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+    <dgm:gWireLink source="ExpeditorReturnOrderProcess/WriteReturnFile" target="WriteReturnFile" width="2">
+        <dgm:gSegment X1="611" Y1="635" X2="695" Y2="635"/>
+        <dgm:gSegment X1="695" Y1="635" X2="695" Y2="592"/>
+        <dgm:gSegment X1="695" Y1="592" X2="904" Y2="592"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+    <dgm:gWireLink source="ExpeditorReturnOrderProcess/CopyReturnFile" target="CopyReturnFile" width="2">
+        <dgm:gSegment X1="611" Y1="660" X2="695" Y2="660"/>
+        <dgm:gSegment X1="695" Y1="660" X2="695" Y2="710"/>
+        <dgm:gSegment X1="695" Y1="710" X2="904" Y2="710"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+    <dgm:gWireLink source="ExpeditorReturnOrderProcess/RollbackTbl" target="RollbackTbl" width="2">
+        <dgm:gSegment X1="611" Y1="685" X2="680" Y2="685"/>
+        <dgm:gSegment X1="680" Y1="685" X2="680" Y2="828"/>
+        <dgm:gSegment X1="680" Y1="828" X2="904" Y2="828"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+    <dgm:gWireLink source="ExpeditorReturnOrderProcess/DeleteHeaderTbl" target="DeleteHeaderTbl" width="2">
+        <dgm:gSegment X1="611" Y1="710" X2="665" Y2="710"/>
+        <dgm:gSegment X1="665" Y1="710" X2="665" Y2="946"/>
+        <dgm:gSegment X1="665" Y1="946" X2="904" Y2="946"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+    <dgm:gWireLink source="ExpeditorReturnOrderProcess/DeleteDetailTbl" target="DeleteDetailTbl" width="2">
+        <dgm:gSegment X1="611" Y1="735" X2="650" Y2="735"/>
+        <dgm:gSegment X1="650" Y1="735" X2="650" Y2="1064"/>
+        <dgm:gSegment X1="650" Y1="1064" X2="904" Y2="1064"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+    <dgm:gWireLink source="ExpeditorReturnOrderProcess/GenerateFileDB" target="GenerateFileDB" width="2">
+        <dgm:gSegment X1="611" Y1="760" X2="635" Y2="760"/>
+        <dgm:gSegment X1="635" Y1="760" X2="635" Y2="1182"/>
+        <dgm:gSegment X1="635" Y1="1182" X2="904" Y2="1182"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+</dgm:gDiagram>

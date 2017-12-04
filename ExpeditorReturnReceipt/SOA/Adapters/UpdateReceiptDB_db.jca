@@ -1,0 +1,14 @@
+<adapter-config name="UpdateReceiptDB" adapter="db" wsdlLocation="../WSDLs/UpdateReceiptDB.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory UIConnectionName="DEV" location="eid/db/soaApps"/>
+  <endpoint-interaction portType="UpdateReceiptDB_ptt" operation="update">
+    <interaction-spec className="oracle.tip.adapter.db.DBWriteInteractionSpec">
+      <property name="DescriptorName" value="UpdateReceiptDB.SbcCnReceiptInbound"/>
+      <property name="DmlType" value="update"/>
+      <property name="MappingsMetaDataURL" value="UpdateReceiptDB-or-mappings.xml"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+      <property name="DetectOmissions" value="true"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

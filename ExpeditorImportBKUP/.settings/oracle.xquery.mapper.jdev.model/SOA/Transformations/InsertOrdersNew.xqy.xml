@@ -1,0 +1,6 @@
+<view_states>
+   <function arity="2" name="funcInsertordersnew">
+      <source_tree_view last.visible.row="10" last.visible.path="/sourceRoot[[0]]/string[[3]]" expanded.paths="/sourceRoot[[0]]/OrderResponse[[1]]" selected.paths="" first.visible.path="/sourceRoot[[0]]/batchNum[[0]]" first.visible.row="0"/>
+      <target_tree_view last.visible.row="57" last.visible.path="/TargetRoot[[0]]/SbcExpeditorSentOlCollection[[0]]/SbcExpeditorSentOl[[0]]/freightAmount[[55]]" expanded.paths="/TargetRoot[[0]]/SbcExpeditorSentOlCollection[[0]]&#xA;/TargetRoot[[0]]/SbcExpeditorSentOlCollection[[0]]/SbcExpeditorSentOl[[0]]" selected.paths="/TargetRoot[[0]]/SbcExpeditorSentOlCollection[[0]]/SbcExpeditorSentOl[[0]]/format[[44]]" first.visible.path="/TargetRoot[[0]]/SbcExpeditorSentOlCollection[[0]]/SbcExpeditorSentOl[[0]]/city[[28]]" first.visible.row="30"/>
+   </function>
+</view_states>

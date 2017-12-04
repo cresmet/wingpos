@@ -1,0 +1,428 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Tue Jan 24 13:33:03 PST 2017
+  Author:  ssanagala
+  Type: BPEL 2.0 Process
+  Purpose: Asynchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="UpdateShipmentProcess"
+         targetNamespace="http://xmlns.oracle.com/WingPOS/ExpeditorShipping/UpdateShipmentProcess"
+         xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:client="http://xmlns.oracle.com/WingPOS/ExpeditorShipping/UpdateShipmentProcess"
+         xmlns:ora="http://schemas.oracle.com/xpath/extension"
+         xmlns:ui="http://xmlns.oracle.com/soa/designer"
+         xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://xmlns.oracle.com/WingPOS/ExpeditorShipping/UpdateShipment"
+         xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorShipping/TrackingNumber"
+         xmlns:ns3="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorShipping/UpdateStagingTable"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/db/TrackingNumber"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:ess="http://xmlns.oracle.com/scheduler"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap"
+         xmlns:ns5="http://xmlns.oracle.com/pcbpel/adapter/db/UpdateStagingTable"
+         xmlns:ns6="http://ibd.specialized.com/IM/CommonErrorProcess" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+         xmlns:ns7="http://schema.ibd.specialized.com/Common/CommonError"
+         xmlns:ns8="http://schema.ibd.specialized.com/pos/wing/shipment"
+         xmlns:ns9="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorShipping/TrackingNumberPolling"
+         xmlns:ns10="http://xmlns.oracle.com/ias/pcbpel/NotificationService"
+         xmlns:ns11="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorShipping/UpdateTBLNEW"
+         xmlns:ns12="http://xmlns.oracle.com/pcbpel/adapter/db/top/UpdateTBLNEW">
+    <bpelx:inlineSubProcess name="SendEmail">
+        <bpelx:annotation>
+            <bpelx:general>
+                <bpelx:property name="userLabel">
+                    <![CDATA[SendEmail]]>
+                </bpelx:property>
+            </bpelx:general>
+        </bpelx:annotation>
+        <variables>
+            <variable name="varNotificationReq" messageType="ns10:EmailNotificationRequest"/>
+            <variable name="varNotificationResponse" messageType="ns10:ArrayOfResponse"/>
+            <variable name="NotificationServiceFaultVariable" messageType="ns10:NotificationServiceErrorMessage"/>
+        </variables>
+        <sequence name="Sequence8">
+            <assign name="EmailParamsAssign">
+                <copy ignoreMissingFromData="yes">
+                    <from>string('Default')</from>
+                    <to>$varNotificationReq.EmailPayload/ns10:FromAccountName</to>
+                </copy>
+                <copy>
+                    <from>string('text/html; charset=UTF-8')</from>
+                    <to>$varNotificationReq.EmailPayload/ns10:Content/ns10:MimeType</to>
+                </copy>
+                <copy ignoreMissingFromData="yes">
+                    <from>$emailOBJ.EmailPayload/ns10:Bcc</from>
+                    <to>$varNotificationReq.EmailPayload/ns10:Bcc</to>
+                </copy>
+                <copy ignoreMissingFromData="yes">
+                    <from>$emailOBJ.EmailPayload/ns10:Cc</from>
+                    <to>$varNotificationReq.EmailPayload/ns10:Cc</to>
+                </copy>
+                <copy ignoreMissingFromData="yes">
+                    <from>$emailOBJ.EmailPayload/ns10:ReplyToAddress</from>
+                    <to>$varNotificationReq.EmailPayload/ns10:ReplyToAddress</to>
+                </copy>
+                <copy ignoreMissingFromData="yes">
+                    <from>$emailOBJ.EmailPayload/ns10:Subject</from>
+                    <to>$varNotificationReq.EmailPayload/ns10:Subject</to>
+                </copy>
+                <copy ignoreMissingFromData="yes">
+                    <from>$emailOBJ.EmailPayload/ns10:To</from>
+                    <to>$varNotificationReq.EmailPayload/ns10:To</to>
+                </copy>
+                <copy ignoreMissingFromData="yes">
+                    <from>$emailOBJ.EmailPayload/ns10:Content/ns10:ContentBody</from>
+                    <to>$varNotificationReq.EmailPayload/ns10:Content/ns10:ContentBody</to>
+                </copy>
+            </assign>
+            <invoke name="InvokeNotificationService" partnerLink="EmailNotification"
+                    portType="ns10:NotificationService" operation="sendEmailNotification"
+                    inputVariable="varNotificationReq" outputVariable="varNotificationResponse"
+                    bpelx:invokeAsDetail="no"/>
+        </sequence>
+    </bpelx:inlineSubProcess>
+    <import ui:processWSDL="true" namespace="http://xmlns.oracle.com/WingPOS/ExpeditorShipping/UpdateShipmentProcess" location="../WSDLs/UpdateShipmentProcess.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import location="oracle.xml.parser.v2.XMLElement" importType="http://schemas.oracle.com/bpel/extension/java"/>
+    <import location="org.w3c.dom.Element" importType="http://schemas.oracle.com/bpel/extension/java"/>
+    <import location="java.security.*" importType="http://schemas.oracle.com/bpel/extension/java"/>
+    <import location="java.math.*" importType="http://schemas.oracle.com/bpel/extension/java"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+    <partnerLinks>
+        <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+        <partnerLink name="updateshipmentprocess_client" partnerLinkType="client:UpdateShipmentProcess" myRole="UpdateShipmentProcessProvider" partnerRole="UpdateShipmentProcessRequester"/>
+        <partnerLink name="UpdateShipment" partnerLinkType="ns1:UpdateShipment" partnerRole="UpdateShipmentProvider"/>
+        <partnerLink name="TrackingNumber" partnerLinkType="ns2:TrackingNumber_plt" partnerRole="TrackingNumber_role"/>
+        <partnerLink name="UpdateStagingTable" partnerLinkType="ns3:UpdateStagingTable_plt"
+                     partnerRole="UpdateStagingTable_role"/>
+        <partnerLink name="TrackingNumberPolling" partnerLinkType="ns9:TrackingNumberPolling_plt"
+                     myRole="TrackingNumberPolling_role"/>
+        <partnerLink name="EmailNotification" partnerLinkType="ns10:NotificationServiceLink"
+                     partnerRole="NotificationServiceProvider"/>
+    </partnerLinks>
+
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        VARIABLES                                                        
+        List of messages and XML documents used within this BPEL process 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    -->
+    <variables>
+        <!-- Reference to the message passed as input during initiation -->
+        <variable name="inputVariable" messageType="client:UpdateShipmentProcessRequestMessage"/>
+
+        <!-- Reference to the message that will be sent back to the requester during callback -->
+        <variable name="outputVariable" messageType="client:UpdateShipmentProcessResponseMessage"/>
+        <variable name="GetTrackingNumber_InputVariable" messageType="ns2:TrackingNumberInput_msg"/>
+        <variable name="GetTrackingNumber_OutputVariable" messageType="ns2:TrackingNumberOutputCollection_msg"/>
+        <variable name="UpdateTrackingInfo_InputVariable" messageType="ns1:updateTracking_inputMessage"/>
+        <variable name="UpdateTrackingInfo_OutputVariable" messageType="ns1:updateTracking_outputMessage"/>
+        <variable name="UpdateStagingTable_InputVariable" messageType="ns3:UpdateStagingTableInput_msg"/>
+        <variable name="UsrMsgType" messageType="client:UserFaultMessage"/>
+        <variable name="emailOBJ" messageType="ns10:EmailNotificationRequest"/>
+    </variables>
+    <faultHandlers>
+        <catch faultName="xsd:UserFault" faultVariable="FaultVarInCatch" faultMessageType="client:UserFaultMessage">
+            <sequence name="Sequence2">
+                <assign name="AssignUserFault">
+                    <copy>
+                        <from>$FaultVarInCatch.payload/client:summary</from>
+                        <to>$outputVariable.payload/client:Result</to>
+                    </copy>
+                    <copy ignoreMissingFromData="yes">
+                        <from>concat(ora:getPreference("ENV"),': Batch Number - ', ora:getFlowId(), '  ',ora:getCompositeName(), '  ',xp20:current-date())</from>
+                        <to>$emailOBJ.EmailPayload/ns10:Subject</to>
+                    </copy>
+                    <copy>
+                        <from>concat('Message: ',$FaultVarInCatch.payload/client:summary)</from>
+                        <to>$emailOBJ.EmailPayload/ns10:Content/ns10:ContentBody</to>
+                    </copy>
+                    <copy ignoreMissingFromData="yes">
+                        <from>ora:getPreference("BusinessEmail")</from>
+                        <to>$emailOBJ.EmailPayload/ns10:To</to>
+                    </copy>
+                    <copy ignoreMissingFromData="yes">
+                        <from>ora:getPreference("SupportEmail")</from>
+                        <to>$emailOBJ.EmailPayload/ns10:Cc</to>
+                    </copy>
+                </assign>
+                <rethrow name="RethrowFault">
+                    <bpelx:skipCondition>true()</bpelx:skipCondition>
+                </rethrow>
+                <extensionActivity>
+                    <bpelx:call name="UserFaultEmail" target="SendEmail">
+                    </bpelx:call>
+                </extensionActivity>
+                <invoke name="CallbackFault" partnerLink="updateshipmentprocess_client"
+                        portType="client:UpdateShipmentProcessCallback" operation="processResponse"
+                        inputVariable="outputVariable" bpelx:invokeAsDetail="no"/>
+            </sequence>
+        </catch>
+        <catchAll>
+            <sequence name="Sequence3">
+                <assign name="AssignFault">
+                    <copy>
+                        <from>substring-before(substring-after(ora:getFaultAsString(),'detail=&lt;detail&gt;'),'&lt;/detail&gt;')</from>
+                        <to>$outputVariable.payload/client:Result</to>
+                    </copy>
+                </assign>
+                <rethrow name="RethrowFault">
+                    <bpelx:skipCondition>true()</bpelx:skipCondition>
+                </rethrow><extensionActivity xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
+      <bpelx:call name="UserFaultEmail" target="SendEmail" xmlns:bpelx="http://schemas.oracle.com/bpel/extension"/>
+   </extensionActivity><invoke name="CallbackFault" partnerLink="updateshipmentprocess_client"
+                        portType="client:UpdateShipmentProcessCallback" operation="processResponse"
+                        inputVariable="outputVariable" bpelx:invokeAsDetail="no"/>
+            </sequence>
+        </catchAll>
+    </faultHandlers>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+       ORCHESTRATION LOGIC                                               
+       Set of activities coordinating the flow of messages across the    
+       services integrated within this business process                  
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    -->
+    <sequence name="main">
+        <!-- Receive input from requestor. (Note: This maps to operation defined in UpdateShipmentProcess.wsdl) -->
+        <receive name="receiveInput" partnerLink="updateshipmentprocess_client" portType="client:UpdateShipmentProcess" operation="process" variable="inputVariable" createInstance="yes"/>
+        <assign name="AssignInput">
+            <copy>
+                <from>xp20:upper-case($inputVariable.payload/client:ProcessFlag)</from>
+                <to>$GetTrackingNumber_InputVariable.TrackingNumberInput_msg/ns4:FLAG</to>
+            </copy>
+            <copy>
+                <from>'PENDING'</from>
+                <to>$GetTrackingNumber_InputVariable.TrackingNumberInput_msg/ns4:status</to>
+            </copy>
+        </assign>
+        <invoke name="GetTrackingNumber" partnerLink="TrackingNumber"
+                portType="ns2:TrackingNumber_ptt" operation="TrackingNumber"
+                inputVariable="GetTrackingNumber_InputVariable" outputVariable="GetTrackingNumber_OutputVariable"
+                bpelx:invokeAsDetail="no"/>
+        <if name="CountRecords">
+            <condition>count($GetTrackingNumber_OutputVariable.TrackingNumberOutputCollection/ns4:TrackingNumberOutput/ns4:waybill)</condition>
+            <forEach parallel="no" counterName="waybill_cnt" name="ForEach">
+                <startCounterValue>1</startCounterValue>
+                <finalCounterValue>count($GetTrackingNumber_OutputVariable.TrackingNumberOutputCollection/ns4:TrackingNumberOutput/ns4:waybill)</finalCounterValue>
+                <scope name="Scope1">
+                    <sequence>
+                        <assign name="AssignURI">
+                            <copy>
+                                <from>dvm:lookupValue('oramds:/apps/DVMs/WingUpdateShipment.dvm','Property','app_key','Value','TBD')</from>
+                                <to>$UpdateTrackingInfo_InputVariable.request/ns8:APP_KEY</to>
+                            </copy>
+                            <copy>
+                                <from>xp20:current-dateTime()</from>
+                                <to>$UpdateTrackingInfo_InputVariable.request/ns8:TIMESTAMP</to>
+                            </copy>
+                            <copy>
+                                <from>dvm:lookupValue('oramds:/apps/DVMs/WingUpdateShipment.dvm','Property','method','Value','TBD')</from>
+                                <to>$UpdateTrackingInfo_InputVariable.request/ns8:METHOD</to>
+                            </copy>
+                            <copy>
+                                <from>dvm:lookupValue('oramds:/apps/DVMs/WingUpdateShipment.dvm','Property','version','Value','TBD')</from>
+                                <to>$UpdateTrackingInfo_InputVariable.request/ns8:V</to>
+                            </copy>
+                            <copy>
+                                <from>$GetTrackingNumber_OutputVariable.TrackingNumberOutputCollection/ns4:TrackingNumberOutput[$waybill_cnt]/ns4:tracking_number</from>
+                                <to>$UpdateTrackingInfo_InputVariable.request/ns8:LOGISTICSNO</to>
+                            </copy>
+                            <copy>
+                                <from>dvm:lookupValue('oramds:/apps/DVMs/WingUpdateShipment.dvm','Property','type','Value','TBD')</from>
+                                <to>$UpdateTrackingInfo_InputVariable.request/ns8:TYPE</to>
+                            </copy>
+                            <copy>
+                                <from>substring-after($GetTrackingNumber_OutputVariable.TrackingNumberOutputCollection/ns4:TrackingNumberOutput[$waybill_cnt]/ns4:waybill,'T')</from>
+                                <to>$UpdateTrackingInfo_InputVariable.request/ns8:ORDERID</to>
+                            </copy>
+                        </assign>
+                        <extensionActivity>
+                            <bpelx:exec name="encryptURI" language="java">
+                                <![CDATA[try {     
+ XMLElement app_key_input = (XMLElement) getVariableData("UpdateTrackingInfo_InputVariable", "request", "/ns8:ShipmentUpdateRequest/ns8:APP_KEY");   
+ XMLElement logistics_id_input = (XMLElement) getVariableData("UpdateTrackingInfo_InputVariable", "request", "/ns8:ShipmentUpdateRequest/ns8:LOGISTICSID");   
+ XMLElement logistics_num_input = (XMLElement) getVariableData("UpdateTrackingInfo_InputVariable", "request", "/ns8:ShipmentUpdateRequest/ns8:LOGISTICSNO");   
+ XMLElement method_input = (XMLElement) getVariableData("UpdateTrackingInfo_InputVariable", "request", "/ns8:ShipmentUpdateRequest/ns8:METHOD");   
+ XMLElement orderid_input = (XMLElement) getVariableData("UpdateTrackingInfo_InputVariable", "request", "/ns8:ShipmentUpdateRequest/ns8:ORDERID"); 
+ XMLElement timestamp_input = (XMLElement) getVariableData("UpdateTrackingInfo_InputVariable", "request", "/ns8:ShipmentUpdateRequest/ns8:TIMESTAMP");  
+ XMLElement version_input = (XMLElement) getVariableData("UpdateTrackingInfo_InputVariable", "request", "/ns8:ShipmentUpdateRequest/ns8:V"); 
+ XMLElement type_input = (XMLElement) getVariableData("UpdateTrackingInfo_InputVariable", "request", "/ns8:ShipmentUpdateRequest/ns8:TYPE"); 
+    
+ String app_key = app_key_input.getTextContent(); 
+ String logistics_id = logistics_id_input.getTextContent(); 
+ String logistics_num = logistics_num_input.getTextContent();            
+ String method = method_input.getTextContent();   
+ String orderid = orderid_input.getTextContent();     
+ String timestamp = timestamp_input.getTextContent(); 
+ String version = version_input.getTextContent();     
+ String type = type_input.getTextContent(); 
+    
+            
+ //String s = "48b8b97fa6a9172e866ad4d7dee8162d" + app_key + end_modified + fields + method + page_no + page_size + start_modified + timestamp + version;     
+String s = "48b8b97fa6a9172e866ad4d7dee8162d" + "APP_KEY"+app_key + "METHOD"+method + "ORDERID"+orderid + "LOGISTICSNO"+logistics_num + "LOGISTICSID"+logistics_id +"TIMESTAMP"+timestamp + "TYPE"+type+ "V"+version;     
+ MessageDigest m = MessageDigest.getInstance("MD5");      
+ m.reset();      
+ m.update(s.getBytes(), 0, s.length());          
+ addAuditTrailEntry("====JavaEmbeddingInstances===");        
+ addAuditTrailEntry("Input URI Values "+s);         
+ //addAuditTrailEntry("MD5: " + new BigInteger(1,m.digest()).toString(16).toUpperCase());        
+ setVariableData("UpdateTrackingInfo_InputVariable", "request", "/ns8:ShipmentUpdateRequest/ns8:SIGN",new BigInteger(1, m.digest()).toString(16).toUpperCase());            
+            
+} catch (Exception e) {            
+ System.out.println("exception " + e.getMessage());            
+ addAuditTrailEntry(e);            
+}]]>
+                            </bpelx:exec>
+                        </extensionActivity>
+                        <invoke name="UpdateTrackingInfo" partnerLink="UpdateShipment" portType="ns1:UpdateShipment_ptt"
+                                operation="updateTracking" inputVariable="UpdateTrackingInfo_InputVariable"
+                                outputVariable="UpdateTrackingInfo_OutputVariable" bpelx:invokeAsDetail="no"/>
+                        <if name="API_STATUS">
+                            <condition>$UpdateTrackingInfo_OutputVariable.reply/ns8:Code=0</condition>
+                            <sequence>
+                                <scope name="Scope3">
+                                    <faultHandlers>
+                                        <catchAll><sequence name="Sequence1"
+                                                            xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
+      <assign name="AssignUserFault">
+         <copy>
+            <from>ora:getFaultName()</from>
+            <to>$UsrMsgType.payload/client:code</to>
+         </copy>
+         <copy>
+            <from>substring-before(substring-after(ora:getFaultAsString(), "&amp;lt;detail&amp;gt;"), "&amp;lt;/detail&amp;gt;")</from>
+            <to>$UsrMsgType.payload/client:summary</to>
+         </copy>
+      </assign>
+      <throw name="ThrowUserFault" faultName="xsd:UserFault" faultVariable="UsrMsgType"/>
+   </sequence></catchAll>
+                                    </faultHandlers>
+                                    <sequence>
+                                        <assign name="AssignUpdate">
+                                            <copy>
+                                                <from>'P'</from>
+                                                <to>$UpdateStagingTable_InputVariable.UpdateStagingTableInput_msg/ns5:FLAG</to>
+                                            </copy>
+                                            <copy>
+                                                <from>'SHIP_CONFIRMED'</from>
+                                                <to>$UpdateStagingTable_InputVariable.UpdateStagingTableInput_msg/ns5:status</to>
+                                            </copy>
+                                            <copy>
+                                                <from>$GetTrackingNumber_OutputVariable.TrackingNumberOutputCollection/ns4:TrackingNumberOutput[$waybill_cnt]/ns4:waybill</from>
+                                                <to>$UpdateStagingTable_InputVariable.UpdateStagingTableInput_msg/ns5:WAYBILL</to>
+                                            </copy>
+                                            <copy>
+                                                <from>$GetTrackingNumber_OutputVariable.TrackingNumberOutputCollection/ns4:TrackingNumberOutput[$waybill_cnt]/ns4:tracking_number</from>
+                                                <to>$UpdateStagingTable_InputVariable.UpdateStagingTableInput_msg/ns5:tracking_number</to>
+                                            </copy>
+                                        </assign>
+                                        <invoke name="UpdateStagingTable" partnerLink="UpdateStagingTable"
+                                                portType="ns3:UpdateStagingTable_ptt" operation="UpdateStagingTable"
+                                                inputVariable="UpdateStagingTable_InputVariable"
+                                                bpelx:invokeAsDetail="no"
+                                                xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+                                                xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"/>
+                                    </sequence>
+                                </scope>
+                            </sequence>
+                            <else>
+                                <sequence name="Sequence6"><assign name="AssignAPIFault">
+                                        <copy>
+                                            <from>'UserFault'</from>
+                                            <to>$UsrMsgType.payload/client:code</to>
+                                        </copy>
+                                        <copy ignoreMissingFromData="yes">
+                                            <from>$UpdateTrackingInfo_OutputVariable.reply/ns8:Message</from>
+                                            <to>$UpdateStagingTable_InputVariable.UpdateStagingTableInput_msg/ns5:msg</to>
+                                        </copy>
+                                        <copy ignoreMissingFromData="no">
+                                            <from>$GetTrackingNumber_OutputVariable.TrackingNumberOutputCollection/ns4:TrackingNumberOutput[$waybill_cnt]/ns4:tracking_number</from>
+                                            <to>$UpdateStagingTable_InputVariable.UpdateStagingTableInput_msg/ns5:tracking_number</to>
+                                        </copy>
+                                        <copy>
+                                            <from>$GetTrackingNumber_OutputVariable.TrackingNumberOutputCollection/ns4:TrackingNumberOutput[$waybill_cnt]/ns4:waybill</from>
+                                            <to>$UpdateStagingTable_InputVariable.UpdateStagingTableInput_msg/ns5:WAYBILL</to>
+                                        </copy>
+                                        <copy>
+                                            <from>$UpdateTrackingInfo_OutputVariable.reply/ns8:Message</from>
+                                            <to>$UsrMsgType.payload/client:summary</to>
+                                        </copy>
+                                        <copy>
+                                            <from>'P'</from>
+                                            <to>$UpdateStagingTable_InputVariable.UpdateStagingTableInput_msg/ns5:FLAG</to>
+                                        </copy>
+                                        <copy>
+                                            <from>'ERROR'</from>
+                                            <to>$UpdateStagingTable_InputVariable.UpdateStagingTableInput_msg/ns5:status</to>
+                                        </copy>
+                                    </assign><invoke name="UpdateStagingTable" partnerLink="UpdateStagingTable"
+                                                     portType="ns3:UpdateStagingTable_ptt"
+                                                     operation="UpdateStagingTable"
+                                                     inputVariable="UpdateStagingTable_InputVariable"
+                                                     bpelx:invokeAsDetail="no"
+                                                     xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+                                                     xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"/><throw name="ThrowAPIFault" faultName="xsd:UserFault" faultVariable="UsrMsgType"/>
+                                </sequence>
+                            </else>
+                        </if>
+                    </sequence>
+                </scope>
+            </forEach>
+            <else>
+                <sequence name="Sequence7">
+                    <assign name="AssignOutput">
+                        <copy>
+                            <from>'No records to process'</from>
+                            <to>$outputVariable.payload/client:Result</to>
+                        </copy>
+                        <copy>
+                            <from>concat(ora:getPreference("ENV"),': Batch Number - ', ora:getFlowId(), '  ',ora:getCompositeName(), '  ',xp20:current-date())</from>
+                            <to>$emailOBJ.EmailPayload/ns10:Subject</to>
+                        </copy>
+                        <copy ignoreMissingFromData="yes">
+                            <from>ora:getPreference("BusinessEmail")</from>
+                            <to>$emailOBJ.EmailPayload/ns10:To</to>
+                        </copy>
+                        <copy ignoreMissingFromData="yes">
+                            <from>ora:getPreference("SupportEmail")</from>
+                            <to>$emailOBJ.EmailPayload/ns10:Cc</to>
+                        </copy>
+                        <copy>
+                            <from>concat('Message: ','No records to process')</from>
+                            <to>$emailOBJ.EmailPayload/ns10:Content/ns10:ContentBody</to>
+                        </copy>
+                    </assign>
+                    <extensionActivity>
+                        <bpelx:call name="NoDataEmail" target="SendEmail"/>
+                    </extensionActivity>
+                </sequence>
+            </else>
+        </if>
+        <!-- 
+          Asynchronous callback to the requester. (Note: the callback location and correlation id is transparently handled using WS-addressing.)
+        -->
+        <invoke name="callbackClient" partnerLink="updateshipmentprocess_client" portType="client:UpdateShipmentProcessCallback" operation="processResponse" inputVariable="outputVariable"/>
+    </sequence>
+</process>

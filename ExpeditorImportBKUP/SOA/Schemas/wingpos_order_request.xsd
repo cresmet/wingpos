@@ -1,0 +1,30 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nxsd="http://xmlns.oracle.com/pcbpel/nxsd" 
+xmlns:tns="http://schema.ibd.specialized.com/pos/wing/order" 
+targetNamespace="http://schema.ibd.specialized.com/pos/wing/order" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" nxsd:encoding="US-ASCII">
+
+  <xsd:element name="OrderRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="APP_KEY" type="xsd:string"/>
+        <xsd:element name="END_MODIFIED" type="xsd:string"/>
+        <xsd:element name="FIELDS" type="xsd:string"/>
+        <xsd:element name="METHOD" type="xsd:string"/>
+        <xsd:element name="PAGE_NO" type="xsd:integer"/>
+        <xsd:element name="PAGE_SIZE" type="xsd:integer"/>
+        <xsd:element name="START_MODIFIED" type="xsd:string"/>
+        <xsd:element name="TIMESTAMP" type="xsd:string"/>
+        <xsd:element name="V" type="xsd:integer"/>
+        <xsd:element name="SIGN" type="xsd:string"/>
+        <xsd:element name="STATUS" type="xsd:integer"/>
+        <xsd:element name="ORDERID" type="xsd:integer"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+<xsd:annotation>
+      <xsd:appinfo>NXSDSAMPLE=</xsd:appinfo>
+      <xsd:appinfo>USEHEADER=false</xsd:appinfo>
+   </xsd:annotation>
+</xsd:schema>

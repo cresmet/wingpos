@@ -1,0 +1,11 @@
+<adapter-config name="RollbackTbl" adapter="db" wsdlLocation="../WSDLs/RollbackTbl.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory UIConnectionName="DEV" location="eid/db/soaApps"/>
+  <endpoint-interaction portType="RollbackTbl_ptt" operation="RollbackTbl">
+    <interaction-spec className="oracle.tip.adapter.db.DBPureSQLInteractionSpec">
+      <property name="SqlString" value="begin rollback; end;"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

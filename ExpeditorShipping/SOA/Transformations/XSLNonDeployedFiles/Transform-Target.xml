@@ -1,0 +1,11 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<ns0:SbcExpeditorShipconfirmCollection xmlns:jca="http://xmlns.oracle.com/pcbpel/wsdl/jca/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/WingPOS/ExpeditorShipping/ShipmentInfo" xmlns:pc="http://xmlns.oracle.com/pcbpel/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:ns0="http://xmlns.oracle.com/pcbpel/adapter/db/top/ShipmentInfo">
+   <ns0:SbcExpeditorShipconfirm>
+      <ns0:waybill>string91</ns0:waybill>
+      <ns0:trackingNumber>string105</ns0:trackingNumber>
+   </ns0:SbcExpeditorShipconfirm>
+   <ns0:SbcExpeditorShipconfirm>
+      <ns0:waybill>string151</ns0:waybill>
+      <ns0:trackingNumber>string165</ns0:trackingNumber>
+   </ns0:SbcExpeditorShipconfirm>
+</ns0:SbcExpeditorShipconfirmCollection>
